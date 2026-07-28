@@ -1,0 +1,127 @@
+@import "tailwindcss";
+@import "@fontsource-variable/inter";
+
+/* dark mode ativado via classe .dark na <html> (ex: document.documentElement.classList.toggle('dark')) */
+@custom-variant dark (&:where(.dark, .dark *));
+
+@theme {
+  --font-sans: "Inter Variable", ui-sans-serif, system-ui, sans-serif;
+
+  /* primary - #008202 */
+  --color-primary-100: #e6f3e6;
+  --color-primary-200: #bfe0c0;
+  --color-primary-300: #99cd9a;
+  --color-primary-400: #4da84e;
+  --color-primary-500: #008202;
+  --color-primary-600: #006f02;
+  --color-primary-700: #005b01;
+  --color-primary-800: #004801;
+  --color-primary-900: #003401;
+
+  /* forest - #104F11 */
+  --color-forest-100: #e7ede7;
+  --color-forest-200: #c3d3c4;
+  --color-forest-300: #9fb9a0;
+  --color-forest-400: #588458;
+  --color-forest-500: #104f11;
+  --color-forest-600: #0e430e;
+  --color-forest-700: #0b370c;
+  --color-forest-800: #092b09;
+  --color-forest-900: #062007;
+
+  /* grass - #5DE85F */
+  --color-grass-100: #effdef;
+  --color-grass-200: #d7f9d7;
+  --color-grass-300: #bef6bf;
+  --color-grass-400: #8eef8f;
+  --color-grass-500: #5de85f;
+  --color-grass-600: #4fc551;
+  --color-grass-700: #41a243;
+  --color-grass-800: #338034;
+  --color-grass-900: #255d26;
+
+  /* mint - #99FF9B */
+  --color-mint-100: #f5fff5;
+  --color-mint-200: #e6ffe6;
+  --color-mint-300: #d6ffd7;
+  --color-mint-400: #b8ffb9;
+  --color-mint-500: #99ff9b;
+  --color-mint-600: #82d984;
+  --color-mint-700: #6bb36d;
+  --color-mint-800: #548c55;
+  --color-mint-900: #3d663e;
+
+  /* pale - #CCFFCD */
+  --color-pale-100: #fafffa;
+  --color-pale-200: #f2fff3;
+  --color-pale-300: #ebffeb;
+  --color-pale-400: #dbffdc;
+  --color-pale-500: #ccffcd;
+  --color-pale-600: #add9ae;
+  --color-pale-700: #8fb390;
+  --color-pale-800: #708c71;
+  --color-pale-900: #526652;
+
+  /* gray - #A8A8A8 */
+  --color-gray-100: #f6f6f6;
+  --color-gray-200: #e9e9e9;
+  --color-gray-300: #dcdcdc;
+  --color-gray-400: #c2c2c2;
+  --color-gray-500: #a8a8a8;
+  --color-gray-600: #8f8f8f;
+  --color-gray-700: #767676;
+  --color-gray-800: #5c5c5c;
+  --color-gray-900: #434343;
+
+  /* ice - #E6E6E6 */
+  --color-ice-100: #fdfdfd;
+  --color-ice-200: #f9f9f9;
+  --color-ice-300: #f5f5f5;
+  --color-ice-400: #eeeeee;
+  --color-ice-500: #e6e6e6;
+  --color-ice-600: #c4c4c4;
+  --color-ice-700: #a1a1a1;
+  --color-ice-800: #7f7f7f;
+  --color-ice-900: #5c5c5c;
+
+  /* black - #1F1F1F */
+  --color-black-100: #e9e9e9;
+  --color-black-200: #c7c7c7;
+  --color-black-300: #a5a5a5;
+  --color-black-400: #626262;
+  --color-black-500: #1f1f1f;
+  --color-black-600: #1a1a1a;
+  --color-black-700: #161616;
+  --color-black-800: #111111;
+  --color-black-900: #0c0c0c;
+
+  /* tokens semanticos: mudam sozinhos quando a classe .dark entra no <html> */
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-border: var(--border);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+}
+
+:root {
+  --background: var(--color-ice-100);
+  --foreground: var(--color-black-500);
+  --border: var(--color-gray-300);
+  --muted: var(--color-gray-100);
+  --muted-foreground: var(--color-gray-600);
+}
+
+.dark {
+  --background: var(--color-black-800);
+  --foreground: var(--color-ice-100);
+  --border: var(--color-black-600);
+  --muted: var(--color-black-700);
+  --muted-foreground: var(--color-gray-500);
+}
+
+body {
+  margin: 0;
+  font-family: var(--font-sans);
+  background-color: var(--color-background);
+  color: var(--color-foreground);
+}
