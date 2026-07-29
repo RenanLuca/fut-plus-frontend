@@ -1,7 +1,6 @@
+import { AuthLayout } from "@/src/view/layouts/AuthLayout";
+import { LoginPage } from "@/src/view/pages/Login";
 import { BrowserRouter, Route, Routes } from "react-router";
-import { LoginPage } from "../view/pages/Login";
-import { AuthLayout } from "../view/layouts/AuthLayout";
-
 export function Router() {
     return (
         <BrowserRouter>
