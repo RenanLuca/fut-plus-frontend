@@ -8,8 +8,8 @@ import {
 } from "../../../components/ui/avatar";
 import { cn } from "@/src/app/utils/cn";
 import { getInitials } from "@/src/app/utils/get-initials";
+import { useMatchPresence } from "@/src/app/hooks/useMatchPresence";
 import type { UpcomingMatch } from "@/src/app/services/usersService";
-import { useUpcomingMatchCardController } from "./useUpcomingMatchCardController";
 
 const dateFormatter = new Intl.DateTimeFormat("pt-BR", {
     weekday: "long",
@@ -21,7 +21,7 @@ const dateFormatter = new Intl.DateTimeFormat("pt-BR", {
 
 export function UpcomingMatchCard({ match }: { match: UpcomingMatch }) {
     const { presences, isLoadingPresences, myStatus, setPresence, isPending } =
-        useUpcomingMatchCardController(match);
+        useMatchPresence(match.groupId, match.id);
 
     return (
         <div className="flex w-full max-w-md flex-col gap-4 rounded-xl bg-linear-to-br from-primary-900 to-forest-900 p-5 text-white">

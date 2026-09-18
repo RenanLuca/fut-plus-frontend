@@ -6,17 +6,16 @@ import {
   update as updatePresence,
 } from "@/src/app/services/matchPresencesService";
 import { useCurrentUser } from "@/src/app/hooks/useCurrentUser";
-import type { UpcomingMatch } from "@/src/app/services/usersService";
 
 export type MyPresenceStatus = "confirmed" | "declined" | "pending";
 
-export function useUpcomingMatchCardController(match: UpcomingMatch) {
+export function useMatchPresence(groupId: string, matchId: string) {
   const { data: currentUser } = useCurrentUser();
   const queryClient = useQueryClient();
 
   const { data: presences, isLoading: isLoadingPresences } = useQuery({
-    queryKey: queryKeys.matchPresences(match.groupId, match.id),
-    queryFn: () => findPresences(match.groupId, match.id),
+    queryKey: queryKeys.matchPresences(groupId, matchId),
+    queryFn: () => findPresences(groupId, matchId),
   });
 
   let myStatus: MyPresenceStatus = "pending";
@@ -32,10 +31,10 @@ export function useUpcomingMatchCardController(match: UpcomingMatch) {
 
   const { mutate: setPresence, isPending } = useMutation({
     mutationFn: (isPresent: boolean) =>
-      updatePresence(match.groupId, match.id, { isPresent }),
+      updatePresence(groupId, matchId, { isPresent }),
     onSuccess: (_data, isPresent) => {
       queryClient.invalidateQueries({
-        queryKey: queryKeys.matchPresences(match.groupId, match.id),
+        queryKey: queryKeys.matchPresences(groupId, matchId),
       });
       toast.success(isPresent ? "Presença confirmada!" : "Presença recusada");
     },
