@@ -2,6 +2,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useState } from "react";
 import { useController, useForm } from "react-hook-form";
+import toast from "react-hot-toast";
 import { queryKeys } from "@/src/app/lib/query-keys";
 import {
   create as createGroupRequest,
@@ -73,6 +74,16 @@ export function useGroupFormController(props: GroupFormModalProps) {
         });
       }
       setOpen(false);
+      toast.success(
+        props.mode === "edit" ? "Grupo atualizado!" : "Grupo criado!",
+      );
+    },
+    onError: () => {
+      toast.error(
+        props.mode === "edit"
+          ? "Não foi possível atualizar o grupo. Tente novamente."
+          : "Não foi possível criar o grupo. Tente novamente.",
+      );
     },
   });
 
