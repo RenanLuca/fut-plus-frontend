@@ -1,3 +1,4 @@
+import { Link } from "react-router";
 import { Button } from "../../components/ui/button";
 import { Input } from "../../components/ui/input";
 import { useLoginController } from "./useLoginController";
@@ -43,7 +44,7 @@ export function LoginPage() {
             </form>
             <div>
                 <span className="text-sm font-medium">Ainda não tem uma conta?</span>
-                <Button variant={"link"} size={"sm"}>
+                <Button variant={"link"} size={"sm"} render={<Link to="/signup" />}>
                     <span className="text-sm font-medium text-primary-900">Cadastre-se</span>
                 </Button>
             </div>

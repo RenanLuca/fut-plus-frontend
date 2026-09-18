@@ -1,6 +1,5 @@
 import { httpClient } from "@/src/app/lib/http-client";
-
-export type Position = "GOALKEEPER" | "DEFENDER" | "WINGER" | "STRIKER";
+import type { Position } from "@/src/app/constants/position";
 
 export type CurrentUser = {
   id: string;
