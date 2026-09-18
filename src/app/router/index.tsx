@@ -5,6 +5,7 @@ import { LoginPage } from "@/src/view/pages/Login";
 import { SignupPage } from "@/src/view/pages/Signup";
 import { HomePage } from "@/src/view/pages/Home";
 import { GroupsPage } from "@/src/view/pages/Groups";
+import { GroupDetailPage } from "@/src/view/pages/GroupDetail";
 import { ProfilePage } from "@/src/view/pages/Profile";
 import { BrowserRouter, Route, Routes } from "react-router";
 export function Router() {
@@ -19,6 +20,7 @@ export function Router() {
             <Route element={<AppLayout />}>
                 <Route path="/home" element={<HomePage />} />
                 <Route path="/groups" element={<GroupsPage />} />
+                <Route path="/groups/:groupId" element={<GroupDetailPage />} />
                 <Route path="/profile" element={<ProfilePage />} />
             </Route>
         </Route>
