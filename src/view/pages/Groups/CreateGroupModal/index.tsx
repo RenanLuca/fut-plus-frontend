@@ -22,7 +22,7 @@ import { WEEKDAY_OPTIONS } from "@/src/app/constants/weekday";
 import { FREQUENCY_OPTIONS } from "@/src/app/constants/frequencyType";
 import { useCreateGroupController } from "./useCreateGroupController";
 
-export function CreateGroupSheet() {
+export function CreateGroupModal() {
     const {
         open,
         setOpen,

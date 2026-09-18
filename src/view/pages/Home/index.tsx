@@ -2,7 +2,7 @@ import { Users } from "lucide-react";
 import { WEEKDAY_LABELS } from "@/src/app/constants/weekday";
 import { FREQUENCY_LABELS } from "@/src/app/constants/frequencyType";
 import type { Group } from "@/src/app/services/groupsService";
-import { CreateGroupSheet } from "../Groups/CreateGroupSheet";
+import { CreateGroupModal } from "../Groups/CreateGroupModal";
 import { useHomeController } from "./useHomeController";
 
 const currencyFormatter = new Intl.NumberFormat("pt-BR", {
@@ -42,7 +42,7 @@ export function HomePage() {
             <section className="flex flex-col gap-3">
                 <div className="flex items-center justify-between">
                     <h2 className="text-sm font-semibold text-gray-700">Meus grupos</h2>
-                    <CreateGroupSheet />
+                    <CreateGroupModal />
                 </div>
 
                 {isLoadingGroups && (
