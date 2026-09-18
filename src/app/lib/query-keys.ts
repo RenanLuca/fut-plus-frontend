@@ -10,4 +10,6 @@ export const queryKeys = {
   upcomingMatch: ["upcomingMatch"] as const,
   matchPresences: (groupId: string, matchId: string) =>
     ["groups", groupId, "matches", matchId, "presences"] as const,
+  matchTeams: (groupId: string, matchId: string) =>
+    ["groups", groupId, "matches", matchId, "teams"] as const,
 };
