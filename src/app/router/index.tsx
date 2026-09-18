@@ -1,7 +1,11 @@
 import { AuthLayout } from "@/src/view/layouts/AuthLayout";
+import { AppLayout } from "@/src/view/layouts/AppLayout";
+import { RequireAuth } from "@/src/view/layouts/RequireAuth";
 import { LoginPage } from "@/src/view/pages/Login";
 import { SignupPage } from "@/src/view/pages/Signup";
 import { HomePage } from "@/src/view/pages/Home";
+import { GroupsPage } from "@/src/view/pages/Groups";
+import { ProfilePage } from "@/src/view/pages/Profile";
 import { BrowserRouter, Route, Routes } from "react-router";
 export function Router() {
     return (
@@ -11,7 +15,13 @@ export function Router() {
             <Route path="/" element={<LoginPage />} />
             <Route path="/signup" element={<SignupPage />} />
         </Route>
-        <Route path="/home" element={<HomePage />} />
+        <Route element={<RequireAuth />}>
+            <Route element={<AppLayout />}>
+                <Route path="/home" element={<HomePage />} />
+                <Route path="/groups" element={<GroupsPage />} />
+                <Route path="/profile" element={<ProfilePage />} />
+            </Route>
+        </Route>
         </Routes>
         </BrowserRouter>
     );
