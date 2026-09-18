@@ -1,6 +1,5 @@
-import { Calendar, Plus } from "lucide-react";
+import { Calendar } from "lucide-react";
 import { PageWrapper } from "../../components/PageWrapper";
-import { Button } from "../../components/ui/button";
 import { Avatar, AvatarFallback } from "../../components/ui/avatar";
 import { WEEKDAY_LABELS } from "@/src/app/constants/weekday";
 import { FREQUENCY_LABELS } from "@/src/app/constants/frequencyType";
@@ -9,6 +8,7 @@ import { getInitials } from "@/src/app/utils/get-initials";
 import type { GroupMember } from "@/src/app/services/groupMembersService";
 import type { GroupMatch } from "@/src/app/services/groupMatchesService";
 import { GroupFormModal } from "../Groups/GroupFormModal";
+import { CreateMatchModal } from "./CreateMatchModal";
 import { useGroupDetailController } from "./useGroupDetailController";
 
 const dateFormatter = new Intl.DateTimeFormat("pt-BR", {
@@ -104,10 +104,7 @@ export function GroupDetailPage() {
                 <div className="flex items-center justify-between">
                     <h2 className="text-sm font-semibold text-gray-700">Partidas</h2>
                     {group.frequency === "EVENTUAL" && (
-                        <Button size="sm" disabled>
-                            <Plus className="size-4" />
-                            Criar partida
-                        </Button>
+                        <CreateMatchModal groupId={group.id} />
                     )}
                 </div>
                 {isLoadingMatches && (
