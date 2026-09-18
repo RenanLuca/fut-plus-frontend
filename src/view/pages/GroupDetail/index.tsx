@@ -21,7 +21,7 @@ const dateFormatter = new Intl.DateTimeFormat("pt-BR", {
 function MemberRow({ member }: { member: GroupMember }) {
     const name = member.user?.name ?? member.guestUser?.name ?? "—";
     return (
-        <div className="flex items-center gap-3 rounded-lg border border-gray-100 bg-white p-3">
+        <div className="flex items-center gap-3 rounded-lg bg-ice-100 p-3">
             <Avatar size="sm">
                 <AvatarFallback>{getInitials(name)}</AvatarFallback>
             </Avatar>
@@ -37,7 +37,7 @@ function MemberRow({ member }: { member: GroupMember }) {
 
 function MatchRow({ match }: { match: GroupMatch }) {
     return (
-        <div className="flex items-center gap-3 rounded-lg border border-gray-100 bg-white p-3">
+        <div className="flex items-center gap-3 rounded-lg bg-ice-100 p-3">
             <Calendar className="size-4 text-primary-900" />
             <span className="text-sm font-medium capitalize">
                 {dateFormatter.format(new Date(match.matchDate))}
@@ -57,68 +57,78 @@ export function GroupDetailPage() {
         isOwner,
     } = useGroupDetailController();
 
-    if (isLoadingGroup || !group) {
-        return <div className="h-24 animate-pulse rounded-xl bg-gray-100" />;
-    }
-
     return (
-        <div className="flex flex-col gap-6">
-            <div className="flex items-start justify-between gap-3">
-                <div className="flex flex-col gap-1.5">
-                    <h1 className="text-xl font-bold text-primary-900">{group.name}</h1>
-                    <div className="flex flex-wrap gap-1.5 text-xs text-muted-foreground">
-                        <span className="rounded-full bg-pale-100 px-2 py-0.5">
-                            {WEEKDAY_LABELS[group.weekday]}, {group.hour}
-                        </span>
-                        <span className="rounded-full bg-pale-100 px-2 py-0.5">
-                            {FREQUENCY_LABELS[group.frequency]}
-                        </span>
-                    </div>
-                </div>
-                {isOwner && <GroupFormModal mode="edit" group={group} />}
+        <div className="rounded-2xl bg-forest-900 p-4 sm:p-6">
+            <div className="mx-auto flex max-w-2xl flex-col gap-6 rounded-xl bg-white p-5 shadow-sm sm:p-6">
+                {isLoadingGroup || !group ? (
+                    <div className="h-24 animate-pulse rounded-xl bg-gray-100" />
+                ) : (
+                    <>
+                        <div className="flex items-start justify-between gap-3">
+                            <div className="flex flex-col gap-1.5">
+                                <h1 className="text-xl font-bold text-primary-900">
+                                    {group.name}
+                                </h1>
+                                <div className="flex flex-wrap gap-1.5 text-xs text-muted-foreground">
+                                    <span className="rounded-full bg-pale-100 px-2 py-0.5">
+                                        {WEEKDAY_LABELS[group.weekday]}, {group.hour}
+                                    </span>
+                                    <span className="rounded-full bg-pale-100 px-2 py-0.5">
+                                        {FREQUENCY_LABELS[group.frequency]}
+                                    </span>
+                                </div>
+                            </div>
+                            {isOwner && <GroupFormModal mode="edit" group={group} />}
+                        </div>
+
+                        <section className="flex flex-col gap-3">
+                            <h2 className="text-sm font-semibold text-gray-700">Membros</h2>
+                            {isLoadingMembers && (
+                                <div className="h-16 animate-pulse rounded-lg bg-gray-100" />
+                            )}
+                            {!isLoadingMembers && members.length === 0 && (
+                                <p className="text-sm text-muted-foreground">
+                                    Nenhum membro ainda
+                                </p>
+                            )}
+                            {!isLoadingMembers && members.length > 0 && (
+                                <div className="flex flex-col gap-2">
+                                    {members.map((member) => (
+                                        <MemberRow key={member.id} member={member} />
+                                    ))}
+                                </div>
+                            )}
+                        </section>
+
+                        <section className="flex flex-col gap-3">
+                            <div className="flex items-center justify-between">
+                                <h2 className="text-sm font-semibold text-gray-700">Partidas</h2>
+                                {group.frequency === "EVENTUAL" && (
+                                    <Button size="sm" disabled>
+                                        <Plus className="size-4" />
+                                        Criar partida
+                                    </Button>
+                                )}
+                            </div>
+                            {isLoadingMatches && (
+                                <div className="h-16 animate-pulse rounded-lg bg-gray-100" />
+                            )}
+                            {!isLoadingMatches && matches.length === 0 && (
+                                <p className="text-sm text-muted-foreground">
+                                    Nenhuma partida marcada
+                                </p>
+                            )}
+                            {!isLoadingMatches && matches.length > 0 && (
+                                <div className="flex flex-col gap-2">
+                                    {matches.map((match) => (
+                                        <MatchRow key={match.id} match={match} />
+                                    ))}
+                                </div>
+                            )}
+                        </section>
+                    </>
+                )}
             </div>
-
-            <section className="flex flex-col gap-3">
-                <h2 className="text-sm font-semibold text-gray-700">Membros</h2>
-                {isLoadingMembers && (
-                    <div className="h-16 animate-pulse rounded-lg bg-gray-100" />
-                )}
-                {!isLoadingMembers && members.length === 0 && (
-                    <p className="text-sm text-muted-foreground">Nenhum membro ainda</p>
-                )}
-                {!isLoadingMembers && members.length > 0 && (
-                    <div className="flex flex-col gap-2">
-                        {members.map((member) => (
-                            <MemberRow key={member.id} member={member} />
-                        ))}
-                    </div>
-                )}
-            </section>
-
-            <section className="flex flex-col gap-3">
-                <div className="flex items-center justify-between">
-                    <h2 className="text-sm font-semibold text-gray-700">Partidas</h2>
-                    {group.frequency === "EVENTUAL" && (
-                        <Button size="sm" disabled>
-                            <Plus className="size-4" />
-                            Criar partida
-                        </Button>
-                    )}
-                </div>
-                {isLoadingMatches && (
-                    <div className="h-16 animate-pulse rounded-lg bg-gray-100" />
-                )}
-                {!isLoadingMatches && matches.length === 0 && (
-                    <p className="text-sm text-muted-foreground">Nenhuma partida marcada</p>
-                )}
-                {!isLoadingMatches && matches.length > 0 && (
-                    <div className="flex flex-col gap-2">
-                        {matches.map((match) => (
-                            <MatchRow key={match.id} match={match} />
-                        ))}
-                    </div>
-                )}
-            </section>
         </div>
     );
 }
