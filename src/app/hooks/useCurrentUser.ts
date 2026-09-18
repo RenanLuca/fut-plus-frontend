@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import { getMe } from "@/src/app/services/authService";
+import { getMe } from "@/src/app/services/usersService";
 import { useAuth } from "@/src/app/hooks/useAuth";
 
 export function useCurrentUser() {
