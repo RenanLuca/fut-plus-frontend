@@ -1,4 +1,5 @@
 import { Calendar } from "lucide-react";
+import { Link } from "react-router";
 import { PageWrapper } from "../../components/PageWrapper";
 import { Avatar, AvatarFallback } from "../../components/ui/avatar";
 import { WEEKDAY_LABELS } from "@/src/app/constants/weekday";
@@ -38,12 +39,15 @@ function MemberRow({ member }: { member: GroupMember }) {
 
 function MatchRow({ match }: { match: GroupMatch }) {
     return (
-        <div className="flex items-center gap-3 rounded-lg bg-ice-100 p-3">
+        <Link
+            to={`/groups/${match.groupId}/matches/${match.id}`}
+            className="flex items-center gap-3 rounded-lg bg-ice-100 p-3 transition-colors hover:bg-ice-300"
+        >
             <Calendar className="size-4 text-primary-900" />
             <span className="text-sm font-medium capitalize">
                 {dateFormatter.format(new Date(match.matchDate))}
             </span>
-        </div>
+        </Link>
     );
 }
 
