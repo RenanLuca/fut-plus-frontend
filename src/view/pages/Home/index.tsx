@@ -1,8 +1,8 @@
-import { Plus, Users } from "lucide-react";
-import { Button } from "../../components/ui/button";
+import { Users } from "lucide-react";
 import { WEEKDAY_LABELS } from "@/src/app/constants/weekday";
 import { FREQUENCY_LABELS } from "@/src/app/constants/frequencyType";
 import type { Group } from "@/src/app/services/groupsService";
+import { CreateGroupSheet } from "../Groups/CreateGroupSheet";
 import { useHomeController } from "./useHomeController";
 
 const currencyFormatter = new Intl.NumberFormat("pt-BR", {
@@ -42,10 +42,7 @@ export function HomePage() {
             <section className="flex flex-col gap-3">
                 <div className="flex items-center justify-between">
                     <h2 className="text-sm font-semibold text-gray-700">Meus grupos</h2>
-                    <Button size="sm" disabled>
-                        <Plus className="size-4" />
-                        Criar grupo
-                    </Button>
+                    <CreateGroupSheet />
                 </div>
 
                 {isLoadingGroups && (
@@ -66,7 +63,7 @@ export function HomePage() {
                             Você ainda não faz parte de nenhum grupo
                         </p>
                         <p className="text-xs text-muted-foreground">
-                            Criar grupos chega em breve
+                            Crie um grupo pra começar a organizar suas peladas
                         </p>
                     </div>
                 )}
