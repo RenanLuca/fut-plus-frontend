@@ -3,7 +3,7 @@ import { useMutation } from "@tanstack/react-query";
 import { isAxiosError } from "axios";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router";
-import { useAuth } from "@/src/app/contexts/AuthContext";
+import { useAuth } from "@/src/app/hooks/useAuth";
 import { signin as signinRequest } from "@/src/app/services/authService";
 import { loginSchema, type LoginFormValues } from "./login.schema";
 
