@@ -1,4 +1,5 @@
 import { Calendar, Plus } from "lucide-react";
+import { PageWrapper } from "../../components/PageWrapper";
 import { Button } from "../../components/ui/button";
 import { Avatar, AvatarFallback } from "../../components/ui/avatar";
 import { WEEKDAY_LABELS } from "@/src/app/constants/weekday";
@@ -57,76 +58,72 @@ export function GroupDetailPage() {
         isOwner,
     } = useGroupDetailController();
 
-    return (
-        <div className="mx-auto flex max-w-2xl flex-col gap-6 rounded-xl bg-white p-5 shadow-sm sm:p-6">
-            {isLoadingGroup || !group ? (
+    if (isLoadingGroup || !group) {
+        return (
+            <PageWrapper>
                 <div className="h-24 animate-pulse rounded-xl bg-gray-100" />
-            ) : (
+            </PageWrapper>
+        );
+    }
+
+    return (
+        <PageWrapper
+            title={
                 <>
-                    <div className="flex items-start justify-between gap-3">
-                        <div className="flex flex-col gap-1.5">
-                            <h1 className="text-xl font-bold text-primary-900">
-                                {group.name}
-                            </h1>
-                            <div className="flex flex-wrap gap-1.5 text-xs text-muted-foreground">
-                                <span className="rounded-full bg-pale-100 px-2 py-0.5">
-                                    {WEEKDAY_LABELS[group.weekday]}, {group.hour}
-                                </span>
-                                <span className="rounded-full bg-pale-100 px-2 py-0.5">
-                                    {FREQUENCY_LABELS[group.frequency]}
-                                </span>
-                            </div>
-                        </div>
-                        {isOwner && <GroupFormModal mode="edit" group={group} />}
+                    <h1 className="text-xl font-bold text-primary-900">{group.name}</h1>
+                    <div className="flex flex-wrap gap-1.5 text-xs text-muted-foreground">
+                        <span className="rounded-full bg-pale-100 px-2 py-0.5">
+                            {WEEKDAY_LABELS[group.weekday]}, {group.hour}
+                        </span>
+                        <span className="rounded-full bg-pale-100 px-2 py-0.5">
+                            {FREQUENCY_LABELS[group.frequency]}
+                        </span>
                     </div>
-
-                    <section className="flex flex-col gap-3">
-                        <h2 className="text-sm font-semibold text-gray-700">Membros</h2>
-                        {isLoadingMembers && (
-                            <div className="h-16 animate-pulse rounded-lg bg-gray-100" />
-                        )}
-                        {!isLoadingMembers && members.length === 0 && (
-                            <p className="text-sm text-muted-foreground">
-                                Nenhum membro ainda
-                            </p>
-                        )}
-                        {!isLoadingMembers && members.length > 0 && (
-                            <div className="flex flex-col gap-2">
-                                {members.map((member) => (
-                                    <MemberRow key={member.id} member={member} />
-                                ))}
-                            </div>
-                        )}
-                    </section>
-
-                    <section className="flex flex-col gap-3">
-                        <div className="flex items-center justify-between">
-                            <h2 className="text-sm font-semibold text-gray-700">Partidas</h2>
-                            {group.frequency === "EVENTUAL" && (
-                                <Button size="sm" disabled>
-                                    <Plus className="size-4" />
-                                    Criar partida
-                                </Button>
-                            )}
-                        </div>
-                        {isLoadingMatches && (
-                            <div className="h-16 animate-pulse rounded-lg bg-gray-100" />
-                        )}
-                        {!isLoadingMatches && matches.length === 0 && (
-                            <p className="text-sm text-muted-foreground">
-                                Nenhuma partida marcada
-                            </p>
-                        )}
-                        {!isLoadingMatches && matches.length > 0 && (
-                            <div className="flex flex-col gap-2">
-                                {matches.map((match) => (
-                                    <MatchRow key={match.id} match={match} />
-                                ))}
-                            </div>
-                        )}
-                    </section>
                 </>
-            )}
-        </div>
+            }
+            actions={isOwner && <GroupFormModal mode="edit" group={group} />}
+        >
+            <section className="flex flex-col gap-3">
+                <h2 className="text-sm font-semibold text-gray-700">Membros</h2>
+                {isLoadingMembers && (
+                    <div className="h-16 animate-pulse rounded-lg bg-gray-100" />
+                )}
+                {!isLoadingMembers && members.length === 0 && (
+                    <p className="text-sm text-muted-foreground">Nenhum membro ainda</p>
+                )}
+                {!isLoadingMembers && members.length > 0 && (
+                    <div className="flex flex-col gap-2">
+                        {members.map((member) => (
+                            <MemberRow key={member.id} member={member} />
+                        ))}
+                    </div>
+                )}
+            </section>
+
+            <section className="flex flex-col gap-3">
+                <div className="flex items-center justify-between">
+                    <h2 className="text-sm font-semibold text-gray-700">Partidas</h2>
+                    {group.frequency === "EVENTUAL" && (
+                        <Button size="sm" disabled>
+                            <Plus className="size-4" />
+                            Criar partida
+                        </Button>
+                    )}
+                </div>
+                {isLoadingMatches && (
+                    <div className="h-16 animate-pulse rounded-lg bg-gray-100" />
+                )}
+                {!isLoadingMatches && matches.length === 0 && (
+                    <p className="text-sm text-muted-foreground">Nenhuma partida marcada</p>
+                )}
+                {!isLoadingMatches && matches.length > 0 && (
+                    <div className="flex flex-col gap-2">
+                        {matches.map((match) => (
+                            <MatchRow key={match.id} match={match} />
+                        ))}
+                    </div>
+                )}
+            </section>
+        </PageWrapper>
     );
 }
