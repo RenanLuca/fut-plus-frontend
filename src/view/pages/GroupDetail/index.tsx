@@ -58,7 +58,7 @@ export function GroupDetailPage() {
     } = useGroupDetailController();
 
     return (
-        <div className="rounded-2xl bg-forest-900 p-4 sm:p-6">
+        <div className="rounded-2xl bg-ice-600 p-4 sm:p-6">
             <div className="mx-auto flex max-w-2xl flex-col gap-6 rounded-xl bg-white p-5 shadow-sm sm:p-6">
                 {isLoadingGroup || !group ? (
                     <div className="h-24 animate-pulse rounded-xl bg-gray-100" />
