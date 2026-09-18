@@ -1,4 +1,5 @@
 import { Link } from "react-router";
+import { Mail, Lock } from "lucide-react";
 import { Button } from "../../components/ui/button";
 import { Input } from "../../components/ui/input";
 import { useLoginController } from "./useLoginController";
@@ -8,8 +9,13 @@ export function LoginPage() {
         useLoginController();
 
     return (
-        <div className="w-full h-full p-6 flex flex-col items-center justify-center gap-6">
-            <h1 className="text-xl font-bold text-primary-900">Seja bem vindo!</h1>
+        <div className="w-full h-full p-4 sm:p-6 flex flex-col items-center justify-center gap-6">
+            <div className="flex flex-col items-center gap-1 text-center">
+                <h1 className="text-2xl font-bold text-primary-900 tracking-tight">Seja bem-vindo!</h1>
+                <p className="text-sm text-muted-foreground">
+                    Organize a pelada da sua galera em poucos cliques
+                </p>
+            </div>
             <form onSubmit={onSubmit} className="w-full max-w-xs flex flex-col gap-4">
                 {errorMessage && (
                     <p className="text-sm text-destructive text-center">{errorMessage}</p>
@@ -19,6 +25,7 @@ export function LoginPage() {
                         id="email"
                         type="text"
                         label="Email"
+                        icon={Mail}
                         aria-invalid={!!errors.email}
                         {...register("email")}
                     />
@@ -31,6 +38,7 @@ export function LoginPage() {
                         id="password"
                         type="password"
                         label="Senha"
+                        icon={Lock}
                         aria-invalid={!!errors.password}
                         {...register("password")}
                     />
@@ -38,11 +46,11 @@ export function LoginPage() {
                         <span className="text-xs text-destructive">{errors.password.message}</span>
                     )}
                 </div>
-                <Button type="submit" disabled={isPending}>
+                <Button type="submit" disabled={isPending} className="w-full">
                     {isPending ? "Entrando..." : "Entrar"}
                 </Button>
             </form>
-            <div>
+            <div className="flex flex-wrap items-center justify-center gap-1">
                 <span className="text-sm font-medium">Ainda não tem uma conta?</span>
                 <Button variant={"link"} size={"sm"} render={<Link to="/signup" />}>
                     <span className="text-sm font-medium text-primary-900">Cadastre-se</span>
