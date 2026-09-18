@@ -24,7 +24,7 @@ export function UpcomingMatchCard({ match }: { match: UpcomingMatch }) {
         useUpcomingMatchCardController(match);
 
     return (
-        <div className="flex flex-col gap-4 rounded-xl bg-linear-to-br from-primary-900 to-forest-900 p-5 text-white">
+        <div className="flex w-full max-w-md flex-col gap-4 rounded-xl bg-linear-to-br from-primary-900 to-forest-900 p-5 text-white">
             <Link to={`/groups/${match.groupId}`} className="flex flex-col gap-1">
                 <div className="flex items-center justify-between gap-2">
                     <span className="text-xs font-medium tracking-wide text-primary-200 uppercase">
@@ -62,8 +62,9 @@ export function UpcomingMatchCard({ match }: { match: UpcomingMatch }) {
                         disabled={isPending}
                         onClick={() => setPresence(true)}
                         className={cn(
-                            "border border-white/30 bg-white/10 text-white hover:bg-white/20",
-                            myStatus === "confirmed" && "bg-white text-primary-900 hover:bg-white/90",
+                            "bg-white text-primary-900 hover:bg-white/90",
+                            myStatus === "confirmed" &&
+                                "bg-grass-500 text-forest-900 hover:bg-grass-500/90",
                         )}
                     >
                         <Check className="size-4" />
@@ -74,8 +75,9 @@ export function UpcomingMatchCard({ match }: { match: UpcomingMatch }) {
                         disabled={isPending}
                         onClick={() => setPresence(false)}
                         className={cn(
-                            "border border-white/30 bg-white/10 text-white hover:bg-white/20",
-                            myStatus === "declined" && "bg-white text-primary-900 hover:bg-white/90",
+                            "bg-white text-primary-900 hover:bg-white/90",
+                            myStatus === "declined" &&
+                                "bg-destructive text-white hover:bg-destructive/90",
                         )}
                     >
                         <X className="size-4" />
@@ -89,7 +91,7 @@ export function UpcomingMatchCard({ match }: { match: UpcomingMatch }) {
 
 export function NoUpcomingMatch() {
     return (
-        <div className="flex flex-col items-center justify-center gap-1.5 rounded-xl bg-linear-to-br from-primary-900 to-forest-900 p-6 text-center text-white">
+        <div className="flex w-full max-w-md flex-col items-center justify-center gap-1.5 rounded-xl bg-linear-to-br from-primary-900 to-forest-900 p-6 text-center text-white">
             <Calendar className="size-6 text-white/80" />
             <span className="text-sm font-medium">Nenhuma partida marcada ainda</span>
             <span className="text-xs text-white/70">
