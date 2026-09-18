@@ -1,4 +1,4 @@
-import { Calendar, Pencil, Plus } from "lucide-react";
+import { Calendar, Plus } from "lucide-react";
 import { Button } from "../../components/ui/button";
 import { Avatar, AvatarFallback } from "../../components/ui/avatar";
 import { WEEKDAY_LABELS } from "@/src/app/constants/weekday";
@@ -7,6 +7,7 @@ import { GROUP_MEMBER_TYPE_LABELS } from "@/src/app/constants/groupMemberType";
 import { getInitials } from "@/src/app/utils/get-initials";
 import type { GroupMember } from "@/src/app/services/groupMembersService";
 import type { GroupMatch } from "@/src/app/services/groupMatchesService";
+import { GroupFormModal } from "../Groups/GroupFormModal";
 import { useGroupDetailController } from "./useGroupDetailController";
 
 const dateFormatter = new Intl.DateTimeFormat("pt-BR", {
@@ -74,16 +75,7 @@ export function GroupDetailPage() {
                         </span>
                     </div>
                 </div>
-                {isOwner && (
-                    <Button
-                        variant="outline"
-                        size="icon"
-                        disabled
-                        aria-label="Editar grupo"
-                    >
-                        <Pencil className="size-4" />
-                    </Button>
-                )}
+                {isOwner && <GroupFormModal mode="edit" group={group} />}
             </div>
 
             <section className="flex flex-col gap-3">

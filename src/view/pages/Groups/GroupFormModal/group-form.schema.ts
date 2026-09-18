@@ -1,6 +1,6 @@
 import { z } from "zod";
 
-export const createGroupSchema = z.object({
+export const groupFormSchema = z.object({
   name: z.string().min(1, "Informe o nome do grupo"),
   weekday: z.enum(
     [
@@ -28,4 +28,4 @@ export const createGroupSchema = z.object({
     ),
 });
 
-export type CreateGroupFormValues = z.infer<typeof createGroupSchema>;
+export type GroupFormValues = z.infer<typeof groupFormSchema>;

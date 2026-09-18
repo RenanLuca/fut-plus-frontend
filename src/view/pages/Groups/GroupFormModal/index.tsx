@@ -1,4 +1,4 @@
-import { Plus } from "lucide-react";
+import { Pencil, Plus } from "lucide-react";
 import { CurrencyInput } from "react-currency-input-field";
 import { Button } from "../../../components/ui/button";
 import { Input } from "../../../components/ui/input";
@@ -21,12 +21,15 @@ import {
 } from "../../../components/ui/sheet";
 import { WEEKDAY_OPTIONS } from "@/src/app/constants/weekday";
 import { FREQUENCY_OPTIONS } from "@/src/app/constants/frequencyType";
-import { useCreateGroupController } from "./useCreateGroupController";
+import {
+    useGroupFormController,
+    type GroupFormModalProps,
+} from "./useGroupFormController";
 
-export function CreateGroupModal() {
+export function GroupFormModal(props: GroupFormModalProps) {
     const {
         open,
-        setOpen,
+        onOpenChange,
         register,
         weekdayField,
         frequencyField,
@@ -34,23 +37,39 @@ export function CreateGroupModal() {
         onSubmit,
         errors,
         isPending,
-    } = useCreateGroupController();
+    } = useGroupFormController(props);
+
+    const isEdit = props.mode === "edit";
 
     return (
-        <Sheet open={open} onOpenChange={setOpen}>
-            <SheetTrigger render={<Button size="sm" />}>
-                <Plus className="size-4" />
-                Criar grupo
+        <Sheet open={open} onOpenChange={onOpenChange}>
+            <SheetTrigger
+                render={
+                    isEdit ? (
+                        <Button variant="outline" size="icon" aria-label="Editar grupo" />
+                    ) : (
+                        <Button size="sm" />
+                    )
+                }
+            >
+                {isEdit ? (
+                    <Pencil className="size-4" />
+                ) : (
+                    <>
+                        <Plus className="size-4" />
+                        Criar grupo
+                    </>
+                )}
             </SheetTrigger>
             <SheetContent>
                 <SheetHeader>
-                    <SheetTitle>Criar grupo</SheetTitle>
+                    <SheetTitle>{isEdit ? "Editar grupo" : "Criar grupo"}</SheetTitle>
                     <SheetDescription>
                         Configure o dia, horário e frequência da sua pelada
                     </SheetDescription>
                 </SheetHeader>
                 <form
-                    id="create-group-form"
+                    id="group-form"
                     onSubmit={onSubmit}
                     className="flex flex-col gap-4 overflow-y-auto px-6"
                 >
@@ -157,11 +176,17 @@ export function CreateGroupModal() {
                     </SheetClose>
                     <Button
                         type="submit"
-                        form="create-group-form"
+                        form="group-form"
                         disabled={isPending}
                         className="flex-1"
                     >
-                        {isPending ? "Criando..." : "Criar"}
+                        {isPending
+                            ? isEdit
+                                ? "Salvando..."
+                                : "Criando..."
+                            : isEdit
+                                ? "Salvar"
+                                : "Criar"}
                     </Button>
                 </SheetFooter>
             </SheetContent>
