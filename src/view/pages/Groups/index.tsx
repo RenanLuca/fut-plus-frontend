@@ -1,13 +1,17 @@
-import { Users } from "lucide-react";
+import { GroupFormModal } from "./GroupFormModal";
+import { GroupsGrid } from "./GroupsGrid";
+import { useGroupsController } from "./useGroupsController";
 
 export function GroupsPage() {
+    const { groups, isLoading } = useGroupsController();
+
     return (
-        <div className="flex flex-col items-center justify-center gap-2 py-16 text-center">
-            <Users className="size-8 text-muted-foreground" />
-            <p className="text-sm font-medium text-gray-700">Em breve</p>
-            <p className="text-xs text-muted-foreground">
-                A gestão de grupos ainda está sendo construída
-            </p>
+        <div className="flex flex-col gap-4">
+            <div className="flex items-center justify-between">
+                <h1 className="text-xl font-bold text-primary-900">Meus grupos</h1>
+                <GroupFormModal mode="create" />
+            </div>
+            <GroupsGrid groups={groups} isLoading={isLoading} />
         </div>
     );
 }
