@@ -95,11 +95,7 @@ export function MatchDetailPage() {
                     )}
                 </>
             }
-        >
-            <div className="flex items-center justify-between gap-3 rounded-lg bg-pale-100 p-3">
-                <span className="text-sm font-medium text-primary-900">
-                    Sua presença
-                </span>
+            actions={
                 <div className="flex gap-2">
                     <Button
                         size="sm"
@@ -127,8 +123,8 @@ export function MatchDetailPage() {
                         Não vou
                     </Button>
                 </div>
-            </div>
-
+            }
+        >
             {isLoadingPresences && (
                 <div className="h-24 animate-pulse rounded-xl bg-gray-100" />
             )}
