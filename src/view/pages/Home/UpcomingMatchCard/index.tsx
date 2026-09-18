@@ -86,3 +86,15 @@ export function UpcomingMatchCard({ match }: { match: UpcomingMatch }) {
         </div>
     );
 }
+
+export function NoUpcomingMatch() {
+    return (
+        <div className="flex flex-col items-center justify-center gap-1.5 rounded-xl bg-linear-to-br from-primary-900 to-forest-900 p-6 text-center text-white">
+            <Calendar className="size-6 text-white/80" />
+            <span className="text-sm font-medium">Nenhuma partida marcada ainda</span>
+            <span className="text-xs text-white/70">
+                Crie uma partida em um dos seus grupos pra ela aparecer aqui
+            </span>
+        </div>
+    );
+}

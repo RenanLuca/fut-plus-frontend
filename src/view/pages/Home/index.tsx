@@ -1,7 +1,7 @@
 import { PageWrapper } from "../../components/PageWrapper";
 import { GroupFormModal } from "../Groups/GroupFormModal";
 import { GroupsGrid } from "../Groups/GroupsGrid";
-import { UpcomingMatchCard } from "./UpcomingMatchCard";
+import { NoUpcomingMatch, UpcomingMatchCard } from "./UpcomingMatchCard";
 import { useHomeController } from "./useHomeController";
 
 export function HomePage() {
@@ -19,9 +19,12 @@ export function HomePage() {
             {isLoadingUpcomingMatch && (
                 <div className="h-32 animate-pulse rounded-xl bg-gray-100" />
             )}
-            {!isLoadingUpcomingMatch && upcomingMatch && (
-                <UpcomingMatchCard match={upcomingMatch} />
-            )}
+            {!isLoadingUpcomingMatch &&
+                (upcomingMatch ? (
+                    <UpcomingMatchCard match={upcomingMatch} />
+                ) : (
+                    <NoUpcomingMatch />
+                ))}
 
             <section className="flex flex-col gap-3">
                 <div className="flex items-center justify-between">
