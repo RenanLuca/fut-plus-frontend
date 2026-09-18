@@ -1,4 +1,5 @@
 import { Plus } from "lucide-react";
+import { CurrencyInput } from "react-currency-input-field";
 import { Button } from "../../../components/ui/button";
 import { Input } from "../../../components/ui/input";
 import {
@@ -29,6 +30,7 @@ export function CreateGroupModal() {
         register,
         weekdayField,
         frequencyField,
+        valuePerUserField,
         onSubmit,
         errors,
         isPending,
@@ -127,14 +129,20 @@ export function CreateGroupModal() {
                     </div>
 
                     <div className="flex flex-col gap-1">
-                        <Input
+                        <label className="text-xs text-gray-600" htmlFor="valuePerUser">
+                            Valor por pessoa
+                        </label>
+                        <CurrencyInput
                             id="valuePerUser"
-                            type="number"
-                            step="0.01"
-                            min="0"
-                            label="Valor por pessoa (R$)"
+                            customInput={Input}
+                            placeholder="R$ 0,00"
+                            intlConfig={{ locale: "pt-BR", currency: "BRL" }}
+                            decimalsLimit={2}
+                            value={valuePerUserField.value}
+                            onValueChange={(value) =>
+                                valuePerUserField.onChange(value ?? "")
+                            }
                             aria-invalid={!!errors.valuePerUser}
-                            {...register("valuePerUser")}
                         />
                         {errors.valuePerUser && (
                             <span className="text-xs text-destructive">

@@ -10,7 +10,9 @@ interface InputProps extends React.ComponentProps<"input"> {
 function Input({ className, type, icon: Icon, ...props }: InputProps) {
   return (
     <div className={cn("flex flex-col gap-1.5 w-full")}>
-      <label className="text-xs text-gray-600" htmlFor={props.id}>{props.label}</label>
+      {props.label && (
+        <label className="text-xs text-gray-600" htmlFor={props.id}>{props.label}</label>
+      )}
       <div className="relative flex items-center">
         {Icon && (
           <Icon className="pointer-events-none absolute left-3 size-4 text-muted-foreground" />

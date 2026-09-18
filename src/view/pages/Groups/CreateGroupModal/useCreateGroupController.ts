@@ -28,6 +28,10 @@ export function useCreateGroupController() {
     name: "frequency",
     control,
   });
+  const { field: valuePerUserField } = useController({
+    name: "valuePerUser",
+    control,
+  });
 
   const { mutate: createGroup, isPending } = useMutation({
     mutationFn: createGroupRequest,
@@ -48,6 +52,7 @@ export function useCreateGroupController() {
     register,
     weekdayField,
     frequencyField,
+    valuePerUserField,
     onSubmit,
     errors,
     isPending,
