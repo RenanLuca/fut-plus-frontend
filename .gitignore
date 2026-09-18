@@ -11,6 +11,7 @@ node_modules
 dist
 dist-ssr
 *.local
+CLAUDE.MD
 
 # Editor directories and files
 .vscode/*
