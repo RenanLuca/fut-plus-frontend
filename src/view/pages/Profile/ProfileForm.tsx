@@ -53,7 +53,7 @@ export function ProfileForm({ user }: { user: CurrentUser }) {
             </div>
 
             <div className="flex flex-col gap-1">
-                <label className="text-xs text-gray-600" htmlFor="profile-position">
+                <label className="text-xs text-gray-800" htmlFor="profile-position">
                     Posição
                 </label>
                 <Select

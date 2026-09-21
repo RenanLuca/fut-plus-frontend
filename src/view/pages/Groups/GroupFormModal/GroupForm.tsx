@@ -64,7 +64,7 @@ export function GroupForm({ onSaved, ...mode }: GroupFormProps) {
                 </div>
 
                 <div className="flex flex-col gap-1">
-                    <label className="text-xs text-gray-600" htmlFor="weekday">
+                    <label className="text-xs text-gray-800" htmlFor="weekday">
                         Dia da semana
                     </label>
                     <Select
@@ -102,7 +102,7 @@ export function GroupForm({ onSaved, ...mode }: GroupFormProps) {
                 </div>
 
                 <div className="flex flex-col gap-1">
-                    <label className="text-xs text-gray-600" htmlFor="frequency">
+                    <label className="text-xs text-gray-800" htmlFor="frequency">
                         Frequência
                     </label>
                     <Select
@@ -127,7 +127,7 @@ export function GroupForm({ onSaved, ...mode }: GroupFormProps) {
                 </div>
 
                 <div className="flex flex-col gap-1">
-                    <label className="text-xs text-gray-600" htmlFor="valuePerUser">
+                    <label className="text-xs text-gray-800" htmlFor="valuePerUser">
                         Valor por pessoa
                     </label>
                     <CurrencyInput

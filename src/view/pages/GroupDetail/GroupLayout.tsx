@@ -53,7 +53,7 @@ export function GroupLayout() {
                         end={tab.end}
                         className={({ isActive }) =>
                             cn(
-                                "whitespace-nowrap border-b-2 border-transparent px-3 py-2 text-sm font-medium text-gray-500 transition-colors hover:text-primary-900",
+                                "whitespace-nowrap border-b-2 border-transparent px-3 py-2 text-sm font-medium text-gray-700 transition-colors hover:text-primary-900",
                                 isActive && "border-primary-500 text-primary-900",
                             )
                         }

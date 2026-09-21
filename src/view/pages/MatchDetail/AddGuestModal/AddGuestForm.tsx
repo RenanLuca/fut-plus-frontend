@@ -57,7 +57,7 @@ export function AddGuestForm({
                 </div>
 
                 <div className="flex flex-col gap-1">
-                    <label className="text-xs text-gray-600" htmlFor="guest-position">
+                    <label className="text-xs text-gray-800" htmlFor="guest-position">
                         Posição
                     </label>
                     <Select
@@ -87,7 +87,7 @@ export function AddGuestForm({
                 </div>
 
                 <div className="flex flex-col gap-1">
-                    <label className="text-xs text-gray-600" htmlFor="guest-rank">
+                    <label className="text-xs text-gray-800" htmlFor="guest-rank">
                         Nível
                     </label>
                     <Select

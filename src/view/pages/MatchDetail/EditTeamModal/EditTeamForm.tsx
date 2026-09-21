@@ -51,7 +51,7 @@ export function EditTeamForm({
                 </div>
 
                 <div className="flex flex-col gap-2">
-                    <span className="text-xs text-gray-600">Cor</span>
+                    <span className="text-xs text-gray-800">Cor</span>
                     <div role="radiogroup" aria-label="Cor do time" className="flex flex-wrap gap-3">
                         {TEAM_COLOR_OPTIONS.map((option) => {
                             const selected = colorField.value === option.value;

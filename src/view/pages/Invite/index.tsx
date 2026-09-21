@@ -112,7 +112,7 @@ export function InvitePage() {
             ) : (
                 <form onSubmit={onSubmit} className="flex w-full flex-col gap-4">
                     <div className="flex flex-col gap-1">
-                        <label className="text-xs text-gray-600" htmlFor="invite-type">
+                        <label className="text-xs text-gray-800" htmlFor="invite-type">
                             Como você vai jogar
                         </label>
                         <Select
@@ -143,7 +143,7 @@ export function InvitePage() {
                     </div>
 
                     <div className="flex flex-col gap-1">
-                        <label className="text-xs text-gray-600" htmlFor="invite-rank">
+                        <label className="text-xs text-gray-800" htmlFor="invite-rank">
                             Seu nível
                         </label>
                         <Select

@@ -75,7 +75,7 @@ export function SignupPage() {
                     )}
                 </div>
                 <div className="flex flex-col gap-1">
-                    <label className="text-xs text-gray-600" htmlFor="position">
+                    <label className="text-xs text-gray-800" htmlFor="position">
                         Posição
                     </label>
                     <Select
