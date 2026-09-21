@@ -78,6 +78,7 @@ export function SignupPage() {
                         Posição
                     </label>
                     <Select
+                        items={POSITION_OPTIONS}
                         value={positionField.value}
                         onValueChange={positionField.onChange}
                     >

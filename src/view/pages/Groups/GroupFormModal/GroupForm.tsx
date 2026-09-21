@@ -68,6 +68,7 @@ export function GroupForm({ onSaved, ...mode }: GroupFormProps) {
                         Dia da semana
                     </label>
                     <Select
+                        items={WEEKDAY_OPTIONS}
                         value={weekdayField.value}
                         onValueChange={weekdayField.onChange}
                     >
@@ -105,6 +106,7 @@ export function GroupForm({ onSaved, ...mode }: GroupFormProps) {
                         Frequência
                     </label>
                     <Select
+                        items={FREQUENCY_OPTIONS}
                         value={frequencyField.value}
                         onValueChange={frequencyField.onChange}
                     >
