@@ -8,6 +8,10 @@ import { findOne as findMatch } from "@/src/app/services/groupMatchesService";
 import { remove as removeMatchGuest } from "@/src/app/services/matchGuestsService";
 import { findAll as findMatchTeams } from "@/src/app/services/matchTeamsService";
 import type { MatchPresenceMember } from "@/src/app/services/matchPresencesService";
+import {
+  getTeamPlayerRef,
+  useMovePlayerController,
+} from "./useMovePlayerController";
 import { useMatchPresence } from "@/src/app/hooks/useMatchPresence";
 import { useCurrentUser } from "@/src/app/hooks/useCurrentUser";
 
@@ -41,6 +45,24 @@ export function useMatchDetailController() {
 
   const isOwner = !!group && !!currentUser && group.ownerId === currentUser.id;
 
+  const teamList = teams ?? [];
+  const { movePlayer, isMovingPlayer } = useMovePlayerController(
+    groupId!,
+    matchId!,
+    teamList,
+  );
+  const assignedPlayerIds = new Set(
+    teamList.flatMap((team) =>
+      team.matchTeamPlayers.map((player) => getTeamPlayerRef(player).id),
+    ),
+  );
+  const unassignedPlayers =
+    teamList.length > 0
+      ? (presences?.confirmed ?? []).filter(
+          (member) => !assignedPlayerIds.has(member.id),
+        )
+      : [];
+
   const queryClient = useQueryClient();
   const [guestToRemove, setGuestToRemove] =
     useState<MatchPresenceMember | null>(null);
@@ -72,9 +94,12 @@ export function useMatchDetailController() {
     myStatus,
     setPresence,
     isPending,
-    teams: teams ?? [],
+    teams: teamList,
     isLoadingTeams,
     isOwner,
+    unassignedPlayers,
+    movePlayer,
+    isMovingPlayer,
     guestToRemove,
     setGuestToRemove,
     confirmRemoveGuest,
