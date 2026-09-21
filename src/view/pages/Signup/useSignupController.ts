@@ -4,12 +4,14 @@ import { isAxiosError } from "axios";
 import { useController, useForm } from "react-hook-form";
 import { useNavigate } from "react-router";
 import { useAuth } from "@/src/app/hooks/useAuth";
+import { useAuthRedirect } from "@/src/app/hooks/useAuthRedirect";
 import { signup as signupRequest } from "@/src/app/services/authService";
 import { signupSchema, type SignupFormValues } from "./signup.schema";
 
 export function useSignupController() {
   const navigate = useNavigate();
   const { login } = useAuth();
+  const { redirectTo, withRedirect } = useAuthRedirect();
 
   const {
     register,
@@ -33,7 +35,7 @@ export function useSignupController() {
     mutationFn: signupRequest,
     onSuccess: ({ accessToken }) => {
       login(accessToken);
-      navigate("/home");
+      navigate(redirectTo, { replace: true });
     },
   });
 
@@ -49,6 +51,7 @@ export function useSignupController() {
         : null;
 
   return {
+    loginLink: withRedirect("/"),
     register,
     positionField,
     onSubmit,

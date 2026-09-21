@@ -14,6 +14,7 @@ import { useSignupController } from "./useSignupController";
 
 export function SignupPage() {
     const {
+        loginLink,
         register,
         positionField,
         onSubmit,
@@ -104,7 +105,7 @@ export function SignupPage() {
             </form>
             <div className="flex flex-wrap items-center justify-center gap-1">
                 <span className="text-sm font-medium">Já tem uma conta?</span>
-                <Button variant={"link"} size={"sm"} render={<Link to="/" />}>
+                <Button variant={"link"} size={"sm"} render={<Link to={loginLink} />}>
                     <span className="text-sm font-medium text-primary-900">Entrar</span>
                 </Button>
             </div>

@@ -5,7 +5,7 @@ import { Input } from "../../components/ui/input";
 import { useLoginController } from "./useLoginController";
 
 export function LoginPage() {
-    const { register, onSubmit, errors, isPending, errorMessage } =
+    const { signupLink, register, onSubmit, errors, isPending, errorMessage } =
         useLoginController();
 
     return (
@@ -52,7 +52,7 @@ export function LoginPage() {
             </form>
             <div className="flex flex-wrap items-center justify-center gap-1">
                 <span className="text-sm font-medium">Ainda não tem uma conta?</span>
-                <Button variant={"link"} size={"sm"} render={<Link to="/signup" />}>
+                <Button variant={"link"} size={"sm"} render={<Link to={signupLink} />}>
                     <span className="text-sm font-medium text-primary-900">Cadastre-se</span>
                 </Button>
             </div>
