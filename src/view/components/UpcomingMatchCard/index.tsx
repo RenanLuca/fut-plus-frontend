@@ -1,7 +1,12 @@
 import { Calendar, Check, X } from "lucide-react";
 import { Link } from "react-router";
 import { Button } from "../ui/button";
-import { Avatar, AvatarFallback, AvatarGroup } from "../ui/avatar";
+import {
+    Avatar,
+    AvatarFallback,
+    AvatarGroup,
+    AvatarImage,
+} from "../ui/avatar";
 import { cn } from "@/src/app/utils/cn";
 import { getInitials } from "@/src/app/utils/get-initials";
 import { useMatchPresence } from "@/src/app/hooks/useMatchPresence";
@@ -49,6 +54,9 @@ export function UpcomingMatchCard({
                         <AvatarGroup>
                             {presences.confirmed.slice(0, 4).map((member) => (
                                 <Avatar key={member.id} size="sm">
+                                    {member.profilePicture && (
+                                        <AvatarImage src={member.profilePicture} />
+                                    )}
                                     <AvatarFallback>{getInitials(member.name)}</AvatarFallback>
                                 </Avatar>
                             ))}
