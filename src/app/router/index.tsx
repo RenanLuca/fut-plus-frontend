@@ -9,6 +9,7 @@ import { GroupsPage } from "@/src/view/pages/Groups";
 import { GroupDetailPage } from "@/src/view/pages/GroupDetail";
 import { GroupLayout } from "@/src/view/pages/GroupDetail/GroupLayout";
 import { GroupMembersPage } from "@/src/view/pages/GroupMembers";
+import { GroupPaymentsPage } from "@/src/view/pages/GroupPayments";
 import { MatchDetailPage } from "@/src/view/pages/MatchDetail";
 import { ProfilePage } from "@/src/view/pages/Profile";
 import { BrowserRouter, Route, Routes } from "react-router";
@@ -28,6 +29,7 @@ export function Router() {
                 <Route path="/groups/:groupId" element={<GroupLayout />}>
                     <Route index element={<GroupDetailPage />} />
                     <Route path="members" element={<GroupMembersPage />} />
+                    <Route path="payments" element={<GroupPaymentsPage />} />
                 </Route>
                 <Route
                     path="/groups/:groupId/matches/:matchId"

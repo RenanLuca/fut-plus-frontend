@@ -25,6 +25,7 @@ export function GroupLayout() {
             label: membersCount === undefined ? "Membros" : `Membros (${membersCount})`,
             end: false,
         },
+        { to: `/groups/${group.id}/payments`, label: "Pagamentos", end: false },
     ];
 
     return (
