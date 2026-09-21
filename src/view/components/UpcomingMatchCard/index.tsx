@@ -99,7 +99,7 @@ export function UpcomingMatchCard({
                                 {member.profilePicture && (
                                     <AvatarImage src={member.profilePicture} />
                                 )}
-                                <AvatarFallback className="bg-mint-500 font-medium text-forest-900">
+                                <AvatarFallback className="bg-white font-medium text-primary-900">
                                     {getInitials(member.name)}
                                 </AvatarFallback>
                             </Avatar>
