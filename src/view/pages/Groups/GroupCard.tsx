@@ -16,10 +16,10 @@ export function GroupCard({ group }: { group: Group }) {
         >
             <span className="font-semibold text-primary-900">{group.name}</span>
             <div className="flex flex-wrap gap-1.5 text-xs text-muted-foreground">
-                <span className="rounded-full bg-pale-100 px-2 py-0.5">
+                <span className="rounded-full bg-primary-100 px-2 py-0.5 text-primary-800">
                     {WEEKDAY_LABELS[group.weekday]}, {group.hour}
                 </span>
-                <span className="rounded-full bg-pale-100 px-2 py-0.5">
+                <span className="rounded-full bg-primary-100 px-2 py-0.5 text-primary-800">
                     {FREQUENCY_LABELS[group.frequency]}
                 </span>
             </div>

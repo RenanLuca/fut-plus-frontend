@@ -124,7 +124,7 @@ export function MatchDetailPage() {
     if (isLoadingMatch || !match) {
         return (
             <PageWrapper>
-                <div className="h-24 animate-pulse rounded-xl bg-gray-100" />
+                <div className="h-24 animate-pulse rounded-xl bg-primary-100" />
             </PageWrapper>
         );
     }
@@ -175,7 +175,7 @@ export function MatchDetailPage() {
             }
         >
             {isLoadingPresences && (
-                <div className="h-24 animate-pulse rounded-xl bg-gray-100" />
+                <div className="h-24 animate-pulse rounded-xl bg-primary-100" />
             )}
 
             {!isLoadingPresences && presences && (
@@ -217,7 +217,7 @@ export function MatchDetailPage() {
                 </div>
 
                 {isLoadingTeams && (
-                    <div className="h-24 animate-pulse rounded-xl bg-gray-100" />
+                    <div className="h-24 animate-pulse rounded-xl bg-primary-100" />
                 )}
 
                 {!isLoadingTeams && teams.length === 0 && (

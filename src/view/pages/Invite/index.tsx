@@ -52,7 +52,7 @@ export function InvitePage() {
     if (isLoading) {
         return (
             <InviteShell>
-                <div className="h-40 w-full animate-pulse rounded-xl bg-gray-100" />
+                <div className="h-40 w-full animate-pulse rounded-xl bg-primary-100" />
             </InviteShell>
         );
     }

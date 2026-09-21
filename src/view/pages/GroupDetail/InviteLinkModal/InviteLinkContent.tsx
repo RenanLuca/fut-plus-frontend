@@ -32,7 +32,7 @@ export function InviteLinkContent({ groupId }: { groupId: string }) {
             </SheetHeader>
 
             <div className="flex flex-col gap-4 px-6">
-                {isLoading && <div className="h-24 animate-pulse rounded-xl bg-gray-100" />}
+                {isLoading && <div className="h-24 animate-pulse rounded-xl bg-primary-100" />}
 
                 {!isLoading && !link && (
                     <div className="flex flex-col items-center gap-3 rounded-xl border border-dashed border-primary-200 bg-item py-8 text-center">

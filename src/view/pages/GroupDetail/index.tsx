@@ -21,7 +21,7 @@ export function GroupDetailPage() {
             </div>
 
             {isLoadingMatches && (
-                <div className="h-32 animate-pulse rounded-xl bg-gray-100" />
+                <div className="h-32 animate-pulse rounded-xl bg-primary-100" />
             )}
 
             {!isLoadingMatches && nextMatch && (

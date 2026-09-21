@@ -37,7 +37,7 @@ export function GroupOverview({ groupId }: { groupId: string }) {
                 onChange={setSelectedMonth}
             />
 
-            {isLoading && <div className="h-40 animate-pulse rounded-xl bg-gray-100" />}
+            {isLoading && <div className="h-40 animate-pulse rounded-xl bg-primary-100" />}
 
             {!isLoading && (
                 <>

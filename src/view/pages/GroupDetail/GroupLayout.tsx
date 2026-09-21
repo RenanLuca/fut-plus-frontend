@@ -13,7 +13,7 @@ export function GroupLayout() {
     if (isLoadingGroup || !group) {
         return (
             <PageWrapper>
-                <div className="h-24 animate-pulse rounded-xl bg-gray-100" />
+                <div className="h-24 animate-pulse rounded-xl bg-primary-100" />
             </PageWrapper>
         );
     }
@@ -34,10 +34,10 @@ export function GroupLayout() {
                 <>
                     <h1 className="text-xl font-bold text-primary-900">{group.name}</h1>
                     <div className="flex flex-wrap gap-1.5 text-xs text-muted-foreground">
-                        <span className="rounded-full bg-pale-100 px-2 py-0.5">
+                        <span className="rounded-full bg-primary-100 px-2 py-0.5 text-primary-800">
                             {WEEKDAY_LABELS[group.weekday]}, {group.hour}
                         </span>
-                        <span className="rounded-full bg-pale-100 px-2 py-0.5">
+                        <span className="rounded-full bg-primary-100 px-2 py-0.5 text-primary-800">
                             {FREQUENCY_LABELS[group.frequency]}
                         </span>
                     </div>
@@ -45,7 +45,7 @@ export function GroupLayout() {
             }
             actions={<GroupActionsMenu group={group} isOwner={isOwner} />}
         >
-            <nav className="-mt-2 flex gap-1 overflow-x-auto shadow-[inset_0_-1px_0_0_var(--color-gray-100)]">
+            <nav className="-mt-2 flex gap-1 overflow-x-auto shadow-[inset_0_-1px_0_0_var(--color-item-border)]">
                 {tabs.map((tab) => (
                     <NavLink
                         key={tab.to}
