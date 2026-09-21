@@ -15,7 +15,7 @@ export function GroupsGrid({
                 {[1, 2, 3].map((key) => (
                     <div
                         key={key}
-                        className="h-24 animate-pulse rounded-xl bg-primary-100"
+                        className="h-24 animate-pulse rounded-xl bg-gray-100"
                     />
                 ))}
             </div>
