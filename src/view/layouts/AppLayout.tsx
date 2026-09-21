@@ -23,8 +23,8 @@ export function AppLayout() {
     const { data: user } = useCurrentUser();
 
     return (
-        <div className="h-full w-full flex flex-col md:flex-row bg-ice-300">
-            <aside className="hidden md:flex md:w-56 md:flex-col md:border-r md:border-gray-100 md:bg-white md:p-4 md:gap-6">
+        <div className="h-full w-full flex flex-col md:flex-row bg-app">
+            <aside className="hidden md:flex md:w-56 md:flex-col md:border-r md:border-item-border md:bg-white md:p-4 md:gap-6">
                 <img src={logoFutPlus} alt="Fut+" className="w-24" />
                 <nav className="flex flex-col gap-1">
                     {NAV_ITEMS.map((item) => (
@@ -33,8 +33,8 @@ export function AppLayout() {
                             to={item.to}
                             className={({ isActive }) =>
                                 cn(
-                                    "flex items-center gap-2.5 rounded-lg px-3 py-2 text-sm font-medium text-gray-600 transition-colors hover:bg-pale-100",
-                                    isActive && "bg-pale-100 text-primary-900",
+                                    "flex items-center gap-2.5 rounded-lg px-3 py-2 text-sm font-medium text-gray-600 transition-colors hover:bg-primary-100",
+                                    isActive && "bg-primary-100 text-primary-900",
                                 )
                             }
                         >
@@ -46,7 +46,7 @@ export function AppLayout() {
             </aside>
 
             <div className="flex flex-col flex-1 min-h-0">
-                <header className="flex items-center justify-between gap-3 border-b border-gray-100 bg-white p-4">
+                <header className="flex items-center justify-between gap-3 border-b border-item-border bg-white p-4">
                     <img src={logoFutPlus} alt="Fut+" className="w-20 md:hidden" />
                     <div className="flex items-center gap-3 ml-auto">
                         {user && (
@@ -79,20 +79,31 @@ export function AppLayout() {
                 </main>
             </div>
 
-            <nav className="md:hidden fixed inset-x-0 bottom-0 flex justify-around border-t border-gray-100 bg-white py-2">
+            <nav className="md:hidden fixed inset-x-0 bottom-0 flex justify-around border-t border-item-border bg-white py-2">
                 {NAV_ITEMS.map((item) => (
                     <NavLink
                         key={item.to}
                         to={item.to}
                         className={({ isActive }) =>
                             cn(
-                                "flex flex-col items-center gap-0.5 px-4 py-1 text-xs font-medium text-gray-500",
+                                "flex flex-col items-center gap-0.5 px-4 text-xs font-medium text-gray-500",
                                 isActive && "text-primary-900",
                             )
                         }
                     >
-                        <item.icon className="size-5" />
-                        {item.label}
+                        {({ isActive }) => (
+                            <>
+                                <span
+                                    className={cn(
+                                        "rounded-full px-4 py-1 transition-colors",
+                                        isActive && "bg-primary-100",
+                                    )}
+                                >
+                                    <item.icon className="size-5" />
+                                </span>
+                                {item.label}
+                            </>
+                        )}
                     </NavLink>
                 ))}
             </nav>

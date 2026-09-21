@@ -97,6 +97,11 @@
   --color-black-800: #111111;
   --color-black-900: #0c0c0c;
 
+  /* superficies do app: fundo, itens internos (dentro do wrapper branco) e a borda deles */
+  --color-app: #e3eee4;
+  --color-item: #f2fff3;
+  --color-item-border: #d3e6d4;
+
   /* tokens semanticos: mudam sozinhos quando a classe .dark entra no <html> */
   --color-background: var(--background);
   --color-foreground: var(--foreground);
