@@ -1,4 +1,4 @@
-import { Calendar, Check, Clock, X } from "lucide-react";
+import { ArrowRight, Calendar, Check, Clock, X } from "lucide-react";
 import { Link } from "react-router";
 import { Button } from "../ui/button";
 import {
@@ -18,7 +18,6 @@ import {
 type UpcomingMatchCardProps = {
     match: { id: string; groupId: string; matchDate: string };
     groupName: string;
-    to: string;
 };
 
 const CARD_BACKGROUND =
@@ -54,7 +53,6 @@ function StatusChip({ status }: { status: MyPresenceStatus }) {
 export function UpcomingMatchCard({
     match,
     groupName,
-    to,
 }: UpcomingMatchCardProps) {
     const { presences, isLoadingPresences, myStatus, setPresence, isPending } =
         useMatchPresence(match.groupId, match.id);
@@ -62,6 +60,7 @@ export function UpcomingMatchCard({
         new Date(match.matchDate),
     );
     const confirmedCount = presences?.confirmed.length ?? 0;
+    const matchPath = `/groups/${match.groupId}/matches/${match.id}`;
 
     return (
         <div
@@ -77,7 +76,7 @@ export function UpcomingMatchCard({
                 {presences && <StatusChip status={myStatus} />}
             </div>
 
-            <Link to={to} className="flex items-center gap-4">
+            <Link to={matchPath} className="flex items-center gap-4">
                 <div className="flex size-16 shrink-0 flex-col items-center justify-center rounded-xl bg-white/10 ring-1 ring-white/20">
                     <span className="text-2xl leading-none font-bold">{day}</span>
                     <span className="mt-1 text-xs leading-none font-semibold tracking-wide text-grass-400 uppercase">
@@ -114,32 +113,40 @@ export function UpcomingMatchCard({
                 </span>
             </div>
 
-            <div className="grid grid-cols-2 gap-2">
+            {isLoadingPresences && (
+                <div className="h-9 animate-pulse rounded-lg bg-white/10" />
+            )}
+
+            {!isLoadingPresences && presences && myStatus === "pending" && (
+                <div className="grid grid-cols-2 gap-2">
+                    <Button
+                        disabled={isPending}
+                        onClick={() => setPresence(true)}
+                        className="bg-white text-primary-900 hover:bg-white/90"
+                    >
+                        <Check className="size-4" />
+                        Vou
+                    </Button>
+                    <Button
+                        disabled={isPending}
+                        onClick={() => setPresence(false)}
+                        className="bg-white text-primary-900 hover:bg-white/90"
+                    >
+                        <X className="size-4" />
+                        Não vou
+                    </Button>
+                </div>
+            )}
+
+            {!isLoadingPresences && !(presences && myStatus === "pending") && (
                 <Button
-                    disabled={isPending}
-                    onClick={() => setPresence(true)}
-                    className={cn(
-                        "bg-white text-primary-900 hover:bg-white/90",
-                        myStatus === "confirmed" &&
-                            "bg-grass-500 text-forest-900 hover:bg-grass-500/90",
-                    )}
+                    render={<Link to={matchPath} />}
+                    className="w-full bg-white text-primary-900 hover:bg-white/90"
                 >
-                    <Check className="size-4" />
-                    Vou
+                    Ver partida
+                    <ArrowRight className="size-4" />
                 </Button>
-                <Button
-                    disabled={isPending}
-                    onClick={() => setPresence(false)}
-                    className={cn(
-                        "bg-white text-primary-900 hover:bg-white/90",
-                        myStatus === "declined" &&
-                            "bg-destructive text-white hover:bg-destructive/90",
-                    )}
-                >
-                    <X className="size-4" />
-                    Não vou
-                </Button>
-            </div>
+            )}
         </div>
     );
 }
