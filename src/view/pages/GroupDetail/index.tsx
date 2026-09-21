@@ -1,63 +1,19 @@
-import { Calendar } from "lucide-react";
+import { CalendarX, ChevronRight, Users } from "lucide-react";
 import { Link } from "react-router";
 import { PageWrapper } from "../../components/PageWrapper";
-import { Avatar, AvatarFallback } from "../../components/ui/avatar";
+import { UpcomingMatchCard } from "../../components/UpcomingMatchCard";
 import { WEEKDAY_LABELS } from "@/src/app/constants/weekday";
 import { FREQUENCY_LABELS } from "@/src/app/constants/frequencyType";
-import { GROUP_MEMBER_TYPE_LABELS } from "@/src/app/constants/groupMemberType";
-import { getInitials } from "@/src/app/utils/get-initials";
-import type { GroupMember } from "@/src/app/services/groupMembersService";
-import type { GroupMatch } from "@/src/app/services/groupMatchesService";
 import { CreateMatchModal } from "./CreateMatchModal";
 import { GroupActionsMenu } from "./GroupActionsMenu";
 import { useGroupDetailController } from "./useGroupDetailController";
-
-const dateFormatter = new Intl.DateTimeFormat("pt-BR", {
-    weekday: "short",
-    day: "2-digit",
-    month: "short",
-    hour: "2-digit",
-    minute: "2-digit",
-});
-
-function MemberRow({ member }: { member: GroupMember }) {
-    const name = member.user?.name ?? member.guestUser?.name ?? "—";
-    return (
-        <div className="flex items-center gap-3 rounded-lg bg-ice-100 p-3">
-            <Avatar size="sm">
-                <AvatarFallback>{getInitials(name)}</AvatarFallback>
-            </Avatar>
-            <div className="flex flex-1 flex-col">
-                <span className="text-sm font-medium">{name}</span>
-                <span className="text-xs text-muted-foreground">
-                    {GROUP_MEMBER_TYPE_LABELS[member.type]}
-                </span>
-            </div>
-        </div>
-    );
-}
-
-function MatchRow({ match }: { match: GroupMatch }) {
-    return (
-        <Link
-            to={`/groups/${match.groupId}/matches/${match.id}`}
-            className="flex items-center gap-3 rounded-lg bg-ice-100 p-3 transition-colors hover:bg-ice-300"
-        >
-            <Calendar className="size-4 text-primary-900" />
-            <span className="text-sm font-medium capitalize">
-                {dateFormatter.format(new Date(match.matchDate))}
-            </span>
-        </Link>
-    );
-}
 
 export function GroupDetailPage() {
     const {
         group,
         isLoadingGroup,
-        members,
-        isLoadingMembers,
-        matches,
+        membersCount,
+        nextMatch,
         isLoadingMatches,
         isOwner,
     } = useGroupDetailController();
@@ -88,43 +44,55 @@ export function GroupDetailPage() {
             actions={isOwner && <GroupActionsMenu group={group} />}
         >
             <section className="flex flex-col gap-3">
-                <h2 className="text-sm font-semibold text-gray-700">Membros</h2>
-                {isLoadingMembers && (
-                    <div className="h-16 animate-pulse rounded-lg bg-gray-100" />
+                <div className="flex items-center justify-between">
+                    <h2 className="text-sm font-semibold text-gray-700">Próxima partida</h2>
+                    {isOwner && group.frequency === "EVENTUAL" && (
+                        <CreateMatchModal groupId={group.id} />
+                    )}
+                </div>
+
+                {isLoadingMatches && (
+                    <div className="h-32 animate-pulse rounded-xl bg-gray-100" />
                 )}
-                {!isLoadingMembers && members.length === 0 && (
-                    <p className="text-sm text-muted-foreground">Nenhum membro ainda</p>
+
+                {!isLoadingMatches && nextMatch && (
+                    <UpcomingMatchCard
+                        match={nextMatch}
+                        groupName={group.name}
+                        to={`/groups/${group.id}/matches/${nextMatch.id}`}
+                    />
                 )}
-                {!isLoadingMembers && members.length > 0 && (
-                    <div className="flex flex-col gap-2">
-                        {members.map((member) => (
-                            <MemberRow key={member.id} member={member} />
-                        ))}
+
+                {!isLoadingMatches && !nextMatch && (
+                    <div className="flex flex-col items-center gap-2 rounded-xl border border-dashed border-gray-200 bg-white py-10 text-center">
+                        <CalendarX className="size-8 text-muted-foreground" />
+                        <p className="text-sm font-medium text-gray-700">
+                            Nenhuma partida marcada
+                        </p>
+                        <p className="text-xs text-muted-foreground">
+                            {group.frequency === "EVENTUAL"
+                                ? isOwner
+                                    ? "Crie uma partida pra começar"
+                                    : "O dono do grupo ainda não marcou a próxima"
+                                : "As partidas mensais são geradas automaticamente 5 dias antes"}
+                        </p>
                     </div>
                 )}
             </section>
 
-            <section className="flex flex-col gap-3">
-                <div className="flex items-center justify-between">
-                    <h2 className="text-sm font-semibold text-gray-700">Partidas</h2>
-                    {group.frequency === "EVENTUAL" && (
-                        <CreateMatchModal groupId={group.id} />
-                    )}
-                </div>
-                {isLoadingMatches && (
-                    <div className="h-16 animate-pulse rounded-lg bg-gray-100" />
-                )}
-                {!isLoadingMatches && matches.length === 0 && (
-                    <p className="text-sm text-muted-foreground">Nenhuma partida marcada</p>
-                )}
-                {!isLoadingMatches && matches.length > 0 && (
-                    <div className="flex flex-col gap-2">
-                        {matches.map((match) => (
-                            <MatchRow key={match.id} match={match} />
-                        ))}
-                    </div>
-                )}
-            </section>
+            <Link
+                to={`/groups/${group.id}/members`}
+                className="flex items-center justify-between rounded-lg bg-ice-100 p-3 transition-colors hover:bg-ice-300"
+            >
+                <span className="flex items-center gap-2 text-sm font-medium">
+                    <Users className="size-4 text-primary-900" />
+                    Membros
+                </span>
+                <span className="flex items-center gap-1 text-sm text-muted-foreground">
+                    {membersCount ?? "—"}
+                    <ChevronRight className="size-4" />
+                </span>
+            </Link>
         </PageWrapper>
     );
 }

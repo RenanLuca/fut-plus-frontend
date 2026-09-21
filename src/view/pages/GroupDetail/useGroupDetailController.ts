@@ -5,6 +5,7 @@ import { findOne as findGroup } from "@/src/app/services/groupsService";
 import { findAllPerGroup as findGroupMembers } from "@/src/app/services/groupMembersService";
 import { findAll as findGroupMatches } from "@/src/app/services/groupMatchesService";
 import { useCurrentUser } from "@/src/app/hooks/useCurrentUser";
+import { getNextMatch } from "@/src/app/utils/get-next-match";
 
 export function useGroupDetailController() {
   const { groupId } = useParams<{ groupId: string }>();
@@ -16,7 +17,7 @@ export function useGroupDetailController() {
     enabled: !!groupId,
   });
 
-  const { data: members, isLoading: isLoadingMembers } = useQuery({
+  const { data: members } = useQuery({
     queryKey: queryKeys.groupMembers(groupId!),
     queryFn: () => findGroupMembers(groupId!),
     enabled: !!groupId,
@@ -33,9 +34,8 @@ export function useGroupDetailController() {
   return {
     group,
     isLoadingGroup,
-    members: members ?? [],
-    isLoadingMembers,
-    matches: matches ?? [],
+    membersCount: members?.length,
+    nextMatch: matches ? getNextMatch(matches) : undefined,
     isLoadingMatches,
     isOwner,
   };
