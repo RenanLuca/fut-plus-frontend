@@ -11,10 +11,11 @@ import {
 import { cn } from "@/src/app/utils/cn";
 import { getInitials } from "@/src/app/utils/get-initials";
 import type { MatchPresenceMember } from "@/src/app/services/matchPresencesService";
-import type { MatchTeam } from "@/src/app/services/matchTeamsService";
 import { AddGuestModal } from "./AddGuestModal";
 import { GenerateTeamsModal } from "./GenerateTeamsModal";
 import { MatchActionsMenu } from "./MatchActionsMenu";
+import { TeamCard } from "./TeamCard";
+import { UnassignedPlayers } from "./UnassignedPlayers";
 import { useMatchDetailController } from "./useMatchDetailController";
 
 const dateFormatter = new Intl.DateTimeFormat("pt-BR", {
@@ -96,43 +97,6 @@ function PresenceSection({
     );
 }
 
-function TeamCard({ team }: { team: MatchTeam }) {
-    return (
-        <div className="flex flex-col gap-3 rounded-xl border border-gray-100 bg-white p-4 shadow-sm">
-            <div className="flex items-center gap-2">
-                <span
-                    className="size-3 rounded-full border border-gray-200"
-                    style={{ backgroundColor: team.color }}
-                />
-                <span className="font-semibold text-primary-900">{team.name}</span>
-                <span className="text-xs text-muted-foreground">
-                    ({team.matchTeamPlayers.length})
-                </span>
-            </div>
-            {team.matchTeamPlayers.length === 0 ? (
-                <p className="text-sm text-muted-foreground">Sem jogadores</p>
-            ) : (
-                <div className="flex flex-col gap-2">
-                    {team.matchTeamPlayers.map((player, index) => {
-                        const name = player.user?.name ?? player.guestUser?.name ?? "—";
-                        return (
-                            <div key={index} className="flex items-center gap-2">
-                                <Avatar size="sm">
-                                    {player.user?.profilePicture && (
-                                        <AvatarImage src={player.user.profilePicture} />
-                                    )}
-                                    <AvatarFallback>{getInitials(name)}</AvatarFallback>
-                                </Avatar>
-                                <span className="text-sm">{name}</span>
-                            </div>
-                        );
-                    })}
-                </div>
-            )}
-        </div>
-    );
-}
-
 export function MatchDetailPage() {
     const {
         groupId,
@@ -152,6 +116,9 @@ export function MatchDetailPage() {
         setGuestToRemove,
         confirmRemoveGuest,
         isRemovingGuest,
+        unassignedPlayers,
+        movePlayer,
+        isMovingPlayer,
     } = useMatchDetailController();
 
     if (isLoadingMatch || !match) {
@@ -268,11 +235,36 @@ export function MatchDetailPage() {
                 )}
 
                 {!isLoadingTeams && teams.length > 0 && (
-                    <div className="grid gap-3 sm:grid-cols-2">
-                        {teams.map((team) => (
-                            <TeamCard key={team.id} team={team} />
-                        ))}
-                    </div>
+                    <>
+                        {isOwner && (
+                            <p className="text-xs text-muted-foreground">
+                                Toque em um jogador para movê-lo de time.
+                            </p>
+                        )}
+                        <div className="grid gap-3 sm:grid-cols-2">
+                            {teams.map((team) => (
+                                <TeamCard
+                                    key={team.id}
+                                    team={team}
+                                    teams={teams}
+                                    groupId={groupId!}
+                                    matchId={matchId!}
+                                    isOwner={isOwner}
+                                    onMovePlayer={movePlayer}
+                                    isMovingPlayer={isMovingPlayer}
+                                />
+                            ))}
+                        </div>
+                        {unassignedPlayers.length > 0 && (
+                            <UnassignedPlayers
+                                players={unassignedPlayers}
+                                teams={teams}
+                                isOwner={isOwner}
+                                onMovePlayer={movePlayer}
+                                isMovingPlayer={isMovingPlayer}
+                            />
+                        )}
+                    </>
                 )}
             </section>
 
