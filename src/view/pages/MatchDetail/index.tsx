@@ -133,7 +133,7 @@ export function MatchDetailPage() {
         <PageWrapper
             title={
                 <>
-                    <h1 className="text-xl font-bold text-primary-900 capitalize">
+                    <h1 className="text-xl font-bold text-primary-900 first-letter:uppercase">
                         {dateFormatter.format(new Date(match.matchDate))}
                     </h1>
                     {group && (
