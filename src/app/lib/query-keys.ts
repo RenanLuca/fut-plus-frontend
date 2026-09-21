@@ -3,6 +3,9 @@ export const queryKeys = {
   group: (groupId: string) => ["groups", groupId] as const,
   groupMembers: (groupId: string) =>
     ["groups", groupId, "members"] as const,
+  groupInvite: (groupId: string) =>
+    ["groups", groupId, "invite"] as const,
+  invite: (inviteId: string) => ["invites", inviteId] as const,
   groupMatches: (groupId: string) =>
     ["groups", groupId, "matches"] as const,
   groupMatch: (groupId: string, matchId: string) =>
