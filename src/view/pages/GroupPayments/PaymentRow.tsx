@@ -13,7 +13,7 @@ export function PaymentRow({
     amount: number;
 }) {
     return (
-        <div className="flex items-center gap-3 rounded-lg bg-ice-100 p-3">
+        <div className="flex items-center gap-3 rounded-lg border border-item-border bg-item p-3">
             <Receipt className="size-4 shrink-0 text-primary-900" />
             <div className="flex flex-1 flex-col">
                 <span className="text-sm font-medium">{title}</span>

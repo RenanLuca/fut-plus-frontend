@@ -34,7 +34,7 @@ function MemberRow({
     onRemoveGuest?: (member: MatchPresenceMember) => void;
 }) {
     return (
-        <div className="flex items-center gap-3 rounded-lg bg-ice-100 p-3">
+        <div className="flex items-center gap-3 rounded-lg border border-item-border bg-item p-3">
             <Avatar size="sm">
                 {member.profilePicture && <AvatarImage src={member.profilePicture} />}
                 <AvatarFallback>{getInitials(member.name)}</AvatarFallback>
@@ -221,7 +221,7 @@ export function MatchDetailPage() {
                 )}
 
                 {!isLoadingTeams && teams.length === 0 && (
-                    <div className="flex flex-col items-center gap-2 rounded-xl border border-dashed border-gray-200 bg-white py-10 text-center">
+                    <div className="flex flex-col items-center gap-2 rounded-xl border border-dashed border-primary-200 bg-item py-10 text-center">
                         <Shirt className="size-8 text-muted-foreground" />
                         <p className="text-sm font-medium text-gray-700">
                             Nenhum time gerado ainda

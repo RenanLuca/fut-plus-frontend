@@ -35,7 +35,7 @@ export function InviteLinkContent({ groupId }: { groupId: string }) {
                 {isLoading && <div className="h-24 animate-pulse rounded-xl bg-gray-100" />}
 
                 {!isLoading && !link && (
-                    <div className="flex flex-col items-center gap-3 rounded-xl border border-dashed border-gray-200 py-8 text-center">
+                    <div className="flex flex-col items-center gap-3 rounded-xl border border-dashed border-primary-200 bg-item py-8 text-center">
                         <Link2 className="size-8 text-muted-foreground" />
                         <p className="text-sm font-medium text-gray-700">
                             Este grupo ainda não tem um link de convite

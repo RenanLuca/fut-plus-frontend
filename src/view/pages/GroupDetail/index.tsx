@@ -33,7 +33,7 @@ export function GroupDetailPage() {
             )}
 
             {!isLoadingMatches && !nextMatch && (
-                <div className="flex flex-col items-center gap-2 rounded-xl border border-dashed border-gray-200 bg-white py-10 text-center">
+                <div className="flex flex-col items-center gap-2 rounded-xl border border-dashed border-primary-200 bg-item py-10 text-center">
                     <CalendarX className="size-8 text-muted-foreground" />
                     <p className="text-sm font-medium text-gray-700">
                         Nenhuma partida marcada

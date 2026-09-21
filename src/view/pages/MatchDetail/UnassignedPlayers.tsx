@@ -18,7 +18,7 @@ export function UnassignedPlayers({
     isMovingPlayer: boolean;
 }) {
     return (
-        <div className="flex flex-col gap-2 rounded-xl border border-dashed border-gray-300 bg-white p-4">
+        <div className="flex flex-col gap-2 rounded-xl border border-dashed border-primary-200 bg-item p-4">
             <div className="flex flex-col">
                 <span className="font-semibold text-gray-700">
                     Sem time ({players.length})

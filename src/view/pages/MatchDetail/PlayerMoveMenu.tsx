@@ -33,7 +33,7 @@ export function PlayerMoveMenu({
                 render={
                     <button
                         type="button"
-                        className="w-full rounded-md p-1 transition-colors hover:bg-ice-100 disabled:opacity-60"
+                        className="w-full rounded-md p-1 transition-colors hover:bg-primary-100 disabled:opacity-60"
                     />
                 }
             >

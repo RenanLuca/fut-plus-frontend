@@ -41,7 +41,7 @@ export function GroupOverview({ groupId }: { groupId: string }) {
 
             {!isLoading && (
                 <>
-                    <div className="flex flex-col gap-2 rounded-xl bg-ice-100 p-4">
+                    <div className="flex flex-col gap-2 rounded-xl border border-item-border bg-item p-4">
                         <span className="text-xs text-muted-foreground">
                             Mensalidades arrecadadas
                         </span>
@@ -68,7 +68,7 @@ export function GroupOverview({ groupId }: { groupId: string }) {
                         {checklist.map(({ member, payment }) => (
                             <div
                                 key={member.userId}
-                                className="flex items-center gap-3 rounded-lg bg-ice-100 p-3"
+                                className="flex items-center gap-3 rounded-lg border border-item-border bg-item p-3"
                             >
                                 <Avatar size="sm">
                                     {member.user.profilePicture && (
