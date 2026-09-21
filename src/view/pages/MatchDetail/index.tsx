@@ -28,7 +28,7 @@ function MemberRow({
     onRemoveGuest?: (member: MatchPresenceMember) => void;
 }) {
     return (
-        <div className="flex items-center gap-3 rounded-lg border border-gray-200 bg-white p-3">
+        <div className="flex items-center gap-3 rounded-lg border border-line bg-surface p-3">
             <Avatar size="sm">
                 {member.profilePicture && <AvatarImage src={member.profilePicture} />}
                 <AvatarFallback>{getInitials(member.name)}</AvatarFallback>
@@ -118,7 +118,7 @@ export function MatchDetailPage() {
     if (isLoadingMatch || !match) {
         return (
             <PageWrapper>
-                <div className="h-24 animate-pulse rounded-xl bg-gray-200" />
+                <div className="h-24 animate-pulse rounded-xl bg-soft-strong" />
             </PageWrapper>
         );
     }
@@ -176,7 +176,7 @@ export function MatchDetailPage() {
             </div>
 
             {isLoadingPresences && (
-                <div className="h-24 animate-pulse rounded-xl bg-gray-200" />
+                <div className="h-24 animate-pulse rounded-xl bg-soft-strong" />
             )}
 
             {!isLoadingPresences && presences && (
@@ -218,11 +218,11 @@ export function MatchDetailPage() {
                 </div>
 
                 {isLoadingTeams && (
-                    <div className="h-24 animate-pulse rounded-xl bg-gray-200" />
+                    <div className="h-24 animate-pulse rounded-xl bg-soft-strong" />
                 )}
 
                 {!isLoadingTeams && teams.length === 0 && (
-                    <div className="flex flex-col items-center gap-2 rounded-xl border border-dashed border-gray-300 bg-white py-10 text-center">
+                    <div className="flex flex-col items-center gap-2 rounded-xl border border-dashed border-line-strong bg-surface py-10 text-center">
                         <Shirt className="size-8 text-muted-foreground" />
                         <p className="text-sm font-medium text-gray-700">
                             Nenhum time gerado ainda

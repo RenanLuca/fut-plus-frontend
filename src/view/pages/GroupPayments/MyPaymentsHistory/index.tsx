@@ -18,7 +18,7 @@ export function MyPaymentsHistory({ groupId }: { groupId: string }) {
                 onChange={setSelectedMonth}
             />
 
-            {isLoading && <div className="h-16 animate-pulse rounded-lg bg-gray-200" />}
+            {isLoading && <div className="h-16 animate-pulse rounded-lg bg-soft-strong" />}
 
             {!isLoading && payments.length === 0 && (
                 <p className="text-sm text-muted-foreground">

@@ -7,7 +7,7 @@ export function GroupPaymentsPage() {
     const { groupId, isReady, isOwner } = useGroupPaymentsController();
 
     if (!isReady) {
-        return <div className="h-24 animate-pulse rounded-xl bg-gray-200" />;
+        return <div className="h-24 animate-pulse rounded-xl bg-soft-strong" />;
     }
 
     if (isOwner) {

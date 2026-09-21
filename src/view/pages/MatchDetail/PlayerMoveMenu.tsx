@@ -33,7 +33,7 @@ export function PlayerMoveMenu({
                 render={
                     <button
                         type="button"
-                        className="w-full rounded-md p-1 transition-colors hover:bg-gray-100 disabled:opacity-60"
+                        className="w-full rounded-md p-1 transition-colors hover:bg-soft disabled:opacity-60"
                     />
                 }
             >
@@ -46,7 +46,7 @@ export function PlayerMoveMenu({
                         onClick={() => onMove(player, team.id)}
                     >
                         <span
-                            className="size-3 rounded-full border border-gray-200"
+                            className="size-3 rounded-full border border-line"
                             style={{ backgroundColor: team.color }}
                         />
                         Mover para {team.name}

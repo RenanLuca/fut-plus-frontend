@@ -24,7 +24,7 @@ function MemberRow({
 }) {
     const name = getMemberName(member);
     return (
-        <div className="flex items-center gap-3 rounded-lg border border-gray-200 bg-white p-3">
+        <div className="flex items-center gap-3 rounded-lg border border-line bg-surface p-3">
             <Avatar size="sm">
                 {member.user.profilePicture && (
                     <AvatarImage src={member.user.profilePicture} />
@@ -66,7 +66,7 @@ export function GroupMembersPage() {
     return (
         <>
             {isLoading && (
-                <div className="h-16 animate-pulse rounded-lg bg-gray-200" />
+                <div className="h-16 animate-pulse rounded-lg bg-soft-strong" />
             )}
             {!isLoading && members.length === 0 && (
                 <p className="text-sm text-muted-foreground">Nenhum membro ainda</p>

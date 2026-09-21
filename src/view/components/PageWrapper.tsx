@@ -8,7 +8,7 @@ type PageWrapperProps = {
 
 export function PageWrapper({ title, actions, children }: PageWrapperProps) {
   return (
-    <div className="flex w-full flex-col gap-6 rounded-xl border border-item-border bg-white p-5 shadow-sm sm:p-6">
+    <div className="flex w-full flex-col gap-6 rounded-xl border border-frame bg-surface p-5 shadow-sm sm:p-6">
       {(title || actions) && (
         <div className="flex items-start justify-between gap-3">
           {title &&

@@ -23,7 +23,7 @@ const currencyFormatter = new Intl.NumberFormat("pt-BR", {
 function InviteShell({ children }: { children: ReactNode }) {
     return (
         <div className="flex h-full w-full items-center justify-center overflow-y-auto bg-app p-4">
-            <div className="flex w-full max-w-md flex-col items-center gap-6 rounded-xl bg-white p-6 shadow-sm">
+            <div className="flex w-full max-w-md flex-col items-center gap-6 rounded-xl bg-surface p-6 shadow-sm">
                 <img src={logoFutPlus} alt="Fut+" className="w-24" />
                 {children}
             </div>
@@ -52,7 +52,7 @@ export function InvitePage() {
     if (isLoading) {
         return (
             <InviteShell>
-                <div className="h-40 w-full animate-pulse rounded-xl bg-gray-200" />
+                <div className="h-40 w-full animate-pulse rounded-xl bg-soft-strong" />
             </InviteShell>
         );
     }
@@ -84,16 +84,16 @@ export function InvitePage() {
                 </span>
                 <h1 className="text-2xl font-bold text-primary-900">{group.name}</h1>
                 <div className="flex flex-wrap justify-center gap-1.5 text-xs text-muted-foreground">
-                    <span className="rounded-full bg-gray-100 px-2 py-0.5">
+                    <span className="rounded-full bg-soft px-2 py-0.5">
                         {WEEKDAY_LABELS[group.weekday]}, {group.hour}
                     </span>
-                    <span className="rounded-full bg-gray-100 px-2 py-0.5">
+                    <span className="rounded-full bg-soft px-2 py-0.5">
                         {FREQUENCY_LABELS[group.frequency]}
                     </span>
-                    <span className="rounded-full bg-gray-100 px-2 py-0.5">
+                    <span className="rounded-full bg-soft px-2 py-0.5">
                         {currencyFormatter.format(group.valuePerUser)} por pessoa
                     </span>
-                    <span className="rounded-full bg-gray-100 px-2 py-0.5">
+                    <span className="rounded-full bg-soft px-2 py-0.5">
                         {invite.membersCount}{" "}
                         {invite.membersCount === 1 ? "jogador" : "jogadores"}
                     </span>

@@ -15,7 +15,7 @@ export function GroupsGrid({
                 {[1, 2, 3].map((key) => (
                     <div
                         key={key}
-                        className="h-24 animate-pulse rounded-xl bg-gray-100"
+                        className="h-24 animate-pulse rounded-xl bg-soft"
                     />
                 ))}
             </div>
@@ -24,7 +24,7 @@ export function GroupsGrid({
 
     if (groups.length === 0) {
         return (
-            <div className="flex flex-col items-center gap-2 rounded-xl border border-dashed border-gray-300 bg-white py-10 text-center">
+            <div className="flex flex-col items-center gap-2 rounded-xl border border-dashed border-line-strong bg-surface py-10 text-center">
                 <Users className="size-8 text-muted-foreground" />
                 <p className="text-sm font-medium text-gray-700">
                     Você ainda não faz parte de nenhum grupo

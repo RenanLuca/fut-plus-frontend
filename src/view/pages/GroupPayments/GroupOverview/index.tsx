@@ -37,11 +37,11 @@ export function GroupOverview({ groupId }: { groupId: string }) {
                 onChange={setSelectedMonth}
             />
 
-            {isLoading && <div className="h-40 animate-pulse rounded-xl bg-gray-200" />}
+            {isLoading && <div className="h-40 animate-pulse rounded-xl bg-soft-strong" />}
 
             {!isLoading && (
                 <>
-                    <div className="flex flex-col gap-2 rounded-xl border border-gray-200 bg-white p-4">
+                    <div className="flex flex-col gap-2 rounded-xl border border-line bg-surface p-4">
                         <span className="text-xs text-muted-foreground">
                             Mensalidades arrecadadas
                         </span>
@@ -70,7 +70,7 @@ export function GroupOverview({ groupId }: { groupId: string }) {
                         {checklist.map(({ member, payment }) => (
                             <div
                                 key={member.userId}
-                                className="flex items-center gap-3 rounded-lg border border-gray-200 bg-white p-3"
+                                className="flex items-center gap-3 rounded-lg border border-line bg-surface p-3"
                             >
                                 <Avatar size="sm">
                                     {member.user.profilePicture && (

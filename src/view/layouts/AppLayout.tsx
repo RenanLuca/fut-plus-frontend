@@ -24,7 +24,7 @@ export function AppLayout() {
 
     return (
         <div className="h-full w-full flex flex-col md:flex-row bg-app">
-            <aside className="hidden md:flex md:w-56 md:flex-col md:border-r md:border-item-border md:bg-white md:p-4 md:gap-6">
+            <aside className="hidden md:flex md:w-56 md:flex-col md:border-r md:border-frame md:bg-surface md:p-4 md:gap-6">
                 <img src={logoFutPlus} alt="Fut+" className="w-24" />
                 <nav className="flex flex-col gap-1">
                     {NAV_ITEMS.map((item) => (
@@ -46,7 +46,7 @@ export function AppLayout() {
             </aside>
 
             <div className="flex flex-col flex-1 min-h-0">
-                <header className="flex items-center justify-between gap-3 border-b border-item-border bg-white p-4">
+                <header className="flex items-center justify-between gap-3 border-b border-frame bg-surface p-4">
                     <img src={logoFutPlus} alt="Fut+" className="w-20 md:hidden" />
                     <div className="flex items-center gap-3 ml-auto">
                         {user && (
@@ -79,7 +79,7 @@ export function AppLayout() {
                 </main>
             </div>
 
-            <nav className="md:hidden fixed inset-x-0 bottom-0 flex justify-around border-t border-item-border bg-white py-2">
+            <nav className="md:hidden fixed inset-x-0 bottom-0 flex justify-around border-t border-frame bg-surface py-2">
                 {NAV_ITEMS.map((item) => (
                     <NavLink
                         key={item.to}

@@ -16,7 +16,7 @@ export function ProfilePage() {
     if (isLoading || !user) {
         return (
             <PageWrapper title="Perfil">
-                <div className="h-24 animate-pulse rounded-xl bg-gray-200" />
+                <div className="h-24 animate-pulse rounded-xl bg-soft-strong" />
             </PageWrapper>
         );
     }

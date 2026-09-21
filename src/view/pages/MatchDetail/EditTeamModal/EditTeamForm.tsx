@@ -66,7 +66,7 @@ export function EditTeamForm({
                                     onClick={() => colorField.onChange(option.value)}
                                     style={{ backgroundColor: option.value }}
                                     className={cn(
-                                        "size-9 rounded-full border border-gray-300 transition-shadow",
+                                        "size-9 rounded-full border border-line-strong transition-shadow",
                                         selected && "ring-2 ring-primary-500 ring-offset-2",
                                     )}
                                 />

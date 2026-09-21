@@ -6,7 +6,7 @@ import logoWhiteFutPlus from "../../app/assets/logo-white-fut-plus.png";
 export function AuthLayout() {
   return (
     <div className="h-full w-full overflow-y-auto p-4 sm:p-6 bg-app flex items-center justify-center">
-      <div className="w-full max-w-4xl md:h-8/12 rounded-2xl border border-item-border bg-white flex flex-col md:flex-row overflow-hidden shadow-[0px_20px_60px_-15px_rgba(0,52,1,0.35)]">
+      <div className="w-full max-w-4xl md:h-8/12 rounded-2xl border border-frame bg-surface flex flex-col md:flex-row overflow-hidden shadow-[0px_20px_60px_-15px_rgba(0,52,1,0.35)]">
         <div className="hidden md:flex relative overflow-hidden w-2/5 bg-linear-to-br from-primary-900 to-forest-900 p-8 flex-col items-center justify-center">
           <div
             aria-hidden

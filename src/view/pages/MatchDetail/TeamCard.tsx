@@ -27,10 +27,10 @@ export function TeamCard({
     const [editOpen, setEditOpen] = useState(false);
 
     return (
-        <div className="flex flex-col gap-3 rounded-xl border border-gray-200 bg-white p-4 shadow-sm">
+        <div className="flex flex-col gap-3 rounded-xl border border-line bg-surface p-4 shadow-sm">
             <div className="flex items-center gap-2">
                 <span
-                    className="size-3 rounded-full border border-gray-200"
+                    className="size-3 rounded-full border border-line"
                     style={{ backgroundColor: team.color }}
                 />
                 <span className="font-semibold text-primary-900">{team.name}</span>
