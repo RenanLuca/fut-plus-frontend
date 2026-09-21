@@ -64,7 +64,7 @@ export function useGroupOverviewController(groupId: string) {
     collected: sumAmounts(monthlyPayments),
     expected: monthlyFeePayers.length * (group?.valuePerUser ?? 0),
     oneOffTotal: sumAmounts(oneOffPayments),
-    payments,
+    oneOffPayments,
     isTruncated: (paymentsPage?.meta.total ?? 0) > payments.length,
     getMemberName: (userId: string) => memberNames.get(userId) ?? "Ex-membro",
   };

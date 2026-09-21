@@ -1,4 +1,4 @@
-import { CircleAlert, CircleCheck } from "lucide-react";
+import { CircleAlert, CircleCheck, ExternalLink } from "lucide-react";
 import { MonthSelector } from "../../../components/MonthSelector";
 import { Avatar, AvatarFallback, AvatarImage } from "../../../components/ui/avatar";
 import { GROUP_MEMBER_TYPE_LABELS } from "@/src/app/constants/groupMemberType";
@@ -20,7 +20,7 @@ export function GroupOverview({ groupId }: { groupId: string }) {
         collected,
         expected,
         oneOffTotal,
-        payments,
+        oneOffPayments,
         isTruncated,
         getMemberName,
     } = useGroupOverviewController(groupId);
@@ -82,6 +82,17 @@ export function GroupOverview({ groupId }: { groupId: string }) {
                                         {GROUP_MEMBER_TYPE_LABELS[member.type]}
                                     </span>
                                 </div>
+                                {payment?.receipt && (
+                                    <a
+                                        href={payment.receipt}
+                                        target="_blank"
+                                        rel="noreferrer"
+                                        className="inline-flex items-center gap-1 text-xs text-primary-900 underline-offset-2 hover:underline"
+                                    >
+                                        Comprovante
+                                        <ExternalLink className="size-3" />
+                                    </a>
+                                )}
                                 {payment ? (
                                     <span className="inline-flex items-center gap-1 text-sm font-medium text-forest-900">
                                         <CircleCheck className="size-4" />
@@ -99,14 +110,14 @@ export function GroupOverview({ groupId }: { groupId: string }) {
 
                     <div className="flex flex-col gap-2">
                         <h3 className="text-sm font-semibold text-gray-700">
-                            Pagamentos de {monthName} ({payments.length})
+                            Pagamentos avulsos de {monthName} ({oneOffPayments.length})
                         </h3>
-                        {payments.length === 0 && (
+                        {oneOffPayments.length === 0 && (
                             <p className="text-sm text-muted-foreground">
-                                Nenhum pagamento registrado em {monthName}
+                                Nenhum pagamento avulso em {monthName}
                             </p>
                         )}
-                        {payments.map((payment) => (
+                        {oneOffPayments.map((payment) => (
                             <PaymentRow
                                 key={payment.id}
                                 title={getMemberName(payment.userId)}
