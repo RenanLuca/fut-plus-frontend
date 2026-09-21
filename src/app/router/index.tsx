@@ -4,6 +4,7 @@ import { RequireAuth } from "@/src/view/layouts/RequireAuth";
 import { LoginPage } from "@/src/view/pages/Login";
 import { SignupPage } from "@/src/view/pages/Signup";
 import { HomePage } from "@/src/view/pages/Home";
+import { InvitePage } from "@/src/view/pages/Invite";
 import { GroupsPage } from "@/src/view/pages/Groups";
 import { GroupDetailPage } from "@/src/view/pages/GroupDetail";
 import { GroupMembersPage } from "@/src/view/pages/GroupMembers";
@@ -18,6 +19,7 @@ export function Router() {
             <Route path="/" element={<LoginPage />} />
             <Route path="/signup" element={<SignupPage />} />
         </Route>
+        <Route path="/invite/:inviteId" element={<InvitePage />} />
         <Route element={<RequireAuth />}>
             <Route element={<AppLayout />}>
                 <Route path="/home" element={<HomePage />} />
