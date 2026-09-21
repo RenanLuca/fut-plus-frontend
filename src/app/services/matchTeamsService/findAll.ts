@@ -1,5 +1,6 @@
 import { httpClient } from "@/src/app/lib/http-client";
 import type { Position } from "@/src/app/constants/position";
+import type { Rank } from "@/src/app/constants/rank";
 
 export type MatchTeamPlayerUser = {
   id: string;
@@ -10,8 +11,10 @@ export type MatchTeamPlayerUser = {
 
 export type MatchTeamPlayerGuestUser = {
   id: string;
+  groupMatchId: string;
   name: string;
   position: Position;
+  rank: Rank;
   createdAt: string;
   updatedAt: string;
 };

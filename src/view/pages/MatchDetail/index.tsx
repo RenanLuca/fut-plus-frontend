@@ -1,4 +1,6 @@
-import { Check, Shirt, X } from "lucide-react";
+import { Check, Shirt, Trash2, X } from "lucide-react";
+import type { ReactNode } from "react";
+import { ConfirmDialog } from "../../components/ConfirmDialog";
 import { PageWrapper } from "../../components/PageWrapper";
 import { Button } from "../../components/ui/button";
 import {
@@ -10,6 +12,7 @@ import { cn } from "@/src/app/utils/cn";
 import { getInitials } from "@/src/app/utils/get-initials";
 import type { MatchPresenceMember } from "@/src/app/services/matchPresencesService";
 import type { MatchTeam } from "@/src/app/services/matchTeamsService";
+import { AddGuestModal } from "./AddGuestModal";
 import { GenerateTeamsModal } from "./GenerateTeamsModal";
 import { MatchActionsMenu } from "./MatchActionsMenu";
 import { useMatchDetailController } from "./useMatchDetailController";
@@ -22,7 +25,13 @@ const dateFormatter = new Intl.DateTimeFormat("pt-BR", {
     minute: "2-digit",
 });
 
-function MemberRow({ member }: { member: MatchPresenceMember }) {
+function MemberRow({
+    member,
+    onRemoveGuest,
+}: {
+    member: MatchPresenceMember;
+    onRemoveGuest?: (member: MatchPresenceMember) => void;
+}) {
     return (
         <div className="flex items-center gap-3 rounded-lg bg-ice-100 p-3">
             <Avatar size="sm">
@@ -35,6 +44,16 @@ function MemberRow({ member }: { member: MatchPresenceMember }) {
                     <span className="text-xs text-muted-foreground">Convidado</span>
                 )}
             </div>
+            {member.isGuest && onRemoveGuest && (
+                <Button
+                    size="icon-sm"
+                    variant="ghost"
+                    aria-label={`Remover ${member.name}`}
+                    onClick={() => onRemoveGuest(member)}
+                >
+                    <Trash2 className="size-4 text-destructive" />
+                </Button>
+            )}
         </div>
     );
 }
@@ -43,22 +62,33 @@ function PresenceSection({
     title,
     members,
     emptyText,
+    action,
+    onRemoveGuest,
 }: {
     title: string;
     members: MatchPresenceMember[];
     emptyText: string;
+    action?: ReactNode;
+    onRemoveGuest?: (member: MatchPresenceMember) => void;
 }) {
     return (
         <section className="flex flex-col gap-3">
-            <h2 className="text-sm font-semibold text-gray-700">
-                {title} ({members.length})
-            </h2>
+            <div className="flex items-center justify-between">
+                <h2 className="text-sm font-semibold text-gray-700">
+                    {title} ({members.length})
+                </h2>
+                {action}
+            </div>
             {members.length === 0 ? (
                 <p className="text-sm text-muted-foreground">{emptyText}</p>
             ) : (
                 <div className="flex flex-col gap-2">
                     {members.map((member) => (
-                        <MemberRow key={member.id} member={member} />
+                        <MemberRow
+                            key={member.id}
+                            member={member}
+                            onRemoveGuest={onRemoveGuest}
+                        />
                     ))}
                 </div>
             )}
@@ -118,6 +148,10 @@ export function MatchDetailPage() {
         teams,
         isLoadingTeams,
         isOwner,
+        guestToRemove,
+        setGuestToRemove,
+        confirmRemoveGuest,
+        isRemovingGuest,
     } = useMatchDetailController();
 
     if (isLoadingMatch || !match) {
@@ -183,6 +217,12 @@ export function MatchDetailPage() {
                         title="Confirmados"
                         members={presences.confirmed}
                         emptyText="Ninguém confirmou ainda"
+                        action={
+                            isOwner && (
+                                <AddGuestModal groupId={groupId!} matchId={matchId!} />
+                            )
+                        }
+                        onRemoveGuest={isOwner ? setGuestToRemove : undefined}
                     />
                     <PresenceSection
                         title="Pendentes"
@@ -235,6 +275,18 @@ export function MatchDetailPage() {
                     </div>
                 )}
             </section>
+
+            <ConfirmDialog
+                open={!!guestToRemove}
+                onOpenChange={(open) => {
+                    if (!open) setGuestToRemove(null);
+                }}
+                title="Remover convidado?"
+                description={`${guestToRemove?.name ?? "O convidado"} será removido desta partida, inclusive do time em que estiver.`}
+                confirmLabel="Remover"
+                isPending={isRemovingGuest}
+                onConfirm={() => guestToRemove && confirmRemoveGuest(guestToRemove.id)}
+            />
         </PageWrapper>
     );
 }

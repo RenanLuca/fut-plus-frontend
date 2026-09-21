@@ -1,9 +1,13 @@
-import { useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { useState } from "react";
+import toast from "react-hot-toast";
 import { useParams } from "react-router";
 import { queryKeys } from "@/src/app/lib/query-keys";
 import { findOne as findGroup } from "@/src/app/services/groupsService";
 import { findOne as findMatch } from "@/src/app/services/groupMatchesService";
+import { remove as removeMatchGuest } from "@/src/app/services/matchGuestsService";
 import { findAll as findMatchTeams } from "@/src/app/services/matchTeamsService";
+import type { MatchPresenceMember } from "@/src/app/services/matchPresencesService";
 import { useMatchPresence } from "@/src/app/hooks/useMatchPresence";
 import { useCurrentUser } from "@/src/app/hooks/useCurrentUser";
 
@@ -37,6 +41,26 @@ export function useMatchDetailController() {
 
   const isOwner = !!group && !!currentUser && group.ownerId === currentUser.id;
 
+  const queryClient = useQueryClient();
+  const [guestToRemove, setGuestToRemove] =
+    useState<MatchPresenceMember | null>(null);
+
+  const { mutate: confirmRemoveGuest, isPending: isRemovingGuest } =
+    useMutation({
+      mutationFn: (guestUserId: string) =>
+        removeMatchGuest(groupId!, matchId!, guestUserId),
+      onSuccess: () => {
+        queryClient.invalidateQueries({
+          queryKey: queryKeys.groupMatch(groupId!, matchId!),
+        });
+        setGuestToRemove(null);
+        toast.success("Convidado removido");
+      },
+      onError: () => {
+        toast.error("Não foi possível remover o convidado. Tente novamente.");
+      },
+    });
+
   return {
     groupId,
     matchId,
@@ -51,5 +75,9 @@ export function useMatchDetailController() {
     teams: teams ?? [],
     isLoadingTeams,
     isOwner,
+    guestToRemove,
+    setGuestToRemove,
+    confirmRemoveGuest,
+    isRemovingGuest,
   };
 }
