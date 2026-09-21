@@ -15,7 +15,7 @@ export function PageWrapper({ title, actions, children }: PageWrapperProps) {
             (typeof title === "string" ? (
               <h1 className="text-xl font-bold text-primary-900">{title}</h1>
             ) : (
-              <div className="flex flex-col gap-1.5">{title}</div>
+              <div className="flex min-w-0 flex-col gap-1.5">{title}</div>
             ))}
           {actions}
         </div>

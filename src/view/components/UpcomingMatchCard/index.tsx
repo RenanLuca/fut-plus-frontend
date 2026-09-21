@@ -1,6 +1,7 @@
 import { ArrowRight, Calendar, Check, Clock, X } from "lucide-react";
 import { Link } from "react-router";
 import { Button } from "../ui/button";
+import { MatchDateBlock } from "../MatchDateBlock";
 import {
     Avatar,
     AvatarFallback,
@@ -56,9 +57,8 @@ export function UpcomingMatchCard({
 }: UpcomingMatchCardProps) {
     const { presences, isLoadingPresences, myStatus, setPresence, isPending } =
         useMatchPresence(match.groupId, match.id);
-    const { weekday, day, month, time } = getMatchDateParts(
-        new Date(match.matchDate),
-    );
+    const matchDate = new Date(match.matchDate);
+    const { weekday, time } = getMatchDateParts(matchDate);
     const confirmedCount = presences?.confirmed.length ?? 0;
     const matchPath = `/groups/${match.groupId}/matches/${match.id}`;
 
@@ -77,12 +77,7 @@ export function UpcomingMatchCard({
             </div>
 
             <Link to={matchPath} className="flex items-center gap-4">
-                <div className="flex size-16 shrink-0 flex-col items-center justify-center rounded-xl bg-white/10 ring-1 ring-white/20">
-                    <span className="text-2xl leading-none font-bold">{day}</span>
-                    <span className="mt-1 text-xs leading-none font-semibold tracking-wide text-grass-400 uppercase">
-                        {month}
-                    </span>
-                </div>
+                <MatchDateBlock date={matchDate} />
                 <div className="flex min-w-0 flex-col gap-0.5">
                     <span className="text-xl leading-tight font-bold">
                         {weekday} · {time}
