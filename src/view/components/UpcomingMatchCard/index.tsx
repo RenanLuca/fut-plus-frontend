@@ -1,15 +1,16 @@
 import { Calendar, Check, X } from "lucide-react";
 import { Link } from "react-router";
-import { Button } from "../../../components/ui/button";
-import {
-    Avatar,
-    AvatarFallback,
-    AvatarGroup,
-} from "../../../components/ui/avatar";
+import { Button } from "../ui/button";
+import { Avatar, AvatarFallback, AvatarGroup } from "../ui/avatar";
 import { cn } from "@/src/app/utils/cn";
 import { getInitials } from "@/src/app/utils/get-initials";
 import { useMatchPresence } from "@/src/app/hooks/useMatchPresence";
-import type { UpcomingMatch } from "@/src/app/services/usersService";
+
+type UpcomingMatchCardProps = {
+    match: { id: string; groupId: string; matchDate: string };
+    groupName: string;
+    to: string;
+};
 
 const dateFormatter = new Intl.DateTimeFormat("pt-BR", {
     weekday: "long",
@@ -19,13 +20,17 @@ const dateFormatter = new Intl.DateTimeFormat("pt-BR", {
     minute: "2-digit",
 });
 
-export function UpcomingMatchCard({ match }: { match: UpcomingMatch }) {
+export function UpcomingMatchCard({
+    match,
+    groupName,
+    to,
+}: UpcomingMatchCardProps) {
     const { presences, isLoadingPresences, myStatus, setPresence, isPending } =
         useMatchPresence(match.groupId, match.id);
 
     return (
         <div className="flex w-full max-w-md flex-col gap-4 rounded-xl bg-linear-to-br from-primary-900 to-forest-900 p-5 text-white">
-            <Link to={`/groups/${match.groupId}`} className="flex flex-col gap-1">
+            <Link to={to} className="flex flex-col gap-1">
                 <div className="flex items-center justify-between gap-2">
                     <span className="text-xs font-medium tracking-wide text-primary-200 uppercase">
                         Próxima partida
@@ -35,7 +40,7 @@ export function UpcomingMatchCard({ match }: { match: UpcomingMatch }) {
                 <span className="text-lg font-bold capitalize">
                     {dateFormatter.format(new Date(match.matchDate))}
                 </span>
-                <span className="text-sm text-white/80">{match.group.name}</span>
+                <span className="text-sm text-white/80">{groupName}</span>
             </Link>
 
             <div className="flex flex-wrap items-center justify-between gap-3">

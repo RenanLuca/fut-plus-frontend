@@ -1,7 +1,10 @@
 import { PageWrapper } from "../../components/PageWrapper";
+import {
+    NoUpcomingMatch,
+    UpcomingMatchCard,
+} from "../../components/UpcomingMatchCard";
 import { GroupFormModal } from "../Groups/GroupFormModal";
 import { GroupsGrid } from "../Groups/GroupsGrid";
-import { NoUpcomingMatch, UpcomingMatchCard } from "./UpcomingMatchCard";
 import { useHomeController } from "./useHomeController";
 
 export function HomePage() {
@@ -21,7 +24,11 @@ export function HomePage() {
             )}
             {!isLoadingUpcomingMatch &&
                 (upcomingMatch ? (
-                    <UpcomingMatchCard match={upcomingMatch} />
+                    <UpcomingMatchCard
+                        match={upcomingMatch}
+                        groupName={upcomingMatch.group.name}
+                        to={`/groups/${upcomingMatch.groupId}`}
+                    />
                 ) : (
                     <NoUpcomingMatch />
                 ))}
