@@ -1,6 +1,6 @@
 import { Outlet } from "react-router";
 import { LoginBanner } from "../components/svg/LoginBanner";
-import logoFutPlus from "../../app/assets/logo-fut-plus.png";
+import { Logo } from "../components/Logo";
 import logoWhiteFutPlus from "../../app/assets/logo-white-fut-plus.png";
 
 export function AuthLayout() {
@@ -25,7 +25,7 @@ export function AuthLayout() {
           </div>
         </div>
         <div className="w-full md:w-3/5 flex flex-col items-center justify-center py-8 md:py-0">
-          <img src={logoFutPlus} alt="Fut+" className="w-28 mb-4 md:hidden" />
+          <Logo className="w-28" wrapperClassName="mb-4 md:hidden" />
           <Outlet />
         </div>
       </div>

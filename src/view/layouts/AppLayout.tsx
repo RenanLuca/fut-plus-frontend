@@ -10,7 +10,7 @@ import {
     AvatarImage,
 } from "../components/ui/avatar";
 import { Button } from "../components/ui/button";
-import logoFutPlus from "../../app/assets/logo-fut-plus.png";
+import { Logo } from "../components/Logo";
 
 const NAV_ITEMS = [
     { to: "/home", label: "Home", icon: House },
@@ -25,7 +25,7 @@ export function AppLayout() {
     return (
         <div className="h-full w-full flex flex-col md:flex-row bg-app">
             <aside className="hidden md:flex md:w-56 md:flex-col md:border-r md:border-frame md:bg-surface md:p-4 md:gap-6">
-                <img src={logoFutPlus} alt="Fut+" className="w-24" />
+                <Logo className="w-24" />
                 <nav className="flex flex-col gap-1">
                     {NAV_ITEMS.map((item) => (
                         <NavLink
@@ -47,7 +47,7 @@ export function AppLayout() {
 
             <div className="flex flex-col flex-1 min-h-0">
                 <header className="flex items-center justify-between gap-3 border-b border-frame bg-surface p-4">
-                    <img src={logoFutPlus} alt="Fut+" className="w-20 md:hidden" />
+                    <Logo className="w-20" wrapperClassName="md:hidden" />
                     <div className="flex items-center gap-3 ml-auto">
                         {user && (
                             <div className="hidden sm:flex flex-col items-end leading-tight">

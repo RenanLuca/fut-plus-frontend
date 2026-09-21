@@ -12,7 +12,7 @@ import { FREQUENCY_LABELS } from "@/src/app/constants/frequencyType";
 import { JOINABLE_MEMBER_TYPE_OPTIONS } from "@/src/app/constants/groupMemberType";
 import { RANK_OPTIONS } from "@/src/app/constants/rank";
 import { WEEKDAY_LABELS } from "@/src/app/constants/weekday";
-import logoFutPlus from "../../../app/assets/logo-fut-plus.png";
+import { Logo } from "../../components/Logo";
 import { useInviteController } from "./useInviteController";
 
 const currencyFormatter = new Intl.NumberFormat("pt-BR", {
@@ -24,7 +24,7 @@ function InviteShell({ children }: { children: ReactNode }) {
     return (
         <div className="flex h-full w-full items-center justify-center overflow-y-auto bg-app p-4">
             <div className="flex w-full max-w-md flex-col items-center gap-6 rounded-xl bg-surface p-6 shadow-sm">
-                <img src={logoFutPlus} alt="Fut+" className="w-24" />
+                <Logo className="w-24" />
                 {children}
             </div>
         </div>
