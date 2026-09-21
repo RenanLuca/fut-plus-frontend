@@ -1,6 +1,10 @@
 import { Trash2 } from "lucide-react";
 import { ConfirmDialog } from "../../components/ConfirmDialog";
-import { Avatar, AvatarFallback } from "../../components/ui/avatar";
+import {
+    Avatar,
+    AvatarFallback,
+    AvatarImage,
+} from "../../components/ui/avatar";
 import { Button } from "../../components/ui/button";
 import { GROUP_MEMBER_TYPE_LABELS } from "@/src/app/constants/groupMemberType";
 import { getInitials } from "@/src/app/utils/get-initials";
@@ -22,6 +26,9 @@ function MemberRow({
     return (
         <div className="flex items-center gap-3 rounded-lg bg-ice-100 p-3">
             <Avatar size="sm">
+                {member.user.profilePicture && (
+                    <AvatarImage src={member.user.profilePicture} />
+                )}
                 <AvatarFallback>{getInitials(name)}</AvatarFallback>
             </Avatar>
             <div className="flex flex-1 flex-col">
