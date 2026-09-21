@@ -1,194 +1,45 @@
-import { Pencil, Plus } from "lucide-react";
-import { CurrencyInput } from "react-currency-input-field";
+import { Plus } from "lucide-react";
+import { useState } from "react";
 import { Button } from "../../../components/ui/button";
-import { Input } from "../../../components/ui/input";
-import {
-    Select,
-    SelectContent,
-    SelectItem,
-    SelectTrigger,
-    SelectValue,
-} from "../../../components/ui/select";
 import {
     Sheet,
-    SheetClose,
     SheetContent,
-    SheetDescription,
-    SheetFooter,
-    SheetHeader,
-    SheetTitle,
     SheetTrigger,
 } from "../../../components/ui/sheet";
-import { WEEKDAY_OPTIONS } from "@/src/app/constants/weekday";
-import { FREQUENCY_OPTIONS } from "@/src/app/constants/frequencyType";
-import {
-    useGroupFormController,
-    type GroupFormModalProps,
-} from "./useGroupFormController";
+import type { Group } from "@/src/app/services/groupsService";
+import { GroupForm } from "./GroupForm";
+import type { GroupFormMode } from "./useGroupFormController";
+
+export type GroupFormModalProps =
+    | { mode: "create" }
+    | {
+        mode: "edit";
+        group: Group;
+        open: boolean;
+        onOpenChange: (open: boolean) => void;
+    };
 
 export function GroupFormModal(props: GroupFormModalProps) {
-    const {
-        open,
-        onOpenChange,
-        register,
-        weekdayField,
-        frequencyField,
-        valuePerUserField,
-        onSubmit,
-        errors,
-        isPending,
-    } = useGroupFormController(props);
+    const [createOpen, setCreateOpen] = useState(false);
 
-    const isEdit = props.mode === "edit";
+    const open = props.mode === "edit" ? props.open : createOpen;
+    const onOpenChange =
+        props.mode === "edit" ? props.onOpenChange : setCreateOpen;
+    const formMode: GroupFormMode =
+        props.mode === "edit"
+            ? { mode: "edit", group: props.group }
+            : { mode: "create" };
 
     return (
         <Sheet open={open} onOpenChange={onOpenChange}>
-            <SheetTrigger
-                render={
-                    isEdit ? (
-                        <Button variant="outline" size="icon" aria-label="Editar grupo" />
-                    ) : (
-                        <Button size="sm" />
-                    )
-                }
-            >
-                {isEdit ? (
-                    <Pencil className="size-4" />
-                ) : (
-                    <>
-                        <Plus className="size-4" />
-                        Criar grupo
-                    </>
-                )}
-            </SheetTrigger>
+            {props.mode === "create" && (
+                <SheetTrigger render={<Button size="sm" />}>
+                    <Plus className="size-4" />
+                    Criar grupo
+                </SheetTrigger>
+            )}
             <SheetContent>
-                <SheetHeader>
-                    <SheetTitle>{isEdit ? "Editar grupo" : "Criar grupo"}</SheetTitle>
-                    <SheetDescription>
-                        Configure o dia, horário e frequência da sua pelada
-                    </SheetDescription>
-                </SheetHeader>
-                <form
-                    id="group-form"
-                    onSubmit={onSubmit}
-                    className="flex flex-col gap-4 overflow-y-auto px-6"
-                >
-                    <div className="flex flex-col gap-1">
-                        <Input
-                            id="name"
-                            type="text"
-                            label="Nome do grupo"
-                            aria-invalid={!!errors.name}
-                            {...register("name")}
-                        />
-                        {errors.name && (
-                            <span className="text-xs text-destructive">{errors.name.message}</span>
-                        )}
-                    </div>
-
-                    <div className="flex flex-col gap-1">
-                        <label className="text-xs text-gray-600" htmlFor="weekday">
-                            Dia da semana
-                        </label>
-                        <Select
-                            value={weekdayField.value}
-                            onValueChange={weekdayField.onChange}
-                        >
-                            <SelectTrigger id="weekday" className="w-full" aria-invalid={!!errors.weekday}>
-                                <SelectValue placeholder="Selecione" />
-                            </SelectTrigger>
-                            <SelectContent>
-                                {WEEKDAY_OPTIONS.map((option) => (
-                                    <SelectItem key={option.value} value={option.value}>
-                                        {option.label}
-                                    </SelectItem>
-                                ))}
-                            </SelectContent>
-                        </Select>
-                        {errors.weekday && (
-                            <span className="text-xs text-destructive">{errors.weekday.message}</span>
-                        )}
-                    </div>
-
-                    <div className="flex flex-col gap-1">
-                        <Input
-                            id="hour"
-                            type="time"
-                            label="Horário"
-                            aria-invalid={!!errors.hour}
-                            {...register("hour")}
-                        />
-                        {errors.hour && (
-                            <span className="text-xs text-destructive">{errors.hour.message}</span>
-                        )}
-                    </div>
-
-                    <div className="flex flex-col gap-1">
-                        <label className="text-xs text-gray-600" htmlFor="frequency">
-                            Frequência
-                        </label>
-                        <Select
-                            value={frequencyField.value}
-                            onValueChange={frequencyField.onChange}
-                        >
-                            <SelectTrigger id="frequency" className="w-full" aria-invalid={!!errors.frequency}>
-                                <SelectValue placeholder="Selecione" />
-                            </SelectTrigger>
-                            <SelectContent>
-                                {FREQUENCY_OPTIONS.map((option) => (
-                                    <SelectItem key={option.value} value={option.value}>
-                                        {option.label}
-                                    </SelectItem>
-                                ))}
-                            </SelectContent>
-                        </Select>
-                        {errors.frequency && (
-                            <span className="text-xs text-destructive">{errors.frequency.message}</span>
-                        )}
-                    </div>
-
-                    <div className="flex flex-col gap-1">
-                        <label className="text-xs text-gray-600" htmlFor="valuePerUser">
-                            Valor por pessoa
-                        </label>
-                        <CurrencyInput
-                            id="valuePerUser"
-                            customInput={Input}
-                            placeholder="R$ 0,00"
-                            intlConfig={{ locale: "pt-BR", currency: "BRL" }}
-                            decimalsLimit={2}
-                            value={valuePerUserField.value}
-                            onValueChange={(value) =>
-                                valuePerUserField.onChange(value ?? "")
-                            }
-                            aria-invalid={!!errors.valuePerUser}
-                        />
-                        {errors.valuePerUser && (
-                            <span className="text-xs text-destructive">
-                                {errors.valuePerUser.message}
-                            </span>
-                        )}
-                    </div>
-                </form>
-                <SheetFooter className="flex-row">
-                    <SheetClose render={<Button variant="outline" className="flex-1" />}>
-                        Cancelar
-                    </SheetClose>
-                    <Button
-                        type="submit"
-                        form="group-form"
-                        disabled={isPending}
-                        className="flex-1"
-                    >
-                        {isPending
-                            ? isEdit
-                                ? "Salvando..."
-                                : "Criando..."
-                            : isEdit
-                                ? "Salvar"
-                                : "Criar"}
-                    </Button>
-                </SheetFooter>
+                <GroupForm {...formMode} onSaved={() => onOpenChange(false)} />
             </SheetContent>
         </Sheet>
     );

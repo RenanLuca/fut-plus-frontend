@@ -8,8 +8,8 @@ import { GROUP_MEMBER_TYPE_LABELS } from "@/src/app/constants/groupMemberType";
 import { getInitials } from "@/src/app/utils/get-initials";
 import type { GroupMember } from "@/src/app/services/groupMembersService";
 import type { GroupMatch } from "@/src/app/services/groupMatchesService";
-import { GroupFormModal } from "../Groups/GroupFormModal";
 import { CreateMatchModal } from "./CreateMatchModal";
+import { GroupActionsMenu } from "./GroupActionsMenu";
 import { useGroupDetailController } from "./useGroupDetailController";
 
 const dateFormatter = new Intl.DateTimeFormat("pt-BR", {
@@ -85,7 +85,7 @@ export function GroupDetailPage() {
                     </div>
                 </>
             }
-            actions={isOwner && <GroupFormModal mode="edit" group={group} />}
+            actions={isOwner && <GroupActionsMenu group={group} />}
         >
             <section className="flex flex-col gap-3">
                 <h2 className="text-sm font-semibold text-gray-700">Membros</h2>

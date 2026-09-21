@@ -1,6 +1,5 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { useState } from "react";
 import { useController, useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 import { queryKeys } from "@/src/app/lib/query-keys";
@@ -11,22 +10,33 @@ import {
 } from "@/src/app/services/groupsService";
 import { groupFormSchema, type GroupFormValues } from "./group-form.schema";
 
-export type GroupFormModalProps =
+export type GroupFormMode =
   | { mode: "create" }
   | { mode: "edit"; group: Group };
 
-export function useGroupFormController(props: GroupFormModalProps) {
-  const [open, setOpen] = useState(false);
+export function useGroupFormController(
+  props: GroupFormMode,
+  onSaved: () => void,
+) {
   const queryClient = useQueryClient();
 
   const {
     register,
     handleSubmit,
     control,
-    reset,
     formState: { errors },
   } = useForm<GroupFormValues>({
     resolver: zodResolver(groupFormSchema),
+    defaultValues:
+      props.mode === "edit"
+        ? {
+            name: props.group.name,
+            weekday: props.group.weekday,
+            hour: props.group.hour,
+            frequency: props.group.frequency,
+            valuePerUser: String(props.group.valuePerUser),
+          }
+        : undefined,
   });
 
   const { field: weekdayField } = useController({ name: "weekday", control });
@@ -38,23 +48,6 @@ export function useGroupFormController(props: GroupFormModalProps) {
     name: "valuePerUser",
     control,
   });
-
-  function onOpenChange(nextOpen: boolean) {
-    setOpen(nextOpen);
-    if (!nextOpen) return;
-
-    if (props.mode === "edit") {
-      reset({
-        name: props.group.name,
-        weekday: props.group.weekday,
-        hour: props.group.hour,
-        frequency: props.group.frequency,
-        valuePerUser: String(props.group.valuePerUser),
-      });
-    } else {
-      reset();
-    }
-  }
 
   const { mutate: saveGroup, isPending } = useMutation({
     mutationFn: (values: GroupFormValues) => {
@@ -73,7 +66,7 @@ export function useGroupFormController(props: GroupFormModalProps) {
           queryKey: queryKeys.group(props.group.id),
         });
       }
-      setOpen(false);
+      onSaved();
       toast.success(
         props.mode === "edit" ? "Grupo atualizado!" : "Grupo criado!",
       );
@@ -92,8 +85,6 @@ export function useGroupFormController(props: GroupFormModalProps) {
   });
 
   return {
-    open,
-    onOpenChange,
     register,
     weekdayField,
     frequencyField,
