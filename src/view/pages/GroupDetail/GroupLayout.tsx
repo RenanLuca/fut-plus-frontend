@@ -45,7 +45,7 @@ export function GroupLayout() {
             }
             actions={<GroupActionsMenu group={group} isOwner={isOwner} />}
         >
-            <nav className="-mt-2 flex gap-1 overflow-x-auto border-b border-gray-100">
+            <nav className="-mt-2 flex gap-1 overflow-x-auto shadow-[inset_0_-1px_0_0_var(--color-gray-100)]">
                 {tabs.map((tab) => (
                     <NavLink
                         key={tab.to}
@@ -53,7 +53,7 @@ export function GroupLayout() {
                         end={tab.end}
                         className={({ isActive }) =>
                             cn(
-                                "-mb-px whitespace-nowrap border-b-2 border-transparent px-3 py-2 text-sm font-medium text-gray-500 transition-colors hover:text-primary-900",
+                                "whitespace-nowrap border-b-2 border-transparent px-3 py-2 text-sm font-medium text-gray-500 transition-colors hover:text-primary-900",
                                 isActive && "border-primary-500 text-primary-900",
                             )
                         }
