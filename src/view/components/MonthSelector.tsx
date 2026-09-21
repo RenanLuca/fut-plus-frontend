@@ -26,7 +26,7 @@ export function MonthSelector({
             >
                 <ChevronLeft className="size-4" />
             </Button>
-            <span className="text-sm font-medium capitalize text-gray-700">
+            <span className="text-sm font-medium text-gray-700 first-letter:uppercase">
                 {formatMonthLong(value)}
             </span>
             <Button
