@@ -1,4 +1,11 @@
-import { Crown, EllipsisVertical, LogOut, Pencil, Trash2 } from "lucide-react";
+import {
+    Crown,
+    EllipsisVertical,
+    Link2,
+    LogOut,
+    Pencil,
+    Trash2,
+} from "lucide-react";
 import { useState } from "react";
 import { ConfirmDialog } from "../../components/ConfirmDialog";
 import { Button } from "../../components/ui/button";
@@ -10,6 +17,7 @@ import {
 } from "../../components/ui/dropdown-menu";
 import type { Group } from "@/src/app/services/groupsService";
 import { GroupFormModal } from "../Groups/GroupFormModal";
+import { InviteLinkModal } from "./InviteLinkModal";
 import { TransferOwnershipDialog } from "./TransferOwnershipDialog";
 import { useGroupActionsController } from "./useGroupActionsController";
 
@@ -21,6 +29,7 @@ export function GroupActionsMenu({
     isOwner: boolean;
 }) {
     const [editOpen, setEditOpen] = useState(false);
+    const [inviteOpen, setInviteOpen] = useState(false);
     const [transferOpen, setTransferOpen] = useState(false);
     const [confirming, setConfirming] = useState<"delete" | "leave" | null>(
         null,
@@ -39,6 +48,12 @@ export function GroupActionsMenu({
                     <EllipsisVertical className="size-4" />
                 </DropdownMenuTrigger>
                 <DropdownMenuContent align="end">
+                    {isOwner && (
+                        <DropdownMenuItem onClick={() => setInviteOpen(true)}>
+                            <Link2 />
+                            Convidar por link
+                        </DropdownMenuItem>
+                    )}
                     {isOwner && (
                         <DropdownMenuItem onClick={() => setEditOpen(true)}>
                             <Pencil />
@@ -72,6 +87,13 @@ export function GroupActionsMenu({
                 </DropdownMenuContent>
             </DropdownMenu>
 
+            {isOwner && (
+                <InviteLinkModal
+                    groupId={group.id}
+                    open={inviteOpen}
+                    onOpenChange={setInviteOpen}
+                />
+            )}
             {isOwner && (
                 <GroupFormModal
                     mode="edit"
