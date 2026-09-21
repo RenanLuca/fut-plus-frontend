@@ -7,6 +7,7 @@ import { cn } from "@/src/app/utils/cn";
 import {
     Avatar,
     AvatarFallback,
+    AvatarImage,
 } from "../components/ui/avatar";
 import { Button } from "../components/ui/button";
 import logoFutPlus from "../../app/assets/logo-fut-plus.png";
@@ -55,6 +56,9 @@ export function AppLayout() {
                             </div>
                         )}
                         <Avatar>
+                            {user?.profilePicture && (
+                                <AvatarImage src={user.profilePicture} />
+                            )}
                             <AvatarFallback>
                                 {user ? getInitials(user.name) : "?"}
                             </AvatarFallback>
