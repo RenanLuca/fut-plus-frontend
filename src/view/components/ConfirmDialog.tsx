@@ -16,6 +16,7 @@ type ConfirmDialogProps = {
     title: string;
     description: string;
     confirmLabel: string;
+    confirmVariant?: "default" | "destructive";
     isPending?: boolean;
     confirmDisabled?: boolean;
     onConfirm: () => void;
@@ -28,6 +29,7 @@ export function ConfirmDialog({
     title,
     description,
     confirmLabel,
+    confirmVariant = "destructive",
     isPending = false,
     confirmDisabled = false,
     onConfirm,
@@ -44,7 +46,7 @@ export function ConfirmDialog({
                 <AlertDialogFooter>
                     <AlertDialogCancel disabled={isPending}>Cancelar</AlertDialogCancel>
                     <AlertDialogAction
-                        variant="destructive"
+                        variant={confirmVariant}
                         disabled={isPending || confirmDisabled}
                         onClick={onConfirm}
                     >
