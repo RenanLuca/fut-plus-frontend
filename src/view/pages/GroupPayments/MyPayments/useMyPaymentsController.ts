@@ -48,16 +48,24 @@ export function useMyPaymentsController(groupId: string) {
     (payment) => payment.matchId === null,
   );
 
+  const isLoadingStatus =
+    isLoadingMembership ||
+    (isDaily ? isLoadingPendingMatches : isLoadingCurrentMonth);
+  const pendingMatchesCount = pendingMatches?.length ?? 0;
+  const canRegister =
+    !isLoadingStatus &&
+    !!type &&
+    (isDaily ? pendingMatchesCount > 0 : !monthlyFeePayment);
+
   return {
     isDaily,
+    canRegister,
     currentMonth,
     selectedMonth,
     setSelectedMonth,
     monthlyFeePayment,
-    pendingMatchesCount: pendingMatches?.length ?? 0,
-    isLoadingStatus:
-      isLoadingMembership ||
-      (isDaily ? isLoadingPendingMatches : isLoadingCurrentMonth),
+    pendingMatchesCount,
+    isLoadingStatus,
     payments: selectedMonthPayments?.data ?? [],
     isLoadingPayments: isLoadingSelectedMonth,
   };

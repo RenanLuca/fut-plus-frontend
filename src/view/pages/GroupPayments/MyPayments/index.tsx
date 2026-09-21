@@ -3,6 +3,7 @@ import { MonthSelector } from "../../../components/MonthSelector";
 import { formatCurrency } from "@/src/app/utils/format-currency";
 import { formatMonthName } from "@/src/app/utils/brazil-month";
 import type { GroupPayment } from "@/src/app/services/groupPaymentsService";
+import { RegisterPaymentModal } from "./RegisterPaymentModal";
 import { useMyPaymentsController } from "./useMyPaymentsController";
 
 const paidAtFormatter = new Intl.DateTimeFormat("pt-BR", {
@@ -25,6 +26,7 @@ function paymentLabel(payment: GroupPayment, monthName: string) {
 export function MyPayments({ groupId }: { groupId: string }) {
     const {
         isDaily,
+        canRegister,
         currentMonth,
         selectedMonth,
         setSelectedMonth,
@@ -40,7 +42,16 @@ export function MyPayments({ groupId }: { groupId: string }) {
 
     return (
         <section className="flex flex-col gap-4">
-            <h2 className="text-sm font-semibold text-gray-700">Meus pagamentos</h2>
+            <div className="flex items-center justify-between">
+                <h2 className="text-sm font-semibold text-gray-700">Meus pagamentos</h2>
+                {canRegister && (
+                    <RegisterPaymentModal
+                        groupId={groupId}
+                        isDaily={isDaily}
+                        monthName={currentMonthName}
+                    />
+                )}
+            </div>
 
             {isLoadingStatus && (
                 <div className="h-20 animate-pulse rounded-xl bg-gray-100" />
