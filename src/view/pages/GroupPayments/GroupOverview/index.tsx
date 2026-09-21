@@ -68,7 +68,7 @@ export function GroupOverview({ groupId }: { groupId: string }) {
                         {checklist.map(({ member, payment }) => (
                             <div
                                 key={member.userId}
-                                className="flex items-center gap-3 rounded-lg border border-item-border bg-item p-3"
+                                className="flex items-center gap-3 rounded-lg border border-gray-200 bg-white p-3"
                             >
                                 <Avatar size="sm">
                                     {member.user.profilePicture && (

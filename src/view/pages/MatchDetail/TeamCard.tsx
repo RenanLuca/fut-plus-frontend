@@ -27,7 +27,7 @@ export function TeamCard({
     const [editOpen, setEditOpen] = useState(false);
 
     return (
-        <div className="flex flex-col gap-3 rounded-xl border border-item-border bg-item p-4">
+        <div className="flex flex-col gap-3 rounded-xl border border-gray-200 bg-white p-4 shadow-sm">
             <div className="flex items-center gap-2">
                 <span
                     className="size-3 rounded-full border border-gray-200"
