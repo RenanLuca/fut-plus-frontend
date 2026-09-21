@@ -14,7 +14,8 @@ export function useGroupPaymentsController() {
     enabled: !!groupId,
   });
 
-  const isOwner = !!group && !!currentUser && group.ownerId === currentUser.id;
+  const isReady = !!group && !!currentUser;
+  const isOwner = isReady && group.ownerId === currentUser.id;
 
-  return { groupId: groupId!, isOwner };
+  return { groupId: groupId!, isReady, isOwner };
 }
