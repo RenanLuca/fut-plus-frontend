@@ -3,3 +3,4 @@ export * from "./findOne";
 export * from "./create";
 export * from "./update";
 export * from "./remove";
+export * from "./transferOwnership";

@@ -1,4 +1,4 @@
-import { EllipsisVertical, LogOut, Pencil, Trash2 } from "lucide-react";
+import { Crown, EllipsisVertical, LogOut, Pencil, Trash2 } from "lucide-react";
 import { useState } from "react";
 import { ConfirmDialog } from "../../components/ConfirmDialog";
 import { Button } from "../../components/ui/button";
@@ -10,6 +10,7 @@ import {
 } from "../../components/ui/dropdown-menu";
 import type { Group } from "@/src/app/services/groupsService";
 import { GroupFormModal } from "../Groups/GroupFormModal";
+import { TransferOwnershipDialog } from "./TransferOwnershipDialog";
 import { useGroupActionsController } from "./useGroupActionsController";
 
 export function GroupActionsMenu({
@@ -20,6 +21,7 @@ export function GroupActionsMenu({
     isOwner: boolean;
 }) {
     const [editOpen, setEditOpen] = useState(false);
+    const [transferOpen, setTransferOpen] = useState(false);
     const [confirming, setConfirming] = useState<"delete" | "leave" | null>(
         null,
     );
@@ -41,6 +43,12 @@ export function GroupActionsMenu({
                         <DropdownMenuItem onClick={() => setEditOpen(true)}>
                             <Pencil />
                             Editar grupo
+                        </DropdownMenuItem>
+                    )}
+                    {isOwner && (
+                        <DropdownMenuItem onClick={() => setTransferOpen(true)}>
+                            <Crown />
+                            Transferir posse
                         </DropdownMenuItem>
                     )}
                     {isOwner && (
@@ -70,6 +78,13 @@ export function GroupActionsMenu({
                     group={group}
                     open={editOpen}
                     onOpenChange={setEditOpen}
+                />
+            )}
+            {isOwner && (
+                <TransferOwnershipDialog
+                    group={group}
+                    open={transferOpen}
+                    onOpenChange={setTransferOpen}
                 />
             )}
 

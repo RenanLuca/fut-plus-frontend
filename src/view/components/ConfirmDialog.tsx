@@ -1,3 +1,4 @@
+import type { ReactNode } from "react";
 import {
     AlertDialog,
     AlertDialogAction,
@@ -16,7 +17,9 @@ type ConfirmDialogProps = {
     description: string;
     confirmLabel: string;
     isPending?: boolean;
+    confirmDisabled?: boolean;
     onConfirm: () => void;
+    children?: ReactNode;
 };
 
 export function ConfirmDialog({
@@ -26,7 +29,9 @@ export function ConfirmDialog({
     description,
     confirmLabel,
     isPending = false,
+    confirmDisabled = false,
     onConfirm,
+    children,
 }: ConfirmDialogProps) {
     return (
         <AlertDialog open={open} onOpenChange={onOpenChange}>
@@ -35,11 +40,12 @@ export function ConfirmDialog({
                     <AlertDialogTitle>{title}</AlertDialogTitle>
                     <AlertDialogDescription>{description}</AlertDialogDescription>
                 </AlertDialogHeader>
+                {children}
                 <AlertDialogFooter>
                     <AlertDialogCancel disabled={isPending}>Cancelar</AlertDialogCancel>
                     <AlertDialogAction
                         variant="destructive"
-                        disabled={isPending}
+                        disabled={isPending || confirmDisabled}
                         onClick={onConfirm}
                     >
                         {isPending ? "Aguarde..." : confirmLabel}
