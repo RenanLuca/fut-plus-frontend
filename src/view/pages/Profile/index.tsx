@@ -1,11 +1,17 @@
+import { LogOut } from "lucide-react";
 import { PageWrapper } from "../../components/PageWrapper";
-import { Avatar, AvatarFallback } from "../../components/ui/avatar";
-import { POSITION_OPTIONS } from "@/src/app/constants/position";
-import { useCurrentUser } from "@/src/app/hooks/useCurrentUser";
+import {
+    Avatar,
+    AvatarFallback,
+    AvatarImage,
+} from "../../components/ui/avatar";
+import { Button } from "../../components/ui/button";
 import { getInitials } from "@/src/app/utils/get-initials";
+import { ProfileForm } from "./ProfileForm";
+import { useProfileController } from "./useProfileController";
 
 export function ProfilePage() {
-    const { data: user, isLoading } = useCurrentUser();
+    const { user, isLoading, logout } = useProfileController();
 
     if (isLoading || !user) {
         return (
@@ -15,26 +21,25 @@ export function ProfilePage() {
         );
     }
 
-    const position = POSITION_OPTIONS.find(
-        (option) => option.value === user.position,
-    );
-
     return (
         <PageWrapper title="Perfil">
-            <div className="flex flex-col items-center gap-4 py-6">
-                <Avatar size="lg">
-                    <AvatarFallback>{getInitials(user.name)}</AvatarFallback>
-                </Avatar>
-                <div className="flex flex-col items-center gap-1 text-center">
-                    <span className="text-lg font-semibold text-primary-900">{user.name}</span>
-                    <span className="text-sm text-muted-foreground">{user.email}</span>
-                </div>
-                {position && (
-                    <span className="flex items-center gap-1.5 rounded-full bg-pale-100 px-3 py-1 text-xs font-medium text-primary-900">
-                        <position.icon className="size-3.5" />
-                        {position.label}
+            <div className="mx-auto flex w-full max-w-md flex-col gap-6">
+                <div className="flex flex-col items-center gap-3 text-center">
+                    <Avatar size="lg">
+                        {user.profilePicture && <AvatarImage src={user.profilePicture} />}
+                        <AvatarFallback>{getInitials(user.name)}</AvatarFallback>
+                    </Avatar>
+                    <span className="text-lg font-semibold text-primary-900">
+                        {user.name}
                     </span>
-                )}
+                </div>
+
+                <ProfileForm user={user} />
+
+                <Button variant="outline" className="w-full" onClick={() => logout()}>
+                    <LogOut className="size-4" />
+                    Sair da conta
+                </Button>
             </div>
         </PageWrapper>
     );
