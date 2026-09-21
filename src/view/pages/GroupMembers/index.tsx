@@ -1,14 +1,26 @@
-import { ArrowLeft } from "lucide-react";
+import { ArrowLeft, Trash2 } from "lucide-react";
 import { Link } from "react-router";
+import { ConfirmDialog } from "../../components/ConfirmDialog";
 import { PageWrapper } from "../../components/PageWrapper";
 import { Avatar, AvatarFallback } from "../../components/ui/avatar";
+import { Button } from "../../components/ui/button";
 import { GROUP_MEMBER_TYPE_LABELS } from "@/src/app/constants/groupMemberType";
 import { getInitials } from "@/src/app/utils/get-initials";
 import type { GroupMember } from "@/src/app/services/groupMembersService";
 import { useGroupMembersController } from "./useGroupMembersController";
 
-function MemberRow({ member }: { member: GroupMember }) {
-    const name = member.user?.name ?? member.guestUser?.name ?? "—";
+function getMemberName(member: GroupMember) {
+    return member.user?.name ?? member.guestUser?.name ?? "—";
+}
+
+function MemberRow({
+    member,
+    onRemove,
+}: {
+    member: GroupMember;
+    onRemove?: () => void;
+}) {
+    const name = getMemberName(member);
     return (
         <div className="flex items-center gap-3 rounded-lg bg-ice-100 p-3">
             <Avatar size="sm">
@@ -20,12 +32,32 @@ function MemberRow({ member }: { member: GroupMember }) {
                     {GROUP_MEMBER_TYPE_LABELS[member.type]}
                 </span>
             </div>
+            {onRemove && (
+                <Button
+                    variant="ghost"
+                    size="icon-sm"
+                    aria-label={`Remover ${name}`}
+                    onClick={onRemove}
+                >
+                    <Trash2 className="size-4 text-destructive" />
+                </Button>
+            )}
         </div>
     );
 }
 
 export function GroupMembersPage() {
-    const { groupId, group, members, isLoading } = useGroupMembersController();
+    const {
+        groupId,
+        group,
+        members,
+        isLoading,
+        isOwner,
+        memberToRemove,
+        setMemberToRemove,
+        confirmRemoval,
+        isRemoving,
+    } = useGroupMembersController();
 
     return (
         <PageWrapper
@@ -51,10 +83,30 @@ export function GroupMembersPage() {
             {!isLoading && members.length > 0 && (
                 <div className="flex flex-col gap-2">
                     {members.map((member) => (
-                        <MemberRow key={member.id} member={member} />
+                        <MemberRow
+                            key={member.id}
+                            member={member}
+                            onRemove={
+                                isOwner &&
+                                member.userId &&
+                                member.userId !== group?.ownerId
+                                    ? () => setMemberToRemove(member)
+                                    : undefined
+                            }
+                        />
                     ))}
                 </div>
             )}
+
+            <ConfirmDialog
+                open={memberToRemove !== null}
+                onOpenChange={(open) => !open && setMemberToRemove(null)}
+                title={`Remover ${memberToRemove ? getMemberName(memberToRemove) : ""}?`}
+                description="Essa pessoa deixa de fazer parte do grupo."
+                confirmLabel="Remover"
+                isPending={isRemoving}
+                onConfirm={confirmRemoval}
+            />
         </PageWrapper>
     );
 }
