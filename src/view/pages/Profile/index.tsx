@@ -7,6 +7,7 @@ import {
 } from "../../components/ui/avatar";
 import { Button } from "../../components/ui/button";
 import { getInitials } from "@/src/app/utils/get-initials";
+import { AppearanceSection } from "./AppearanceSection";
 import { ProfileForm } from "./ProfileForm";
 import { useProfileController } from "./useProfileController";
 
@@ -35,6 +36,8 @@ export function ProfilePage() {
                 </div>
 
                 <ProfileForm user={user} />
+
+                <AppearanceSection />
 
                 <Button variant="outline" className="w-full" onClick={() => logout()}>
                     <LogOut className="size-4" />
