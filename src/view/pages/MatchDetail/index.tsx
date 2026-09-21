@@ -11,6 +11,7 @@ import { getInitials } from "@/src/app/utils/get-initials";
 import type { MatchPresenceMember } from "@/src/app/services/matchPresencesService";
 import type { MatchTeam } from "@/src/app/services/matchTeamsService";
 import { GenerateTeamsModal } from "./GenerateTeamsModal";
+import { MatchActionsMenu } from "./MatchActionsMenu";
 import { useMatchDetailController } from "./useMatchDetailController";
 
 const dateFormatter = new Intl.DateTimeFormat("pt-BR", {
@@ -166,6 +167,9 @@ export function MatchDetailPage() {
                         <X className="size-4" />
                         Não vou
                     </Button>
+                    {isOwner && (
+                        <MatchActionsMenu groupId={groupId!} matchId={matchId!} />
+                    )}
                 </div>
             }
         >
