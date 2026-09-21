@@ -1,20 +1,16 @@
 import { useQuery } from "@tanstack/react-query";
-import { useState } from "react";
 import { useMyMembership } from "@/src/app/hooks/useMyMembership";
 import { queryKeys } from "@/src/app/lib/query-keys";
 import {
   findAllMine,
   findPendingMatches,
 } from "@/src/app/services/groupPaymentsService";
-import {
-  getCurrentBrazilMonth,
-  type YearMonth,
-} from "@/src/app/utils/brazil-month";
+import { getCurrentBrazilMonth } from "@/src/app/utils/brazil-month";
 
-export function useMyPaymentsController(groupId: string) {
+export function useMyPaymentStatusController(groupId: string) {
   const { type, isLoading: isLoadingMembership } = useMyMembership(groupId);
   const currentMonth = getCurrentBrazilMonth();
-  const [selectedMonth, setSelectedMonth] = useState<YearMonth>(currentMonth);
+  const isDaily = type === "DAILY";
 
   const { data: currentMonthPayments, isLoading: isLoadingCurrentMonth } =
     useQuery({
@@ -24,19 +20,8 @@ export function useMyPaymentsController(groupId: string) {
         currentMonth.month,
       ),
       queryFn: () => findAllMine(groupId, currentMonth),
+      enabled: !!type && !isDaily,
     });
-
-  const { data: selectedMonthPayments, isLoading: isLoadingSelectedMonth } =
-    useQuery({
-      queryKey: queryKeys.myPayments(
-        groupId,
-        selectedMonth.year,
-        selectedMonth.month,
-      ),
-      queryFn: () => findAllMine(groupId, selectedMonth),
-    });
-
-  const isDaily = type === "DAILY";
 
   const { data: pendingMatches, isLoading: isLoadingPendingMatches } = useQuery({
     queryKey: queryKeys.pendingPaymentMatches(groupId),
@@ -48,12 +33,12 @@ export function useMyPaymentsController(groupId: string) {
     (payment) => payment.matchId === null,
   );
 
-  const isLoadingStatus =
+  const isLoading =
     isLoadingMembership ||
     (isDaily ? isLoadingPendingMatches : isLoadingCurrentMonth);
   const pendingMatchesCount = pendingMatches?.length ?? 0;
   const canRegister =
-    !isLoadingStatus &&
+    !isLoading &&
     !!type &&
     (isDaily ? pendingMatchesCount > 0 : !monthlyFeePayment);
 
@@ -61,12 +46,8 @@ export function useMyPaymentsController(groupId: string) {
     isDaily,
     canRegister,
     currentMonth,
-    selectedMonth,
-    setSelectedMonth,
     monthlyFeePayment,
     pendingMatchesCount,
-    isLoadingStatus,
-    payments: selectedMonthPayments?.data ?? [],
-    isLoadingPayments: isLoadingSelectedMonth,
+    isLoading,
   };
 }
