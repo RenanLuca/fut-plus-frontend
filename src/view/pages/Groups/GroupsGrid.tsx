@@ -24,7 +24,7 @@ export function GroupsGrid({
 
     if (groups.length === 0) {
         return (
-            <div className="flex flex-col items-center gap-2 rounded-xl border border-dashed border-primary-200 bg-item py-10 text-center">
+            <div className="flex flex-col items-center gap-2 rounded-xl border border-dashed border-gray-300 bg-white py-10 text-center">
                 <Users className="size-8 text-muted-foreground" />
                 <p className="text-sm font-medium text-gray-700">
                     Você ainda não faz parte de nenhum grupo

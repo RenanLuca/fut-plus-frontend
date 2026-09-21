@@ -66,7 +66,7 @@ export function GroupMembersPage() {
     return (
         <>
             {isLoading && (
-                <div className="h-16 animate-pulse rounded-lg bg-primary-100" />
+                <div className="h-16 animate-pulse rounded-lg bg-gray-200" />
             )}
             {!isLoading && members.length === 0 && (
                 <p className="text-sm text-muted-foreground">Nenhum membro ainda</p>

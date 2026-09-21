@@ -37,11 +37,11 @@ export function GroupOverview({ groupId }: { groupId: string }) {
                 onChange={setSelectedMonth}
             />
 
-            {isLoading && <div className="h-40 animate-pulse rounded-xl bg-primary-100" />}
+            {isLoading && <div className="h-40 animate-pulse rounded-xl bg-gray-200" />}
 
             {!isLoading && (
                 <>
-                    <div className="flex flex-col gap-2 rounded-xl border border-item-border bg-item p-4">
+                    <div className="flex flex-col gap-2 rounded-xl border border-gray-200 bg-white p-4">
                         <span className="text-xs text-muted-foreground">
                             Mensalidades arrecadadas
                         </span>

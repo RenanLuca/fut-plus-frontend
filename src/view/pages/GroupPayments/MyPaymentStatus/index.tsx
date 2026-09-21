@@ -76,7 +76,7 @@ export function MyPaymentStatus({ groupId }: { groupId: string }) {
     ) : undefined;
 
     if (isLoading) {
-        return <div className="h-20 animate-pulse rounded-xl bg-primary-100" />;
+        return <div className="h-20 animate-pulse rounded-xl bg-gray-200" />;
     }
 
     if (isDaily) {

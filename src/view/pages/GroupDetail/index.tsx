@@ -21,7 +21,7 @@ export function GroupDetailPage() {
             </div>
 
             {isLoadingMatches && (
-                <div className="h-32 animate-pulse rounded-xl bg-primary-100" />
+                <div className="h-32 animate-pulse rounded-xl bg-gray-200" />
             )}
 
             {!isLoadingMatches && nextMatch && (
@@ -32,7 +32,7 @@ export function GroupDetailPage() {
             )}
 
             {!isLoadingMatches && !nextMatch && (
-                <div className="flex flex-col items-center gap-2 rounded-xl border border-dashed border-primary-200 bg-item py-10 text-center">
+                <div className="flex flex-col items-center gap-2 rounded-xl border border-dashed border-gray-300 bg-white py-10 text-center">
                     <CalendarX className="size-8 text-muted-foreground" />
                     <p className="text-sm font-medium text-gray-700">
                         Nenhuma partida marcada

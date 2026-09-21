@@ -20,7 +20,7 @@ export function HomePage() {
     return (
         <PageWrapper title={firstName ? `Olá, ${firstName}!` : "Olá!"}>
             {isLoadingUpcomingMatch && (
-                <div className="h-32 animate-pulse rounded-xl bg-primary-100" />
+                <div className="h-32 animate-pulse rounded-xl bg-gray-200" />
             )}
             {!isLoadingUpcomingMatch &&
                 (upcomingMatch ? (

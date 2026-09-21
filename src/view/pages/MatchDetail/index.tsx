@@ -124,7 +124,7 @@ export function MatchDetailPage() {
     if (isLoadingMatch || !match) {
         return (
             <PageWrapper>
-                <div className="h-24 animate-pulse rounded-xl bg-primary-100" />
+                <div className="h-24 animate-pulse rounded-xl bg-gray-200" />
             </PageWrapper>
         );
     }
@@ -175,7 +175,7 @@ export function MatchDetailPage() {
             }
         >
             {isLoadingPresences && (
-                <div className="h-24 animate-pulse rounded-xl bg-primary-100" />
+                <div className="h-24 animate-pulse rounded-xl bg-gray-200" />
             )}
 
             {!isLoadingPresences && presences && (
@@ -217,11 +217,11 @@ export function MatchDetailPage() {
                 </div>
 
                 {isLoadingTeams && (
-                    <div className="h-24 animate-pulse rounded-xl bg-primary-100" />
+                    <div className="h-24 animate-pulse rounded-xl bg-gray-200" />
                 )}
 
                 {!isLoadingTeams && teams.length === 0 && (
-                    <div className="flex flex-col items-center gap-2 rounded-xl border border-dashed border-primary-200 bg-item py-10 text-center">
+                    <div className="flex flex-col items-center gap-2 rounded-xl border border-dashed border-gray-300 bg-white py-10 text-center">
                         <Shirt className="size-8 text-muted-foreground" />
                         <p className="text-sm font-medium text-gray-700">
                             Nenhum time gerado ainda
