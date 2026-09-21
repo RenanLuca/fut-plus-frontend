@@ -23,30 +23,32 @@ function StatusCard({
     return (
         <div
             className={cn(
-                "flex flex-wrap items-center gap-3 rounded-xl border p-4",
+                "flex flex-col gap-3 rounded-xl border p-4 sm:flex-row sm:items-center",
                 tone === "paid"
                     ? "border-grass-500/40 bg-grass-500/10"
                     : "border-amber-300 bg-amber-50",
             )}
         >
-            <Icon
-                className={cn(
-                    "size-6 shrink-0",
-                    tone === "paid" ? "text-forest-900" : "text-amber-600",
-                )}
-            />
-            <div className="flex min-w-0 flex-1 flex-col">
-                <span
+            <div className="flex flex-1 items-start gap-3 sm:items-center">
+                <Icon
                     className={cn(
-                        "text-sm font-semibold",
-                        tone === "paid" ? "text-forest-900" : "text-amber-800",
+                        "size-6 shrink-0",
+                        tone === "paid" ? "text-forest-900" : "text-amber-600",
                     )}
-                >
-                    {title}
-                </span>
-                {description && (
-                    <span className="text-xs text-muted-foreground">{description}</span>
-                )}
+                />
+                <div className="flex min-w-0 flex-1 flex-col">
+                    <span
+                        className={cn(
+                            "text-sm font-semibold",
+                            tone === "paid" ? "text-forest-900" : "text-amber-800",
+                        )}
+                    >
+                        {title}
+                    </span>
+                    {description && (
+                        <span className="text-xs text-muted-foreground">{description}</span>
+                    )}
+                </div>
             </div>
             {action}
         </div>
@@ -69,6 +71,7 @@ export function MyPaymentStatus({ groupId }: { groupId: string }) {
             groupId={groupId}
             isDaily={isDaily}
             monthName={monthName}
+            className="w-full sm:w-auto"
         />
     ) : undefined;
 

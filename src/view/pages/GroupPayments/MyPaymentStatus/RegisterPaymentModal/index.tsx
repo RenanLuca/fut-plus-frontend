@@ -12,16 +12,18 @@ export function RegisterPaymentModal({
     groupId,
     isDaily,
     monthName,
+    className,
 }: {
     groupId: string;
     isDaily: boolean;
     monthName: string;
+    className?: string;
 }) {
     const [open, setOpen] = useState(false);
 
     return (
         <Sheet open={open} onOpenChange={setOpen}>
-            <SheetTrigger render={<Button size="sm" />}>
+            <SheetTrigger render={<Button size="sm" className={className} />}>
                 <Plus className="size-4" />
                 Registrar pagamento
             </SheetTrigger>
