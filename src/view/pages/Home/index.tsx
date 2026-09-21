@@ -27,7 +27,6 @@ export function HomePage() {
                     <UpcomingMatchCard
                         match={upcomingMatch}
                         groupName={upcomingMatch.group.name}
-                        to={`/groups/${upcomingMatch.groupId}`}
                     />
                 ) : (
                     <NoUpcomingMatch />

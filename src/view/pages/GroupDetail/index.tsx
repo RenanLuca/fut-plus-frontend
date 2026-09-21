@@ -28,7 +28,6 @@ export function GroupDetailPage() {
                 <UpcomingMatchCard
                     match={nextMatch}
                     groupName={group.name}
-                    to={`/groups/${group.id}/matches/${nextMatch.id}`}
                 />
             )}
 
