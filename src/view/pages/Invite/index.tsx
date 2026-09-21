@@ -22,7 +22,7 @@ const currencyFormatter = new Intl.NumberFormat("pt-BR", {
 
 function InviteShell({ children }: { children: ReactNode }) {
     return (
-        <div className="flex h-full w-full items-center justify-center overflow-y-auto bg-app p-4">
+        <div className="flex h-full w-full items-center justify-center overflow-y-auto bg-app bg-dots p-4">
             <div className="flex w-full max-w-md flex-col items-center gap-6 rounded-xl bg-surface p-6 shadow-sm">
                 <Logo className="w-24" />
                 {children}

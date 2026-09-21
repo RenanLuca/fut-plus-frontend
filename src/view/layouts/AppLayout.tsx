@@ -23,7 +23,7 @@ export function AppLayout() {
     const { data: user } = useCurrentUser();
 
     return (
-        <div className="h-full w-full flex flex-col md:flex-row bg-app">
+        <div className="h-full w-full flex flex-col md:flex-row bg-app bg-dots">
             <aside className="hidden md:flex md:w-56 md:flex-col md:border-r md:border-frame md:bg-surface md:p-4 md:gap-6">
                 <Logo className="w-24" />
                 <nav className="flex flex-col gap-1">
