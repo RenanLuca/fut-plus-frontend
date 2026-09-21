@@ -1,6 +1,7 @@
 import { Check, Shirt, Trash2, X } from "lucide-react";
 import type { ReactNode } from "react";
 import { ConfirmDialog } from "../../components/ConfirmDialog";
+import { MatchDateBlock } from "../../components/MatchDateBlock";
 import { PageWrapper } from "../../components/PageWrapper";
 import { Button } from "../../components/ui/button";
 import {
@@ -9,6 +10,7 @@ import {
     AvatarImage,
 } from "../../components/ui/avatar";
 import { cn } from "@/src/app/utils/cn";
+import { getMatchDateParts } from "@/src/app/utils/format-match-date";
 import { getInitials } from "@/src/app/utils/get-initials";
 import type { MatchPresenceMember } from "@/src/app/services/matchPresencesService";
 import { AddGuestModal } from "./AddGuestModal";
@@ -17,14 +19,6 @@ import { MatchActionsMenu } from "./MatchActionsMenu";
 import { TeamCard } from "./TeamCard";
 import { UnassignedPlayers } from "./UnassignedPlayers";
 import { useMatchDetailController } from "./useMatchDetailController";
-
-const dateFormatter = new Intl.DateTimeFormat("pt-BR", {
-    weekday: "long",
-    day: "2-digit",
-    month: "short",
-    hour: "2-digit",
-    minute: "2-digit",
-});
 
 function MemberRow({
     member,
@@ -129,51 +123,58 @@ export function MatchDetailPage() {
         );
     }
 
+    const matchDate = new Date(match.matchDate);
+    const { weekday, time } = getMatchDateParts(matchDate);
+
     return (
         <PageWrapper
             title={
-                <>
-                    <h1 className="text-xl font-bold text-primary-900 first-letter:uppercase">
-                        {dateFormatter.format(new Date(match.matchDate))}
-                    </h1>
-                    {group && (
-                        <span className="text-xs text-muted-foreground">{group.name}</span>
-                    )}
-                </>
-            }
-            actions={
-                <div className="flex gap-2">
-                    <Button
-                        size="sm"
-                        disabled={isPending}
-                        onClick={() => setPresence(true)}
-                        className={cn(
-                            myStatus === "confirmed" &&
-                                "bg-grass-500 text-forest-900 hover:bg-grass-500/90",
+                <div className="flex items-center gap-4">
+                    <MatchDateBlock date={matchDate} variant="solid" />
+                    <div className="flex min-w-0 flex-col gap-0.5">
+                        <h1 className="text-xl leading-tight font-bold text-primary-900">
+                            {weekday} · {time}
+                        </h1>
+                        {group && (
+                            <span className="truncate text-sm text-muted-foreground">
+                                {group.name}
+                            </span>
                         )}
-                    >
-                        <Check className="size-4" />
-                        Vou
-                    </Button>
-                    <Button
-                        size="sm"
-                        variant="outline"
-                        disabled={isPending}
-                        onClick={() => setPresence(false)}
-                        className={cn(
-                            myStatus === "declined" &&
-                                "border-destructive bg-destructive/10 text-destructive",
-                        )}
-                    >
-                        <X className="size-4" />
-                        Não vou
-                    </Button>
-                    {isOwner && (
-                        <MatchActionsMenu groupId={groupId!} matchId={matchId!} />
-                    )}
+                    </div>
                 </div>
             }
+            actions={
+                isOwner ? (
+                    <MatchActionsMenu groupId={groupId!} matchId={matchId!} />
+                ) : undefined
+            }
         >
+            <div className="grid grid-cols-2 gap-2 sm:max-w-sm">
+                <Button
+                    disabled={isPending}
+                    onClick={() => setPresence(true)}
+                    className={cn(
+                        myStatus === "confirmed" &&
+                            "bg-grass-500 text-forest-900 hover:bg-grass-500/90",
+                    )}
+                >
+                    <Check className="size-4" />
+                    Vou
+                </Button>
+                <Button
+                    variant="outline"
+                    disabled={isPending}
+                    onClick={() => setPresence(false)}
+                    className={cn(
+                        myStatus === "declined" &&
+                            "border-destructive bg-destructive/10 text-destructive",
+                    )}
+                >
+                    <X className="size-4" />
+                    Não vou
+                </Button>
+            </div>
+
             {isLoadingPresences && (
                 <div className="h-24 animate-pulse rounded-xl bg-gray-200" />
             )}
