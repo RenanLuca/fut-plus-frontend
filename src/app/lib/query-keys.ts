@@ -1,4 +1,5 @@
 export const queryKeys = {
+  me: ["me"] as const,
   groups: ["groups"] as const,
   group: (groupId: string) => ["groups", groupId] as const,
   groupMembers: (groupId: string) =>
