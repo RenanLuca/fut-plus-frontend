@@ -54,7 +54,6 @@ export function useGroupMembersController() {
   }
 
   return {
-    groupId,
     group,
     members: members ?? [],
     isLoading,

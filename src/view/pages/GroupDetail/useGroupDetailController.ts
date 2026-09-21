@@ -2,7 +2,6 @@ import { useQuery } from "@tanstack/react-query";
 import { useParams } from "react-router";
 import { queryKeys } from "@/src/app/lib/query-keys";
 import { findOne as findGroup } from "@/src/app/services/groupsService";
-import { findAllPerGroup as findGroupMembers } from "@/src/app/services/groupMembersService";
 import { findAll as findGroupMatches } from "@/src/app/services/groupMatchesService";
 import { useCurrentUser } from "@/src/app/hooks/useCurrentUser";
 import { getNextMatch } from "@/src/app/utils/get-next-match";
@@ -11,15 +10,9 @@ export function useGroupDetailController() {
   const { groupId } = useParams<{ groupId: string }>();
   const { data: currentUser } = useCurrentUser();
 
-  const { data: group, isLoading: isLoadingGroup } = useQuery({
+  const { data: group } = useQuery({
     queryKey: queryKeys.group(groupId!),
     queryFn: () => findGroup(groupId!),
-    enabled: !!groupId,
-  });
-
-  const { data: members } = useQuery({
-    queryKey: queryKeys.groupMembers(groupId!),
-    queryFn: () => findGroupMembers(groupId!),
     enabled: !!groupId,
   });
 
@@ -33,8 +26,6 @@ export function useGroupDetailController() {
 
   return {
     group,
-    isLoadingGroup,
-    membersCount: members?.length,
     nextMatch: matches ? getNextMatch(matches) : undefined,
     isLoadingMatches,
     isOwner,

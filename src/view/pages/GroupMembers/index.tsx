@@ -1,7 +1,5 @@
-import { ArrowLeft, Trash2 } from "lucide-react";
-import { Link } from "react-router";
+import { Trash2 } from "lucide-react";
 import { ConfirmDialog } from "../../components/ConfirmDialog";
-import { PageWrapper } from "../../components/PageWrapper";
 import { Avatar, AvatarFallback } from "../../components/ui/avatar";
 import { Button } from "../../components/ui/button";
 import { GROUP_MEMBER_TYPE_LABELS } from "@/src/app/constants/groupMemberType";
@@ -48,7 +46,6 @@ function MemberRow({
 
 export function GroupMembersPage() {
     const {
-        groupId,
         group,
         members,
         isLoading,
@@ -60,20 +57,7 @@ export function GroupMembersPage() {
     } = useGroupMembersController();
 
     return (
-        <PageWrapper
-            title={
-                <>
-                    <Link
-                        to={`/groups/${groupId}`}
-                        className="inline-flex items-center gap-1 text-xs text-muted-foreground transition-colors hover:text-primary-900"
-                    >
-                        <ArrowLeft className="size-3.5" />
-                        {group?.name ?? "Voltar"}
-                    </Link>
-                    <h1 className="text-xl font-bold text-primary-900">Membros</h1>
-                </>
-            }
-        >
+        <>
             {isLoading && (
                 <div className="h-16 animate-pulse rounded-lg bg-gray-100" />
             )}
@@ -105,6 +89,6 @@ export function GroupMembersPage() {
                 isPending={isRemoving}
                 onConfirm={confirmRemoval}
             />
-        </PageWrapper>
+        </>
     );
 }
