@@ -45,12 +45,14 @@ export function GroupOverview({ groupId }: { groupId: string }) {
                         <span className="text-xs text-muted-foreground">
                             Mensalidades arrecadadas
                         </span>
-                        <span className="text-2xl font-bold text-primary-900">
-                            {formatCurrency(collected)}
-                            <span className="ml-2 text-sm font-normal text-muted-foreground">
-                                de {formatCurrency(expected)} esperados
+                        <div className="flex flex-wrap items-baseline gap-x-2">
+                            <span className="text-2xl font-bold text-primary-900">
+                                {formatCurrency(collected)}
                             </span>
-                        </span>
+                            <span className="text-lg font-medium text-gray-700">
+                                / {formatCurrency(expected)}
+                            </span>
+                        </div>
                         <span className="text-xs text-muted-foreground">
                             Avulsos (partidas): {formatCurrency(oneOffTotal)}
                         </span>
