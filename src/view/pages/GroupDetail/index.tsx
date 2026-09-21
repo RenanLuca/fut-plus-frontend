@@ -41,7 +41,7 @@ export function GroupDetailPage() {
                     </div>
                 </>
             }
-            actions={isOwner && <GroupActionsMenu group={group} />}
+            actions={<GroupActionsMenu group={group} isOwner={isOwner} />}
         >
             <section className="flex flex-col gap-3">
                 <div className="flex items-center justify-between">
