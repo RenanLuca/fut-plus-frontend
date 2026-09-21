@@ -7,6 +7,7 @@ import { HomePage } from "@/src/view/pages/Home";
 import { InvitePage } from "@/src/view/pages/Invite";
 import { GroupsPage } from "@/src/view/pages/Groups";
 import { GroupDetailPage } from "@/src/view/pages/GroupDetail";
+import { GroupLayout } from "@/src/view/pages/GroupDetail/GroupLayout";
 import { GroupMembersPage } from "@/src/view/pages/GroupMembers";
 import { MatchDetailPage } from "@/src/view/pages/MatchDetail";
 import { ProfilePage } from "@/src/view/pages/Profile";
@@ -24,11 +25,10 @@ export function Router() {
             <Route element={<AppLayout />}>
                 <Route path="/home" element={<HomePage />} />
                 <Route path="/groups" element={<GroupsPage />} />
-                <Route path="/groups/:groupId" element={<GroupDetailPage />} />
-                <Route
-                    path="/groups/:groupId/members"
-                    element={<GroupMembersPage />}
-                />
+                <Route path="/groups/:groupId" element={<GroupLayout />}>
+                    <Route index element={<GroupDetailPage />} />
+                    <Route path="members" element={<GroupMembersPage />} />
+                </Route>
                 <Route
                     path="/groups/:groupId/matches/:matchId"
                     element={<MatchDetailPage />}
