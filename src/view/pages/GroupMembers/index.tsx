@@ -10,7 +10,7 @@ import type { GroupMember } from "@/src/app/services/groupMembersService";
 import { useGroupMembersController } from "./useGroupMembersController";
 
 function getMemberName(member: GroupMember) {
-    return member.user?.name ?? member.guestUser?.name ?? "—";
+    return member.user.name;
 }
 
 function MemberRow({
@@ -87,9 +87,7 @@ export function GroupMembersPage() {
                             key={member.id}
                             member={member}
                             onRemove={
-                                isOwner &&
-                                member.userId &&
-                                member.userId !== group?.ownerId
+                                isOwner && member.userId !== group?.ownerId
                                     ? () => setMemberToRemove(member)
                                     : undefined
                             }

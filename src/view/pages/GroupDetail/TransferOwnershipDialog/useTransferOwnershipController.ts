@@ -21,10 +21,10 @@ export function useTransferOwnershipController(
   });
 
   const candidates = (members ?? [])
-    .filter((member) => member.userId && member.userId !== group.ownerId)
+    .filter((member) => member.userId !== group.ownerId)
     .map((member) => ({
-      value: member.userId as string,
-      label: member.user?.name ?? "—",
+      value: member.userId,
+      label: member.user.name,
     }));
 
   const { mutate: transfer, isPending } = useMutation({

@@ -48,7 +48,7 @@ export function useGroupMembersController() {
   });
 
   function confirmRemoval() {
-    if (memberToRemove?.userId) {
+    if (memberToRemove) {
       removeMember(memberToRemove.userId);
     }
   }

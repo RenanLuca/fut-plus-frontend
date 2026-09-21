@@ -9,22 +9,14 @@ type MemberUser = {
   position: Position;
 };
 
-type MemberGuestUser = {
-  id: string;
-  name: string;
-  position: Position;
-};
-
 export type GroupMember = {
   id: string;
   groupId: string;
-  userId: string | null;
-  guestUserId: string | null;
+  userId: string;
   type: GroupMemberType;
   createdAt: string;
   updatedAt: string;
-  user: MemberUser | null;
-  guestUser: MemberGuestUser | null;
+  user: MemberUser;
 };
 
 export async function findAllPerGroup(
