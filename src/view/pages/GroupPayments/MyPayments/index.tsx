@@ -1,27 +1,11 @@
-import { CircleAlert, CircleCheck, ExternalLink, Receipt } from "lucide-react";
+import { CircleAlert, CircleCheck } from "lucide-react";
 import { MonthSelector } from "../../../components/MonthSelector";
 import { formatCurrency } from "@/src/app/utils/format-currency";
 import { formatMonthName } from "@/src/app/utils/brazil-month";
-import type { GroupPayment } from "@/src/app/services/groupPaymentsService";
+import { formatRegisteredAt, paymentLabel } from "../payment-labels";
+import { PaymentRow } from "../PaymentRow";
 import { RegisterPaymentModal } from "./RegisterPaymentModal";
 import { useMyPaymentsController } from "./useMyPaymentsController";
-
-const paidAtFormatter = new Intl.DateTimeFormat("pt-BR", {
-    day: "2-digit",
-    month: "2-digit",
-});
-
-const matchDateFormatter = new Intl.DateTimeFormat("pt-BR", {
-    day: "2-digit",
-    month: "2-digit",
-    timeZone: "UTC",
-});
-
-function paymentLabel(payment: GroupPayment, monthName: string) {
-    return payment.matchId
-        ? `Partida de ${matchDateFormatter.format(new Date(payment.period))}`
-        : `Mensalidade de ${monthName}`;
-}
 
 export function MyPayments({ groupId }: { groupId: string }) {
     const {
@@ -66,7 +50,7 @@ export function MyPayments({ groupId }: { groupId: string }) {
                         </span>
                         <span className="text-xs text-muted-foreground">
                             {formatCurrency(monthlyFeePayment.amount)} · registrada em{" "}
-                            {paidAtFormatter.format(new Date(monthlyFeePayment.createdAt))}
+                            {formatRegisteredAt(monthlyFeePayment.createdAt)}
                         </span>
                     </div>
                 </div>
@@ -133,35 +117,13 @@ export function MyPayments({ groupId }: { groupId: string }) {
                 {!isLoadingPayments && payments.length > 0 && (
                     <div className="flex flex-col gap-2">
                         {payments.map((payment) => (
-                            <div
+                            <PaymentRow
                                 key={payment.id}
-                                className="flex items-center gap-3 rounded-lg bg-ice-100 p-3"
-                            >
-                                <Receipt className="size-4 shrink-0 text-primary-900" />
-                                <div className="flex flex-1 flex-col">
-                                    <span className="text-sm font-medium">
-                                        {paymentLabel(payment, selectedMonthName)}
-                                    </span>
-                                    <span className="text-xs text-muted-foreground">
-                                        Registrado em{" "}
-                                        {paidAtFormatter.format(new Date(payment.createdAt))}
-                                    </span>
-                                </div>
-                                {payment.receipt && (
-                                    <a
-                                        href={payment.receipt}
-                                        target="_blank"
-                                        rel="noreferrer"
-                                        className="inline-flex items-center gap-1 text-xs text-primary-900 underline-offset-2 hover:underline"
-                                    >
-                                        Comprovante
-                                        <ExternalLink className="size-3" />
-                                    </a>
-                                )}
-                                <span className="text-sm font-semibold">
-                                    {formatCurrency(payment.amount)}
-                                </span>
-                            </div>
+                                title={paymentLabel(payment, selectedMonthName)}
+                                subtitle={`Registrado em ${formatRegisteredAt(payment.createdAt)}`}
+                                receipt={payment.receipt}
+                                amount={payment.amount}
+                            />
                         ))}
                     </div>
                 )}
