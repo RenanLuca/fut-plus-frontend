@@ -37,7 +37,7 @@ export function InviteLinkContent({ groupId }: { groupId: string }) {
                 {!isLoading && !link && (
                     <div className="flex flex-col items-center gap-3 rounded-xl border border-dashed border-line-strong bg-surface py-8 text-center">
                         <Link2 className="size-8 text-muted-foreground" />
-                        <p className="text-sm font-medium text-gray-700">
+                        <p className="text-sm font-medium text-medium">
                             Este grupo ainda não tem um link de convite
                         </p>
                         <Button size="sm" disabled={isRegenerating} onClick={regenerate}>

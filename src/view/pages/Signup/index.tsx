@@ -26,7 +26,7 @@ export function SignupPage() {
     return (
         <div className="w-full h-full p-4 sm:p-6 flex flex-col items-center justify-center gap-6">
             <div className="flex flex-col items-center gap-1 text-center">
-                <h1 className="text-2xl font-bold text-primary-900 tracking-tight">Crie sua conta</h1>
+                <h1 className="text-2xl font-bold text-heading tracking-tight">Crie sua conta</h1>
                 <p className="text-sm text-muted-foreground">
                     Cadastre-se pra começar a organizar suas peladas
                 </p>
@@ -75,7 +75,7 @@ export function SignupPage() {
                     )}
                 </div>
                 <div className="flex flex-col gap-1">
-                    <label className="text-xs text-gray-800" htmlFor="position">
+                    <label className="text-xs text-strong" htmlFor="position">
                         Posição
                     </label>
                     <Select
@@ -106,7 +106,7 @@ export function SignupPage() {
             <div className="flex flex-wrap items-center justify-center gap-1">
                 <span className="text-sm font-medium">Já tem uma conta?</span>
                 <Button variant={"link"} size={"sm"} render={<Link to={loginLink} />}>
-                    <span className="text-sm font-medium text-primary-900">Entrar</span>
+                    <span className="text-sm font-medium text-heading">Entrar</span>
                 </Button>
             </div>
         </div>

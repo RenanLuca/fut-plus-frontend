@@ -33,7 +33,7 @@ export function TeamCard({
                     className="size-3 rounded-full border border-line"
                     style={{ backgroundColor: team.color }}
                 />
-                <span className="font-semibold text-primary-900">{team.name}</span>
+                <span className="font-semibold text-heading">{team.name}</span>
                 <span className="text-xs text-muted-foreground">
                     ({team.matchTeamPlayers.length})
                 </span>

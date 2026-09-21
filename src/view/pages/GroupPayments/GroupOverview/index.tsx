@@ -29,7 +29,7 @@ export function GroupOverview({ groupId }: { groupId: string }) {
 
     return (
         <section className="flex flex-col gap-4">
-            <h2 className="text-sm font-semibold text-gray-700">Pagamentos do grupo</h2>
+            <h2 className="text-sm font-semibold text-medium">Pagamentos do grupo</h2>
 
             <MonthSelector
                 value={selectedMonth}
@@ -46,10 +46,10 @@ export function GroupOverview({ groupId }: { groupId: string }) {
                             Mensalidades arrecadadas
                         </span>
                         <div className="flex flex-wrap items-baseline gap-x-2">
-                            <span className="text-2xl font-bold text-primary-900">
+                            <span className="text-2xl font-bold text-heading">
                                 {formatCurrency(collected)}
                             </span>
-                            <span className="text-lg font-medium text-gray-700">
+                            <span className="text-lg font-medium text-medium">
                                 / {formatCurrency(expected)}
                             </span>
                         </div>
@@ -59,7 +59,7 @@ export function GroupOverview({ groupId }: { groupId: string }) {
                     </div>
 
                     <div className="flex flex-col gap-2">
-                        <h3 className="text-sm font-semibold text-gray-700">
+                        <h3 className="text-sm font-semibold text-medium">
                             Mensalidades ({paidCount}/{checklist.length})
                         </h3>
                         {checklist.length === 0 && (
@@ -89,19 +89,19 @@ export function GroupOverview({ groupId }: { groupId: string }) {
                                         href={payment.receipt}
                                         target="_blank"
                                         rel="noreferrer"
-                                        className="inline-flex items-center gap-1 text-xs text-primary-900 underline-offset-2 hover:underline"
+                                        className="inline-flex items-center gap-1 text-xs text-heading underline-offset-2 hover:underline"
                                     >
                                         Comprovante
                                         <ExternalLink className="size-3" />
                                     </a>
                                 )}
                                 {payment ? (
-                                    <span className="inline-flex items-center gap-1 text-sm font-medium text-forest-900">
+                                    <span className="inline-flex items-center gap-1 text-sm font-medium text-forest-900 dark:text-grass-400">
                                         <CircleCheck className="size-4" />
                                         {formatCurrency(payment.amount)}
                                     </span>
                                 ) : (
-                                    <span className="inline-flex items-center gap-1 text-sm font-medium text-amber-700">
+                                    <span className="inline-flex items-center gap-1 text-sm font-medium text-amber-700 dark:text-amber-300">
                                         <CircleAlert className="size-4" />
                                         Pendente
                                     </span>
@@ -111,7 +111,7 @@ export function GroupOverview({ groupId }: { groupId: string }) {
                     </div>
 
                     <div className="flex flex-col gap-2">
-                        <h3 className="text-sm font-semibold text-gray-700">
+                        <h3 className="text-sm font-semibold text-medium">
                             Pagamentos avulsos de {monthName} ({oneOffPayments.length})
                         </h3>
                         {oneOffPayments.length === 0 && (

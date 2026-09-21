@@ -11,7 +11,7 @@ function Input({ className, type, icon: Icon, ...props }: InputProps) {
   return (
     <div className={cn("flex flex-col gap-1.5 w-full")}>
       {props.label && (
-        <label className="text-xs text-gray-800" htmlFor={props.id}>{props.label}</label>
+        <label className="text-xs text-strong" htmlFor={props.id}>{props.label}</label>
       )}
       <div className="relative flex items-center">
         {Icon && (

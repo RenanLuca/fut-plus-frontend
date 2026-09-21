@@ -14,7 +14,7 @@ export function PaymentRow({
 }) {
     return (
         <div className="flex items-center gap-3 rounded-lg border border-line bg-surface p-3">
-            <Receipt className="size-4 shrink-0 text-primary-900" />
+            <Receipt className="size-4 shrink-0 text-heading" />
             <div className="flex flex-1 flex-col">
                 <span className="text-sm font-medium">{title}</span>
                 <span className="text-xs text-muted-foreground">{subtitle}</span>
@@ -24,7 +24,7 @@ export function PaymentRow({
                     href={receipt}
                     target="_blank"
                     rel="noreferrer"
-                    className="inline-flex items-center gap-1 text-xs text-primary-900 underline-offset-2 hover:underline"
+                    className="inline-flex items-center gap-1 text-xs text-heading underline-offset-2 hover:underline"
                 >
                     Comprovante
                     <ExternalLink className="size-3" />

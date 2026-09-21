@@ -29,7 +29,7 @@ export function ProfilePage() {
                         {user.profilePicture && <AvatarImage src={user.profilePicture} />}
                         <AvatarFallback>{getInitials(user.name)}</AvatarFallback>
                     </Avatar>
-                    <span className="text-lg font-semibold text-primary-900">
+                    <span className="text-lg font-semibold text-heading">
                         {user.name}
                     </span>
                 </div>

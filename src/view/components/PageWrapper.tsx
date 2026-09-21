@@ -13,7 +13,7 @@ export function PageWrapper({ title, actions, children }: PageWrapperProps) {
         <div className="flex items-start justify-between gap-3">
           {title &&
             (typeof title === "string" ? (
-              <h1 className="text-xl font-bold text-primary-900">{title}</h1>
+              <h1 className="text-xl font-bold text-heading">{title}</h1>
             ) : (
               <div className="flex min-w-0 flex-col gap-1.5">{title}</div>
             ))}

@@ -33,8 +33,8 @@ export function AppLayout() {
                             to={item.to}
                             className={({ isActive }) =>
                                 cn(
-                                    "flex items-center gap-2.5 rounded-lg px-3 py-2 text-sm font-medium text-gray-800 transition-colors hover:bg-primary-100",
-                                    isActive && "bg-primary-100 text-primary-900",
+                                    "flex items-center gap-2.5 rounded-lg px-3 py-2 text-sm font-medium text-strong transition-colors hover:bg-accent-soft",
+                                    isActive && "bg-accent-soft text-heading",
                                 )
                             }
                         >
@@ -86,8 +86,8 @@ export function AppLayout() {
                         to={item.to}
                         className={({ isActive }) =>
                             cn(
-                                "flex flex-col items-center gap-0.5 px-4 text-xs font-medium text-gray-700",
-                                isActive && "text-primary-900",
+                                "flex flex-col items-center gap-0.5 px-4 text-xs font-medium text-medium",
+                                isActive && "text-heading",
                             )
                         }
                     >
@@ -96,7 +96,7 @@ export function AppLayout() {
                                 <span
                                     className={cn(
                                         "rounded-full px-4 py-1 transition-colors",
-                                        isActive && "bg-primary-100",
+                                        isActive && "bg-accent-soft",
                                     )}
                                 >
                                     <item.icon className="size-5" />

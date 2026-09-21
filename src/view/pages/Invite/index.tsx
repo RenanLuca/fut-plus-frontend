@@ -61,7 +61,7 @@ export function InvitePage() {
         return (
             <InviteShell>
                 <div className="flex flex-col items-center gap-2 text-center">
-                    <h1 className="text-xl font-bold text-primary-900">
+                    <h1 className="text-xl font-bold text-heading">
                         Convite inválido
                     </h1>
                     <p className="text-sm text-muted-foreground">
@@ -82,7 +82,7 @@ export function InvitePage() {
                 <span className="text-sm text-muted-foreground">
                     {owner.name} convidou você para
                 </span>
-                <h1 className="text-2xl font-bold text-primary-900">{group.name}</h1>
+                <h1 className="text-2xl font-bold text-heading">{group.name}</h1>
                 <div className="flex flex-wrap justify-center gap-1.5 text-xs text-muted-foreground">
                     <span className="rounded-full bg-soft px-2 py-0.5">
                         {WEEKDAY_LABELS[group.weekday]}, {group.hour}
@@ -112,7 +112,7 @@ export function InvitePage() {
             ) : (
                 <form onSubmit={onSubmit} className="flex w-full flex-col gap-4">
                     <div className="flex flex-col gap-1">
-                        <label className="text-xs text-gray-800" htmlFor="invite-type">
+                        <label className="text-xs text-strong" htmlFor="invite-type">
                             Como você vai jogar
                         </label>
                         <Select
@@ -143,7 +143,7 @@ export function InvitePage() {
                     </div>
 
                     <div className="flex flex-col gap-1">
-                        <label className="text-xs text-gray-800" htmlFor="invite-rank">
+                        <label className="text-xs text-strong" htmlFor="invite-rank">
                             Seu nível
                         </label>
                         <Select

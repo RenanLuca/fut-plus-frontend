@@ -22,7 +22,7 @@ type UpcomingMatchCardProps = {
 };
 
 const CARD_BACKGROUND =
-    "bg-linear-to-br from-primary-900 to-forest-900 text-white shadow-md";
+    "bg-linear-to-br from-primary-900 to-forest-900 text-white shadow-md dark:ring-1 dark:ring-primary-400/40";
 
 function StatusChip({ status }: { status: MyPresenceStatus }) {
     if (status === "confirmed") {

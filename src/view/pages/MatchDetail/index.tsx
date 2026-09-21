@@ -69,7 +69,7 @@ function PresenceSection({
     return (
         <section className="flex flex-col gap-3">
             <div className="flex items-center justify-between">
-                <h2 className="text-sm font-semibold text-gray-700">
+                <h2 className="text-sm font-semibold text-medium">
                     {title} ({members.length})
                 </h2>
                 {action}
@@ -132,7 +132,7 @@ export function MatchDetailPage() {
                 <div className="flex items-center gap-4">
                     <MatchDateBlock date={matchDate} variant="solid" />
                     <div className="flex min-w-0 flex-col gap-0.5">
-                        <h1 className="text-xl leading-tight font-bold text-primary-900">
+                        <h1 className="text-xl leading-tight font-bold text-heading">
                             {weekday} · {time}
                         </h1>
                         {group && (
@@ -207,7 +207,7 @@ export function MatchDetailPage() {
 
             <section className="flex flex-col gap-3">
                 <div className="flex items-center justify-between">
-                    <h2 className="text-sm font-semibold text-gray-700">Times</h2>
+                    <h2 className="text-sm font-semibold text-medium">Times</h2>
                     {isOwner && (
                         <GenerateTeamsModal
                             groupId={groupId!}
@@ -224,7 +224,7 @@ export function MatchDetailPage() {
                 {!isLoadingTeams && teams.length === 0 && (
                     <div className="flex flex-col items-center gap-2 rounded-xl border border-dashed border-line-strong bg-surface py-10 text-center">
                         <Shirt className="size-8 text-muted-foreground" />
-                        <p className="text-sm font-medium text-gray-700">
+                        <p className="text-sm font-medium text-medium">
                             Nenhum time gerado ainda
                         </p>
                         {!isOwner && (

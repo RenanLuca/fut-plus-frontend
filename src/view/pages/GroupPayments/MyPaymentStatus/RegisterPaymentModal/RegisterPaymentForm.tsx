@@ -60,7 +60,7 @@ export function RegisterPaymentForm({
             >
                 {isDaily && (
                     <div className="flex flex-col gap-1">
-                        <label className="text-xs text-gray-800" htmlFor="payment-match">
+                        <label className="text-xs text-strong" htmlFor="payment-match">
                             Partida
                         </label>
                         <Select
@@ -92,7 +92,7 @@ export function RegisterPaymentForm({
                 )}
 
                 <div className="flex flex-col gap-1">
-                    <label className="text-xs text-gray-800" htmlFor="payment-amount">
+                    <label className="text-xs text-strong" htmlFor="payment-amount">
                         Valor pago
                     </label>
                     <CurrencyInput

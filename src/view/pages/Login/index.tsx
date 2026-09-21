@@ -11,7 +11,7 @@ export function LoginPage() {
     return (
         <div className="w-full h-full p-4 sm:p-6 flex flex-col items-center justify-center gap-6">
             <div className="flex flex-col items-center gap-1 text-center">
-                <h1 className="text-2xl font-bold text-primary-900 tracking-tight">Seja bem-vindo!</h1>
+                <h1 className="text-2xl font-bold text-heading tracking-tight">Seja bem-vindo!</h1>
                 <p className="text-sm text-muted-foreground">
                     Organize a pelada da sua galera em poucos cliques
                 </p>
@@ -53,7 +53,7 @@ export function LoginPage() {
             <div className="flex flex-wrap items-center justify-center gap-1">
                 <span className="text-sm font-medium">Ainda não tem uma conta?</span>
                 <Button variant={"link"} size={"sm"} render={<Link to={signupLink} />}>
-                    <span className="text-sm font-medium text-primary-900">Cadastre-se</span>
+                    <span className="text-sm font-medium text-heading">Cadastre-se</span>
                 </Button>
             </div>
         </div>

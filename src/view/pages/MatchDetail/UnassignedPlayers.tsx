@@ -20,7 +20,7 @@ export function UnassignedPlayers({
     return (
         <div className="flex flex-col gap-2 rounded-xl border border-dashed border-line-strong bg-surface p-4">
             <div className="flex flex-col">
-                <span className="font-semibold text-gray-700">
+                <span className="font-semibold text-medium">
                     Sem time ({players.length})
                 </span>
                 <span className="text-xs text-muted-foreground">

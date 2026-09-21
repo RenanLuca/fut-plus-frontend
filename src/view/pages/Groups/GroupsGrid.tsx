@@ -26,7 +26,7 @@ export function GroupsGrid({
         return (
             <div className="flex flex-col items-center gap-2 rounded-xl border border-dashed border-line-strong bg-surface py-10 text-center">
                 <Users className="size-8 text-muted-foreground" />
-                <p className="text-sm font-medium text-gray-700">
+                <p className="text-sm font-medium text-medium">
                     Você ainda não faz parte de nenhum grupo
                 </p>
                 <p className="text-xs text-muted-foreground">

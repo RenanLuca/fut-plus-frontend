@@ -21,7 +21,7 @@ export function GroupPaymentsPage() {
 
     return (
         <section className="flex flex-col gap-4">
-            <h2 className="text-sm font-semibold text-gray-700">Meus pagamentos</h2>
+            <h2 className="text-sm font-semibold text-medium">Meus pagamentos</h2>
             <MyPaymentStatus groupId={groupId} />
             <MyPaymentsHistory groupId={groupId} />
         </section>

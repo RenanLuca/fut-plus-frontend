@@ -32,12 +32,12 @@ export function GroupLayout() {
         <PageWrapper
             title={
                 <>
-                    <h1 className="text-xl font-bold text-primary-900">{group.name}</h1>
+                    <h1 className="text-xl font-bold text-heading">{group.name}</h1>
                     <div className="flex flex-wrap gap-1.5 text-xs text-muted-foreground">
-                        <span className="rounded-full bg-soft px-2 py-0.5 text-gray-800">
+                        <span className="rounded-full bg-soft px-2 py-0.5 text-strong">
                             {WEEKDAY_LABELS[group.weekday]}, {group.hour}
                         </span>
-                        <span className="rounded-full bg-soft px-2 py-0.5 text-gray-800">
+                        <span className="rounded-full bg-soft px-2 py-0.5 text-strong">
                             {FREQUENCY_LABELS[group.frequency]}
                         </span>
                     </div>
@@ -53,8 +53,8 @@ export function GroupLayout() {
                         end={tab.end}
                         className={({ isActive }) =>
                             cn(
-                                "whitespace-nowrap border-b-2 border-transparent px-3 py-2 text-sm font-medium text-gray-700 transition-colors hover:text-primary-900",
-                                isActive && "border-primary-500 text-primary-900",
+                                "whitespace-nowrap border-b-2 border-transparent px-3 py-2 text-sm font-medium text-medium transition-colors hover:text-heading",
+                                isActive && "border-primary-500 text-heading",
                             )
                         }
                     >

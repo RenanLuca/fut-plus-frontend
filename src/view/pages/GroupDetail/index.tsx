@@ -14,7 +14,7 @@ export function GroupDetailPage() {
     return (
         <section className="flex flex-col gap-3">
             <div className="flex items-center justify-between">
-                <h2 className="text-sm font-semibold text-gray-700">Próxima partida</h2>
+                <h2 className="text-sm font-semibold text-medium">Próxima partida</h2>
                 {isOwner && group.frequency === "EVENTUAL" && (
                     <CreateMatchModal groupId={group.id} />
                 )}
@@ -34,7 +34,7 @@ export function GroupDetailPage() {
             {!isLoadingMatches && !nextMatch && (
                 <div className="flex flex-col items-center gap-2 rounded-xl border border-dashed border-line-strong bg-surface py-10 text-center">
                     <CalendarX className="size-8 text-muted-foreground" />
-                    <p className="text-sm font-medium text-gray-700">
+                    <p className="text-sm font-medium text-medium">
                         Nenhuma partida marcada
                     </p>
                     <p className="text-xs text-muted-foreground">

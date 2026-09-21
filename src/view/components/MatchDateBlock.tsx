@@ -16,7 +16,7 @@ export function MatchDateBlock({
                 "flex size-16 shrink-0 flex-col items-center justify-center rounded-xl text-white",
                 variant === "dark"
                     ? "bg-white/10 ring-1 ring-white/20"
-                    : "bg-primary-900",
+                    : "bg-brand",
             )}
         >
             <span className="text-2xl leading-none font-bold">{day}</span>

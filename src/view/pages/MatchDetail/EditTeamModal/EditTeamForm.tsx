@@ -51,7 +51,7 @@ export function EditTeamForm({
                 </div>
 
                 <div className="flex flex-col gap-2">
-                    <span className="text-xs text-gray-800">Cor</span>
+                    <span className="text-xs text-strong">Cor</span>
                     <div role="radiogroup" aria-label="Cor do time" className="flex flex-wrap gap-3">
                         {TEAM_COLOR_OPTIONS.map((option) => {
                             const selected = colorField.value === option.value;
@@ -67,7 +67,7 @@ export function EditTeamForm({
                                     style={{ backgroundColor: option.value }}
                                     className={cn(
                                         "size-9 rounded-full border border-line-strong transition-shadow",
-                                        selected && "ring-2 ring-primary-500 ring-offset-2",
+                                        selected && "ring-2 ring-primary-500 ring-offset-2 ring-offset-surface",
                                     )}
                                 />
                             );
