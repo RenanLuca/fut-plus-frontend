@@ -25,5 +25,12 @@ commits, not one giant commit.
    commit message. The commit message should look exactly like one a human
    wrote by hand.
 
+Gotchas:
+- A page and its controller hook changing together for the SAME feature are
+  one commit, not two — don't over-split a cohesive change
+- A new component file plus the page that now imports it are one commit
+- If `git status` shows changes in unrelated areas (e.g. a stray formatting
+  change from the editor), flag it and ask before including it
+
 IMPORTANT: never commit unrelated changes together just to save time. Small,
 readable history matters more than speed here.

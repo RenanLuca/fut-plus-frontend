@@ -14,6 +14,9 @@ This includes, but is not limited to:
 - Error handling and edge cases
 - Naming of routes, components, functions
 - Performance vs simplicity trade-offs
+- Whether a new component is a flat file or gets its own folder (see
+  .claude/rules/naming-conventions.md — if genuinely ambiguous even after
+  reading the rule, ask)
 
 For each decision point found, formulate a clear question with 2-3 concrete
 options, and explain the trade-off of each option in 1-2 sentences, so I can
@@ -28,3 +31,10 @@ IMPORTANT RULE: don't decide anything on your own "to save time", even a
 small decision. If there's more than one reasonable way to do it, that's my
 decision, not yours. Only after I answer all the questions, build the plan
 incorporating exactly the choices I made.
+
+Gotchas:
+- Don't re-ask something already settled by CLAUDE.md or .claude/rules/ —
+  check those first, only ask what's genuinely undecided
+- Don't bundle a real architectural decision with a trivial one just to
+  look thorough — trivial naming inside an already-decided pattern doesn't
+  need a question
