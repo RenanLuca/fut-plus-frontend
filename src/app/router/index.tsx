@@ -7,7 +7,7 @@ import { HomePage } from "@/src/view/pages/Home";
 import { InvitePage } from "@/src/view/pages/Invite";
 import { GroupsPage } from "@/src/view/pages/Groups";
 import { GroupDetailPage } from "@/src/view/pages/GroupDetail";
-import { GroupLayout } from "@/src/view/pages/GroupDetail/GroupLayout";
+import { GroupLayout } from "@/src/view/pages/GroupDetail/components/GroupLayout";
 import { GroupMembersPage } from "@/src/view/pages/GroupMembers";
 import { GroupPaymentsPage } from "@/src/view/pages/GroupPayments";
 import { MatchDetailPage } from "@/src/view/pages/MatchDetail";

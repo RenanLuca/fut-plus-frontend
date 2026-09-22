@@ -3,8 +3,8 @@ import {
     NoUpcomingMatch,
     UpcomingMatchCard,
 } from "../../components/UpcomingMatchCard";
-import { GroupFormModal } from "../Groups/GroupFormModal";
-import { GroupsGrid } from "../Groups/GroupsGrid";
+import { GroupFormModal } from "../Groups/components/GroupFormModal";
+import { GroupsGrid } from "../Groups/components/GroupsGrid";
 import { useHomeController } from "./useHomeController";
 
 export function HomePage() {

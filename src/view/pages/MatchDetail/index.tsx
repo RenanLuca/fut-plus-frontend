@@ -13,11 +13,11 @@ import { cn } from "@/src/app/utils/cn";
 import { getMatchDateParts } from "@/src/app/utils/format-match-date";
 import { getInitials } from "@/src/app/utils/get-initials";
 import type { MatchPresenceMember } from "@/src/app/services/matchPresencesService";
-import { AddGuestModal } from "./AddGuestModal";
-import { GenerateTeamsModal } from "./GenerateTeamsModal";
-import { MatchActionsMenu } from "./MatchActionsMenu";
-import { TeamCard } from "./TeamCard";
-import { UnassignedPlayers } from "./UnassignedPlayers";
+import { AddGuestModal } from "./components/AddGuestModal";
+import { GenerateTeamsModal } from "./components/GenerateTeamsModal";
+import { MatchActionsMenu } from "./components/MatchActionsMenu";
+import { TeamCard } from "./components/TeamCard";
+import { UnassignedPlayers } from "./components/UnassignedPlayers";
 import { useMatchDetailController } from "./useMatchDetailController";
 
 function MemberRow({

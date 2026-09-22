@@ -1,6 +1,6 @@
-import { GroupOverview } from "./GroupOverview";
-import { MyPaymentStatus } from "./MyPaymentStatus";
-import { MyPaymentsHistory } from "./MyPaymentsHistory";
+import { GroupOverview } from "./components/GroupOverview";
+import { MyPaymentStatus } from "./components/MyPaymentStatus";
+import { MyPaymentsHistory } from "./components/MyPaymentsHistory";
 import { useGroupPaymentsController } from "./useGroupPaymentsController";
 
 export function GroupPaymentsPage() {

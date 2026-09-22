@@ -1,6 +1,6 @@
 import { PageWrapper } from "../../components/PageWrapper";
-import { GroupFormModal } from "./GroupFormModal";
-import { GroupsGrid } from "./GroupsGrid";
+import { GroupFormModal } from "./components/GroupFormModal";
+import { GroupsGrid } from "./components/GroupsGrid";
 import { useGroupsController } from "./useGroupsController";
 
 export function GroupsPage() {

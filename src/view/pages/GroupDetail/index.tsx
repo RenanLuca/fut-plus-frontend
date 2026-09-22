@@ -1,6 +1,6 @@
 import { CalendarX } from "lucide-react";
 import { UpcomingMatchCard } from "../../components/UpcomingMatchCard";
-import { CreateMatchModal } from "./CreateMatchModal";
+import { CreateMatchModal } from "./components/CreateMatchModal";
 import { useGroupDetailController } from "./useGroupDetailController";
 
 export function GroupDetailPage() {

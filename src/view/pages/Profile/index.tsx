@@ -7,8 +7,8 @@ import {
 } from "../../components/ui/avatar";
 import { Button } from "../../components/ui/button";
 import { getInitials } from "@/src/app/utils/get-initials";
-import { AppearanceSection } from "./AppearanceSection";
-import { ProfileForm } from "./ProfileForm";
+import { AppearanceSection } from "./components/AppearanceSection";
+import { ProfileForm } from "./components/ProfileForm";
 import { useProfileController } from "./useProfileController";
 
 export function ProfilePage() {
