@@ -2,7 +2,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useMutation } from "@tanstack/react-query";
 import { isAxiosError } from "axios";
 import { useState } from "react";
-import { useController, useForm } from "react-hook-form";
+import { useController, useForm, useWatch } from "react-hook-form";
 import { useAuthRedirect } from "@/src/app/hooks/useAuthRedirect";
 import { useResendVerification } from "@/src/app/hooks/useResendVerification";
 import { signup as signupRequest } from "@/src/app/services/authService";
@@ -31,6 +31,8 @@ export function useSignupController() {
     control,
   });
 
+  const password = useWatch({ control, name: "password", defaultValue: "" });
+
   const {
     mutate: signup,
     isPending,
@@ -43,7 +45,13 @@ export function useSignupController() {
   });
 
   const onSubmit = handleSubmit((values) => {
-    signup(values);
+    // Os campos de confirmação existem só no front, não vão pra API.
+    signup({
+      name: values.name,
+      email: values.email,
+      password: values.password,
+      position: values.position,
+    });
   });
 
   function onResend() {
@@ -66,6 +74,7 @@ export function useSignupController() {
     loginLink: withRedirect("/"),
     register,
     positionField,
+    password,
     onSubmit,
     errors,
     isPending,

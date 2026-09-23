@@ -1,9 +1,8 @@
 import { z } from "zod";
+import { passwordSchema } from "@/src/app/schemas/password.schema";
 
 export const resetPasswordSchema = z.object({
-  password: z
-    .string()
-    .min(6, "A senha deve ter no mínimo 6 caracteres"),
+  password: passwordSchema,
 });
 
 export type ResetPasswordFormValues = z.infer<typeof resetPasswordSchema>;
