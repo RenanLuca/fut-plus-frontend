@@ -3,6 +3,10 @@ import { AppLayout } from "@/src/view/layouts/AppLayout";
 import { RequireAuth } from "@/src/view/layouts/RequireAuth";
 import { LoginPage } from "@/src/view/pages/Login";
 import { SignupPage } from "@/src/view/pages/Signup";
+import { VerifyEmailPage } from "@/src/view/pages/VerifyEmail";
+import { ForgotPasswordPage } from "@/src/view/pages/ForgotPassword";
+import { ResetPasswordPage } from "@/src/view/pages/ResetPassword";
+import { ConfirmEmailChangePage } from "@/src/view/pages/ConfirmEmailChange";
 import { HomePage } from "@/src/view/pages/Home";
 import { InvitePage } from "@/src/view/pages/Invite";
 import { GroupsPage } from "@/src/view/pages/Groups";
@@ -20,6 +24,10 @@ export function Router() {
         <Route element={<AuthLayout />}>
             <Route path="/" element={<LoginPage />} />
             <Route path="/signup" element={<SignupPage />} />
+            <Route path="/verify-email" element={<VerifyEmailPage />} />
+            <Route path="/forgot-password" element={<ForgotPasswordPage />} />
+            <Route path="/reset-password" element={<ResetPasswordPage />} />
+            <Route path="/confirm-email-change" element={<ConfirmEmailChangePage />} />
         </Route>
         <Route path="/invite/:inviteId" element={<InvitePage />} />
         <Route element={<RequireAuth />}>
