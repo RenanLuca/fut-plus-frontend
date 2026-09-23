@@ -1,12 +1,6 @@
 import { Button } from "../../../../components/ui/button";
 import { Input } from "../../../../components/ui/input";
-import {
-    Select,
-    SelectContent,
-    SelectItem,
-    SelectTrigger,
-    SelectValue,
-} from "../../../../components/ui/select";
+import { RadioGroup, RadioGroupItem } from "../../../../components/ui/radio-group";
 import { POSITION_OPTIONS } from "@/src/app/constants/position";
 import type { CurrentUser } from "@/src/app/services/usersService";
 import { formatPhone, onlyPhoneDigits } from "@/src/app/utils/phone";
@@ -53,30 +47,22 @@ export function ProfileForm({ user }: { user: CurrentUser }) {
             </div>
 
             <div className="flex flex-col gap-1">
-                <label className="text-xs text-strong" htmlFor="profile-position">
-                    Posição
-                </label>
-                <Select
-                    items={POSITION_OPTIONS}
+                <span className="text-xs text-strong">Posição</span>
+                <RadioGroup
+                    aria-invalid={!!errors.position}
                     value={positionField.value}
                     onValueChange={positionField.onChange}
                 >
-                    <SelectTrigger
-                        id="profile-position"
-                        className="w-full"
-                        aria-invalid={!!errors.position}
-                    >
-                        <SelectValue placeholder="Selecione" />
-                    </SelectTrigger>
-                    <SelectContent>
-                        {POSITION_OPTIONS.map((option) => (
-                            <SelectItem key={option.value} value={option.value}>
-                                <option.icon className="size-4 text-muted-foreground" />
-                                {option.label}
-                            </SelectItem>
-                        ))}
-                    </SelectContent>
-                </Select>
+                    {POSITION_OPTIONS.map((option) => (
+                        <RadioGroupItem
+                            key={option.value}
+                            value={option.value}
+                            icon={option.icon}
+                        >
+                            {option.label}
+                        </RadioGroupItem>
+                    ))}
+                </RadioGroup>
                 {errors.position && (
                     <span className="text-xs text-destructive">{errors.position.message}</span>
                 )}

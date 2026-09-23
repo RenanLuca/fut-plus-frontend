@@ -1,6 +1,7 @@
 import type { ReactNode } from "react";
 import { Link, Navigate } from "react-router";
 import { Button } from "../../components/ui/button";
+import { RadioGroup, RadioGroupItem } from "../../components/ui/radio-group";
 import {
     Select,
     SelectContent,
@@ -143,29 +144,23 @@ export function InvitePage() {
                     </div>
 
                     <div className="flex flex-col gap-1">
-                        <label className="text-xs text-strong" htmlFor="invite-rank">
-                            Seu nível
-                        </label>
-                        <Select
-                            items={RANK_OPTIONS}
+                        <span className="text-xs text-strong">Seu nível</span>
+                        <RadioGroup
+                            aria-invalid={!!errors.rank}
                             value={rankField.value}
                             onValueChange={rankField.onChange}
                         >
-                            <SelectTrigger
-                                id="invite-rank"
-                                className="w-full"
-                                aria-invalid={!!errors.rank}
-                            >
-                                <SelectValue placeholder="Selecione" />
-                            </SelectTrigger>
-                            <SelectContent>
-                                {RANK_OPTIONS.map((option) => (
-                                    <SelectItem key={option.value} value={option.value}>
-                                        {option.label}
-                                    </SelectItem>
-                                ))}
-                            </SelectContent>
-                        </Select>
+                            {RANK_OPTIONS.map((option) => (
+                                <RadioGroupItem
+                                    key={option.value}
+                                    value={option.value}
+                                    icon={option.icon}
+                                    iconClassName={option.iconClassName}
+                                >
+                                    {option.label}
+                                </RadioGroupItem>
+                            ))}
+                        </RadioGroup>
                         {errors.rank && (
                             <span className="text-xs text-destructive">
                                 {errors.rank.message}

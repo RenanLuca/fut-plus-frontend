@@ -1,12 +1,6 @@
 import { Button } from "../../../../components/ui/button";
 import { Input } from "../../../../components/ui/input";
-import {
-    Select,
-    SelectContent,
-    SelectItem,
-    SelectTrigger,
-    SelectValue,
-} from "../../../../components/ui/select";
+import { RadioGroup, RadioGroupItem } from "../../../../components/ui/radio-group";
 import {
     SheetClose,
     SheetDescription,
@@ -57,59 +51,45 @@ export function AddGuestForm({
                 </div>
 
                 <div className="flex flex-col gap-1">
-                    <label className="text-xs text-strong" htmlFor="guest-position">
-                        Posição
-                    </label>
-                    <Select
-                        items={POSITION_OPTIONS}
+                    <span className="text-xs text-strong">Posição</span>
+                    <RadioGroup
+                        aria-invalid={!!errors.position}
                         value={positionField.value}
                         onValueChange={positionField.onChange}
                     >
-                        <SelectTrigger
-                            id="guest-position"
-                            className="w-full"
-                            aria-invalid={!!errors.position}
-                        >
-                            <SelectValue placeholder="Selecione" />
-                        </SelectTrigger>
-                        <SelectContent>
-                            {POSITION_OPTIONS.map((option) => (
-                                <SelectItem key={option.value} value={option.value}>
-                                    <option.icon className="size-4 text-muted-foreground" />
-                                    {option.label}
-                                </SelectItem>
-                            ))}
-                        </SelectContent>
-                    </Select>
+                        {POSITION_OPTIONS.map((option) => (
+                            <RadioGroupItem
+                                key={option.value}
+                                value={option.value}
+                                icon={option.icon}
+                            >
+                                {option.label}
+                            </RadioGroupItem>
+                        ))}
+                    </RadioGroup>
                     {errors.position && (
                         <span className="text-xs text-destructive">{errors.position.message}</span>
                     )}
                 </div>
 
                 <div className="flex flex-col gap-1">
-                    <label className="text-xs text-strong" htmlFor="guest-rank">
-                        Nível
-                    </label>
-                    <Select
-                        items={RANK_OPTIONS}
+                    <span className="text-xs text-strong">Nível</span>
+                    <RadioGroup
+                        aria-invalid={!!errors.rank}
                         value={rankField.value}
                         onValueChange={rankField.onChange}
                     >
-                        <SelectTrigger
-                            id="guest-rank"
-                            className="w-full"
-                            aria-invalid={!!errors.rank}
-                        >
-                            <SelectValue placeholder="Selecione" />
-                        </SelectTrigger>
-                        <SelectContent>
-                            {RANK_OPTIONS.map((option) => (
-                                <SelectItem key={option.value} value={option.value}>
-                                    {option.label}
-                                </SelectItem>
-                            ))}
-                        </SelectContent>
-                    </Select>
+                        {RANK_OPTIONS.map((option) => (
+                            <RadioGroupItem
+                                key={option.value}
+                                value={option.value}
+                                icon={option.icon}
+                                iconClassName={option.iconClassName}
+                            >
+                                {option.label}
+                            </RadioGroupItem>
+                        ))}
+                    </RadioGroup>
                     {errors.rank && (
                         <span className="text-xs text-destructive">{errors.rank.message}</span>
                     )}
