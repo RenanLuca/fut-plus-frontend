@@ -26,6 +26,18 @@ export const groupFormSchema = z.object({
       (value) => Number(value) > 0,
       "Informe um valor válido",
     ),
+  rank: z
+    .enum(["BRASILEIRAO", "CHAMPIONS_LEAGUE", "BALLON_DOR"])
+    .optional(),
 });
 
 export type GroupFormValues = z.infer<typeof groupFormSchema>;
+
+export const createGroupFormSchema = groupFormSchema.extend({
+  rank: z.enum(
+    ["BRASILEIRAO", "CHAMPIONS_LEAGUE", "BALLON_DOR"],
+    "Selecione seu nível",
+  ),
+});
+
+export type CreateGroupFormValues = z.infer<typeof createGroupFormSchema>;

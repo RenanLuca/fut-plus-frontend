@@ -8,7 +8,11 @@ import {
   update as updateGroupRequest,
   type Group,
 } from "@/src/app/services/groupsService";
-import { groupFormSchema, type GroupFormValues } from "./group-form.schema";
+import {
+  createGroupFormSchema,
+  groupFormSchema,
+  type GroupFormValues,
+} from "./group-form.schema";
 
 export type GroupFormMode =
   | { mode: "create" }
@@ -19,6 +23,7 @@ export function useGroupFormController(
   onSaved: () => void,
 ) {
   const queryClient = useQueryClient();
+  const isCreate = props.mode === "create";
 
   const {
     register,
@@ -26,7 +31,7 @@ export function useGroupFormController(
     control,
     formState: { errors },
   } = useForm<GroupFormValues>({
-    resolver: zodResolver(groupFormSchema),
+    resolver: zodResolver(isCreate ? createGroupFormSchema : groupFormSchema),
     defaultValues:
       props.mode === "edit"
         ? {
@@ -48,16 +53,28 @@ export function useGroupFormController(
     name: "valuePerUser",
     control,
   });
+  const { field: rankField } = useController({ name: "rank", control });
 
   const { mutate: saveGroup, isPending } = useMutation({
     mutationFn: (values: GroupFormValues) => {
-      const payload = {
-        ...values,
-        valuePerUser: Number(values.valuePerUser),
-      };
-      return props.mode === "edit"
-        ? updateGroupRequest(props.group.id, payload)
-        : createGroupRequest(payload);
+      const valuePerUser = Number(values.valuePerUser);
+      if (props.mode === "edit") {
+        return updateGroupRequest(props.group.id, {
+          name: values.name,
+          weekday: values.weekday,
+          hour: values.hour,
+          frequency: values.frequency,
+          valuePerUser,
+        });
+      }
+      return createGroupRequest({
+        name: values.name,
+        weekday: values.weekday,
+        hour: values.hour,
+        frequency: values.frequency,
+        valuePerUser,
+        rank: values.rank!,
+      });
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: queryKeys.groups });
@@ -89,6 +106,8 @@ export function useGroupFormController(
     weekdayField,
     frequencyField,
     valuePerUserField,
+    rankField,
+    isCreate,
     onSubmit,
     errors,
     isPending,

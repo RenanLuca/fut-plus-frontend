@@ -1,6 +1,7 @@
 import { CurrencyInput } from "react-currency-input-field";
 import { Button } from "../../../../components/ui/button";
 import { Input } from "../../../../components/ui/input";
+import { RadioGroup, RadioGroupItem } from "../../../../components/ui/radio-group";
 import {
     Select,
     SelectContent,
@@ -17,6 +18,7 @@ import {
 } from "../../../../components/ui/sheet";
 import { WEEKDAY_OPTIONS } from "@/src/app/constants/weekday";
 import { FREQUENCY_OPTIONS } from "@/src/app/constants/frequencyType";
+import { RANK_OPTIONS } from "@/src/app/constants/rank";
 import {
     useGroupFormController,
     type GroupFormMode,
@@ -30,6 +32,8 @@ export function GroupForm({ onSaved, ...mode }: GroupFormProps) {
         weekdayField,
         frequencyField,
         valuePerUserField,
+        rankField,
+        isCreate,
         onSubmit,
         errors,
         isPending,
@@ -148,6 +152,33 @@ export function GroupForm({ onSaved, ...mode }: GroupFormProps) {
                         </span>
                     )}
                 </div>
+
+                {isCreate && (
+                    <div className="flex flex-col gap-1">
+                        <span className="text-xs text-strong">Seu nível</span>
+                        <RadioGroup
+                            aria-invalid={!!errors.rank}
+                            value={rankField.value}
+                            onValueChange={rankField.onChange}
+                        >
+                            {RANK_OPTIONS.map((option) => (
+                                <RadioGroupItem
+                                    key={option.value}
+                                    value={option.value}
+                                    icon={option.icon}
+                                    iconClassName={option.iconClassName}
+                                >
+                                    {option.label}
+                                </RadioGroupItem>
+                            ))}
+                        </RadioGroup>
+                        {errors.rank && (
+                            <span className="text-xs text-destructive">
+                                {errors.rank.message}
+                            </span>
+                        )}
+                    </div>
+                )}
             </form>
             <SheetFooter className="flex-row">
                 <SheetClose render={<Button variant="outline" className="flex-1" />}>
