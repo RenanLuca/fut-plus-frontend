@@ -8,6 +8,9 @@ export type CurrentUser = {
   telefone: string | null;
   position: Position;
   profilePicture: string | null;
+  emailVerifiedAt: string | null;
+  emailNotifications: boolean;
+  passwordChangedAt: string | null;
   createdAt: string;
   updatedAt: string;
 };

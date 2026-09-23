@@ -42,7 +42,7 @@ export function ProfileForm({ user }: { user: CurrentUser }) {
                     readOnly
                 />
                 <span className="text-xs text-muted-foreground">
-                    A troca de email virá com o sistema de email.
+                    Para alterar, use "Trocar email" na seção Segurança.
                 </span>
             </div>
 

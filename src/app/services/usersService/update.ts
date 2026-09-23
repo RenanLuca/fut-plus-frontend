@@ -7,6 +7,7 @@ export type UpdateUserPayload = {
   position?: Position;
   telefone?: string;
   profilePicture?: string;
+  emailNotifications?: boolean;
 };
 
 export async function update(payload: UpdateUserPayload): Promise<CurrentUser> {

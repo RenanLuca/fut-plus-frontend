@@ -8,6 +8,9 @@ import {
 import { Button } from "../../components/ui/button";
 import { getInitials } from "@/src/app/utils/get-initials";
 import { AppearanceSection } from "./components/AppearanceSection";
+import { ChangeEmailModal } from "./components/ChangeEmailModal";
+import { ChangePasswordModal } from "./components/ChangePasswordModal";
+import { NotificationsSection } from "./components/NotificationsSection";
 import { ProfileForm } from "./components/ProfileForm";
 import { useProfileController } from "./useProfileController";
 
@@ -36,6 +39,14 @@ export function ProfilePage() {
                 </div>
 
                 <ProfileForm user={user} />
+
+                <NotificationsSection user={user} />
+
+                <section className="flex flex-col gap-2">
+                    <h2 className="text-sm font-semibold text-medium">Segurança</h2>
+                    <ChangeEmailModal />
+                    <ChangePasswordModal />
+                </section>
 
                 <AppearanceSection />
 
