@@ -2,6 +2,7 @@ import { Link } from "react-router";
 import { Mail, Lock } from "lucide-react";
 import { Button } from "../../components/ui/button";
 import { Input } from "../../components/ui/input";
+import { PasswordInput } from "../../components/PasswordInput";
 import { useLoginController } from "./useLoginController";
 
 export function LoginPage() {
@@ -43,9 +44,8 @@ export function LoginPage() {
                     )}
                 </div>
                 <div className="flex flex-col gap-1">
-                    <Input
+                    <PasswordInput
                         id="password"
-                        type="password"
                         label="Senha"
                         icon={Lock}
                         aria-invalid={!!errors.password}

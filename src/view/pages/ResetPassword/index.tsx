@@ -1,7 +1,7 @@
 import { Link } from "react-router";
 import { Lock } from "lucide-react";
 import { Button } from "../../components/ui/button";
-import { Input } from "../../components/ui/input";
+import { PasswordInput } from "../../components/PasswordInput";
 import { useResetPasswordController } from "./useResetPasswordController";
 
 export function ResetPasswordPage() {
@@ -37,9 +37,8 @@ export function ResetPasswordPage() {
                     <p className="text-sm text-destructive text-center">{errorMessage}</p>
                 )}
                 <div className="flex flex-col gap-1">
-                    <Input
+                    <PasswordInput
                         id="password"
-                        type="password"
                         label="Nova senha"
                         icon={Lock}
                         aria-invalid={!!errors.password}

@@ -1,6 +1,6 @@
 import { Lock } from "lucide-react";
 import { Button } from "../../../../components/ui/button";
-import { Input } from "../../../../components/ui/input";
+import { PasswordInput } from "../../../../components/PasswordInput";
 import {
     Sheet,
     SheetClose,
@@ -46,9 +46,8 @@ export function ChangePasswordModal() {
                         <p className="text-sm text-destructive">{errorMessage}</p>
                     )}
                     <div className="flex flex-col gap-1">
-                        <Input
+                        <PasswordInput
                             id="current-password"
-                            type="password"
                             label="Senha atual"
                             aria-invalid={!!errors.currentPassword}
                             {...register("currentPassword")}
@@ -60,9 +59,8 @@ export function ChangePasswordModal() {
                         )}
                     </div>
                     <div className="flex flex-col gap-1">
-                        <Input
+                        <PasswordInput
                             id="new-password"
-                            type="password"
                             label="Nova senha"
                             aria-invalid={!!errors.newPassword}
                             {...register("newPassword")}

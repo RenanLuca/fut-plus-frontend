@@ -6,8 +6,9 @@ import { cn } from "@/src/app/utils/cn.ts"
 interface InputProps extends React.ComponentProps<"input"> {
   label?: string;
   icon?: LucideIcon;
+  endAdornment?: React.ReactNode;
 }
-function Input({ className, type, icon: Icon, ...props }: InputProps) {
+function Input({ className, type, icon: Icon, endAdornment, ...props }: InputProps) {
   return (
     <div className={cn("flex flex-col gap-1.5 w-full")}>
       {props.label && (
@@ -27,6 +28,9 @@ function Input({ className, type, icon: Icon, ...props }: InputProps) {
           )}
           {...props}
         />
+        {endAdornment && (
+          <div className="absolute right-1 flex items-center">{endAdornment}</div>
+        )}
       </div>
     </div>
   )

@@ -1,6 +1,7 @@
 import { Mail } from "lucide-react";
 import { Button } from "../../../../components/ui/button";
 import { Input } from "../../../../components/ui/input";
+import { PasswordInput } from "../../../../components/PasswordInput";
 import {
     Sheet,
     SheetClose,
@@ -61,9 +62,8 @@ export function ChangeEmailModal() {
                         )}
                     </div>
                     <div className="flex flex-col gap-1">
-                        <Input
+                        <PasswordInput
                             id="change-email-password"
-                            type="password"
                             label="Sua senha"
                             aria-invalid={!!errors.password}
                             {...register("password")}
