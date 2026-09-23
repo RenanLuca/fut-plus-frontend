@@ -1,5 +1,6 @@
 import { httpClient } from "@/src/app/lib/http-client";
 import type { Position } from "@/src/app/constants/position";
+import type { Rank } from "@/src/app/constants/rank";
 
 export type MatchPresenceMember = {
   id: string;
@@ -7,6 +8,7 @@ export type MatchPresenceMember = {
   position: Position;
   profilePicture: string | null;
   isGuest: boolean;
+  rank: Rank | null;
 };
 
 export type MatchPresences = {

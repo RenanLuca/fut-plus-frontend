@@ -7,6 +7,7 @@ export type MatchTeamPlayerUser = {
   name: string;
   position: Position;
   profilePicture: string | null;
+  rank: Rank | null;
 };
 
 export type MatchTeamPlayerGuestUser = {

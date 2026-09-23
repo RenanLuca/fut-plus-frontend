@@ -2,7 +2,7 @@ import { httpClient } from "@/src/app/lib/http-client";
 import type { MatchTeam } from "./findAll";
 
 export type GenerateMatchTeamsPayload = {
-  teamCount: number;
+  playersPerTeam: number;
 };
 
 export async function generate(

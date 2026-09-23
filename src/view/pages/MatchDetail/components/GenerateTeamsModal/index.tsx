@@ -17,13 +17,23 @@ export function GenerateTeamsModal({
     groupId,
     matchId,
     hasTeams,
+    confirmedOutfieldCount,
 }: {
     groupId: string;
     matchId: string;
     hasTeams: boolean;
+    confirmedOutfieldCount: number;
 }) {
-    const { open, onOpenChange, register, onSubmit, errors, isPending } =
-        useGenerateTeamsController(groupId, matchId);
+    const {
+        open,
+        onOpenChange,
+        register,
+        onSubmit,
+        errors,
+        isPending,
+        estimatedTeamCount,
+        isImpossible,
+    } = useGenerateTeamsController(groupId, matchId, confirmedOutfieldCount);
 
     return (
         <Sheet open={open} onOpenChange={onOpenChange}>
@@ -47,16 +57,33 @@ export function GenerateTeamsModal({
                 >
                     <div className="flex flex-col gap-1">
                         <Input
-                            id="teamCount"
+                            id="playersPerTeam"
                             type="number"
-                            min="2"
-                            label="Quantidade de times"
-                            aria-invalid={!!errors.teamCount}
-                            {...register("teamCount")}
+                            min="1"
+                            label="Jogadores por time"
+                            aria-invalid={!!errors.playersPerTeam}
+                            {...register("playersPerTeam")}
                         />
-                        {errors.teamCount && (
+                        <span className="text-xs text-muted-foreground">
+                            Goleiros não entram nessa conta — são distribuídos 1
+                            por time, mesmo que sobre ou falte algum
+                        </span>
+                        {errors.playersPerTeam && (
                             <span className="text-xs text-destructive">
-                                {errors.teamCount.message}
+                                {errors.playersPerTeam.message}
+                            </span>
+                        )}
+                        {!errors.playersPerTeam && estimatedTeamCount > 0 && (
+                            <span
+                                className={
+                                    isImpossible
+                                        ? "text-xs text-destructive"
+                                        : "text-xs text-muted-foreground"
+                                }
+                            >
+                                {isImpossible
+                                    ? "Impossível gerar 2 times com esse número"
+                                    : `Isso vai gerar: ${estimatedTeamCount} times`}
                             </span>
                         )}
                     </div>
@@ -68,7 +95,7 @@ export function GenerateTeamsModal({
                     <Button
                         type="submit"
                         form="generate-teams-form"
-                        disabled={isPending}
+                        disabled={isPending || isImpossible}
                         className="flex-1"
                     >
                         {isPending ? "Gerando..." : "Gerar"}

@@ -34,6 +34,8 @@ export function UnassignedPlayers({
                             name={member.name}
                             profilePicture={member.profilePicture}
                             isGuest={member.isGuest}
+                            position={member.position}
+                            rank={member.rank}
                         />
                     );
                     return isOwner ? (

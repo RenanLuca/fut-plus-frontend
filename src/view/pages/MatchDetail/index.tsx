@@ -9,6 +9,8 @@ import {
     AvatarFallback,
     AvatarImage,
 } from "../../components/ui/avatar";
+import { POSITION_OPTIONS_BY_VALUE } from "@/src/app/constants/position";
+import { RANK_OPTIONS_BY_VALUE } from "@/src/app/constants/rank";
 import { cn } from "@/src/app/utils/cn";
 import { getMatchDateParts } from "@/src/app/utils/format-match-date";
 import { getInitials } from "@/src/app/utils/get-initials";
@@ -27,17 +29,32 @@ function MemberRow({
     member: MatchPresenceMember;
     onRemoveGuest?: (member: MatchPresenceMember) => void;
 }) {
+    const positionOption = POSITION_OPTIONS_BY_VALUE[member.position];
+    const rankOption = member.rank ? RANK_OPTIONS_BY_VALUE[member.rank] : null;
+
     return (
         <div className="flex items-center gap-3 rounded-lg border border-line bg-surface p-3">
             <Avatar size="sm">
                 {member.profilePicture && <AvatarImage src={member.profilePicture} />}
                 <AvatarFallback>{getInitials(member.name)}</AvatarFallback>
             </Avatar>
-            <div className="flex flex-1 flex-col">
+            <div className="flex flex-1 flex-col gap-0.5">
                 <span className="text-sm font-medium">{member.name}</span>
-                {member.isGuest && (
-                    <span className="text-xs text-muted-foreground">Convidado</span>
-                )}
+                <div className="flex flex-wrap items-center gap-x-2 gap-y-0.5 text-xs text-muted-foreground">
+                    <span className="flex items-center gap-1">
+                        <positionOption.icon className="size-3" />
+                        {positionOption.label}
+                    </span>
+                    {rankOption && (
+                        <span className="flex items-center gap-1">
+                            <rankOption.icon
+                                className={cn("size-3", rankOption.iconClassName)}
+                            />
+                            {rankOption.label}
+                        </span>
+                    )}
+                    {member.isGuest && <span>Convidado</span>}
+                </div>
             </div>
             {member.isGuest && onRemoveGuest && (
                 <Button
@@ -111,6 +128,7 @@ export function MatchDetailPage() {
         confirmRemoveGuest,
         isRemovingGuest,
         unassignedPlayers,
+        confirmedOutfieldCount,
         movePlayer,
         isMovingPlayer,
     } = useMatchDetailController();
@@ -213,6 +231,7 @@ export function MatchDetailPage() {
                             groupId={groupId!}
                             matchId={matchId!}
                             hasTeams={teams.length > 0}
+                            confirmedOutfieldCount={confirmedOutfieldCount}
                         />
                     )}
                 </div>

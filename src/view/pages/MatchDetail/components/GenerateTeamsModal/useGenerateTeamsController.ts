@@ -1,7 +1,8 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { isAxiosError } from "axios";
 import { useState } from "react";
-import { useForm } from "react-hook-form";
+import { useForm, useWatch } from "react-hook-form";
 import toast from "react-hot-toast";
 import { queryKeys } from "@/src/app/lib/query-keys";
 import { generate as generateTeamsRequest } from "@/src/app/services/matchTeamsService";
@@ -10,31 +11,45 @@ import {
   type GenerateTeamsFormValues,
 } from "./generate-teams.schema";
 
-export function useGenerateTeamsController(groupId: string, matchId: string) {
+export function useGenerateTeamsController(
+  groupId: string,
+  matchId: string,
+  confirmedOutfieldCount: number,
+) {
   const [open, setOpen] = useState(false);
   const queryClient = useQueryClient();
 
   const {
     register,
     handleSubmit,
+    control,
     reset,
     formState: { errors },
   } = useForm<GenerateTeamsFormValues>({
     resolver: zodResolver(generateTeamsSchema),
-    defaultValues: { teamCount: "2" },
+    defaultValues: { playersPerTeam: "5" },
   });
 
   function onOpenChange(nextOpen: boolean) {
     setOpen(nextOpen);
     if (nextOpen) {
-      reset({ teamCount: "2" });
+      reset({ playersPerTeam: "5" });
     }
   }
+
+  const playersPerTeamValue = useWatch({ control, name: "playersPerTeam" });
+  const playersPerTeam = Number(playersPerTeamValue);
+  const estimatedTeamCount =
+    playersPerTeam > 0
+      ? Math.max(2, Math.round(confirmedOutfieldCount / playersPerTeam))
+      : 0;
+  const maxPlayersPerTeam = Math.floor(confirmedOutfieldCount / 2);
+  const isImpossible = playersPerTeam > 0 && playersPerTeam > maxPlayersPerTeam;
 
   const { mutate: generateTeams, isPending } = useMutation({
     mutationFn: (values: GenerateTeamsFormValues) =>
       generateTeamsRequest(groupId, matchId, {
-        teamCount: Number(values.teamCount),
+        playersPerTeam: Number(values.playersPerTeam),
       }),
     onSuccess: () => {
       queryClient.invalidateQueries({
@@ -43,7 +58,11 @@ export function useGenerateTeamsController(groupId: string, matchId: string) {
       setOpen(false);
       toast.success("Times gerados!");
     },
-    onError: () => {
+    onError: (error) => {
+      if (isAxiosError(error) && error.response?.status === 400) {
+        toast.error("Poucos jogadores de linha confirmados pra gerar times.");
+        return;
+      }
       toast.error("Não foi possível gerar os times. Tente novamente.");
     },
   });
@@ -59,5 +78,7 @@ export function useGenerateTeamsController(groupId: string, matchId: string) {
     onSubmit,
     errors,
     isPending,
+    estimatedTeamCount,
+    isImpossible,
   };
 }

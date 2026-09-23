@@ -1,4 +1,4 @@
-import { Pencil } from "lucide-react";
+import { Flag, Pencil } from "lucide-react";
 import { useState } from "react";
 import { Button } from "../../../components/ui/button";
 import type { MatchTeam } from "@/src/app/services/matchTeamsService";
@@ -29,10 +29,12 @@ export function TeamCard({
     return (
         <div className="flex flex-col gap-3 rounded-xl border border-line bg-surface p-4 shadow-sm">
             <div className="flex items-center gap-2">
-                <span
-                    className="size-3 rounded-full border border-line"
-                    style={{ backgroundColor: team.color }}
-                />
+                <span className="flex size-6 shrink-0 items-center justify-center rounded-md bg-soft-strong">
+                    <Flag
+                        className="size-3.5 text-muted-foreground"
+                        style={{ fill: team.color }}
+                    />
+                </span>
                 <span className="font-semibold text-heading">{team.name}</span>
                 <span className="text-xs text-muted-foreground">
                     ({team.matchTeamPlayers.length})
@@ -60,6 +62,8 @@ export function TeamCard({
                                 name={player.user?.name ?? player.guestUser?.name ?? "—"}
                                 profilePicture={player.user?.profilePicture ?? null}
                                 isGuest={ref.isGuest}
+                                position={player.user?.position ?? player.guestUser!.position}
+                                rank={player.user?.rank ?? player.guestUser?.rank}
                             />
                         );
                         return isOwner ? (
