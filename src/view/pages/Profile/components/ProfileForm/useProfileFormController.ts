@@ -39,7 +39,10 @@ export function useProfileFormController(user: CurrentUser) {
     mutationFn: (values: ProfileFormValues) => updateUser(values),
     onSuccess: (updatedUser) => {
       queryClient.setQueryData(queryKeys.me, updatedUser);
-      reset(toFormValues(updatedUser));
+      // keepFieldsRef: sem isso o reset() esvazia os campos registrados e o
+      // React Compiler reaproveita o register("name") em cache, então o input
+      // nunca é registrado de novo e para de marcar o form como dirty.
+      reset(toFormValues(updatedUser), { keepFieldsRef: true });
       toast.success("Perfil atualizado");
     },
     onError: () => {
