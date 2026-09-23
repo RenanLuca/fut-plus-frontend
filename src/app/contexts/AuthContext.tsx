@@ -1,5 +1,6 @@
 import { createContext, useState, type ReactNode } from "react";
 import { authTokenStorage } from "@/src/app/lib/auth-token-storage";
+import { useLogoutOnUnauthorized } from "@/src/app/hooks/useLogoutOnUnauthorized";
 
 export type AuthContextValue = {
   token: string | null;
@@ -24,6 +25,8 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     authTokenStorage.clear();
     setToken(null);
   }
+
+  useLogoutOnUnauthorized(logout);
 
   return (
     <AuthContext.Provider
