@@ -1,17 +1,21 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useMutation } from "@tanstack/react-query";
 import { isAxiosError } from "axios";
+import { useState } from "react";
 import { useController, useForm } from "react-hook-form";
-import { useNavigate } from "react-router";
-import { useAuth } from "@/src/app/hooks/useAuth";
 import { useAuthRedirect } from "@/src/app/hooks/useAuthRedirect";
+import { useResendVerification } from "@/src/app/hooks/useResendVerification";
 import { signup as signupRequest } from "@/src/app/services/authService";
+import {
+  isRateLimitError,
+  RATE_LIMIT_MESSAGE,
+} from "@/src/app/utils/rate-limit";
 import { signupSchema, type SignupFormValues } from "./signup.schema";
 
 export function useSignupController() {
-  const navigate = useNavigate();
-  const { login } = useAuth();
-  const { redirectTo, withRedirect } = useAuthRedirect();
+  const { withRedirect } = useAuthRedirect();
+  const { resend, isResending } = useResendVerification();
+  const [submittedEmail, setSubmittedEmail] = useState<string | null>(null);
 
   const {
     register,
@@ -33,9 +37,8 @@ export function useSignupController() {
     error,
   } = useMutation({
     mutationFn: signupRequest,
-    onSuccess: ({ accessToken }) => {
-      login(accessToken);
-      navigate(redirectTo, { replace: true });
+    onSuccess: (_data, values) => {
+      setSubmittedEmail(values.email);
     },
   });
 
@@ -43,14 +46,23 @@ export function useSignupController() {
     signup(values);
   });
 
+  function onResend() {
+    if (submittedEmail) resend(submittedEmail);
+  }
+
   const errorMessage =
     isAxiosError(error) && error.response?.status === 409
       ? "Já existe uma conta com esse email"
-      : error
-        ? "Não foi possível criar sua conta. Tente novamente."
-        : null;
+      : isRateLimitError(error)
+        ? RATE_LIMIT_MESSAGE
+        : error
+          ? "Não foi possível criar sua conta. Tente novamente."
+          : null;
 
   return {
+    submittedEmail,
+    onResend,
+    isResending,
     loginLink: withRedirect("/"),
     register,
     positionField,

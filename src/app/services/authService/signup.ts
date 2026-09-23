@@ -8,16 +8,6 @@ export type SignupPayload = {
   position: Position;
 };
 
-export type SignupResponse = {
-  accessToken: string;
-};
-
-export async function signup(
-  payload: SignupPayload,
-): Promise<SignupResponse> {
-  const { data } = await httpClient.post<SignupResponse>(
-    "/auth/signup",
-    payload,
-  );
-  return data;
+export async function signup(payload: SignupPayload): Promise<void> {
+  await httpClient.post("/auth/signup", payload);
 }

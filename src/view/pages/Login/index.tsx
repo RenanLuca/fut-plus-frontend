@@ -5,8 +5,17 @@ import { Input } from "../../components/ui/input";
 import { useLoginController } from "./useLoginController";
 
 export function LoginPage() {
-    const { signupLink, register, onSubmit, errors, isPending, errorMessage } =
-        useLoginController();
+    const {
+        signupLink,
+        register,
+        onSubmit,
+        errors,
+        isPending,
+        errorMessage,
+        isEmailNotVerified,
+        onResendVerification,
+        isResending,
+    } = useLoginController();
 
     return (
         <div className="w-full h-full p-4 sm:p-6 flex flex-col items-center justify-center gap-6">
@@ -45,10 +54,27 @@ export function LoginPage() {
                     {errors.password && (
                         <span className="text-xs text-destructive">{errors.password.message}</span>
                     )}
+                    <Link
+                        to="/forgot-password"
+                        className="self-end text-xs font-medium text-muted-foreground hover:text-heading"
+                    >
+                        Esqueci minha senha
+                    </Link>
                 </div>
                 <Button type="submit" disabled={isPending} className="w-full">
                     {isPending ? "Entrando..." : "Entrar"}
                 </Button>
+                {isEmailNotVerified && (
+                    <Button
+                        type="button"
+                        variant="outline"
+                        disabled={isResending}
+                        onClick={onResendVerification}
+                        className="w-full"
+                    >
+                        {isResending ? "Reenviando..." : "Reenviar verificação"}
+                    </Button>
+                )}
             </form>
             <div className="flex flex-wrap items-center justify-center gap-1">
                 <span className="text-sm font-medium">Ainda não tem uma conta?</span>

@@ -8,6 +8,9 @@ import { useSignupController } from "./useSignupController";
 
 export function SignupPage() {
     const {
+        submittedEmail,
+        onResend,
+        isResending,
         loginLink,
         register,
         positionField,
@@ -16,6 +19,35 @@ export function SignupPage() {
         isPending,
         errorMessage,
     } = useSignupController();
+
+    if (submittedEmail) {
+        return (
+            <div className="w-full h-full p-4 sm:p-6 flex flex-col items-center justify-center gap-6 text-center">
+                <div className="flex flex-col items-center gap-1">
+                    <h1 className="text-2xl font-bold text-heading tracking-tight">Confira seu email</h1>
+                    <p className="text-sm text-muted-foreground">
+                        Enviamos um link de confirmação para{" "}
+                        <span className="font-medium text-heading">{submittedEmail}</span>.
+                        Clique nele para ativar sua conta.
+                    </p>
+                </div>
+                <div className="w-full max-w-xs flex flex-col gap-2">
+                    <Button
+                        type="button"
+                        variant="outline"
+                        disabled={isResending}
+                        onClick={onResend}
+                        className="w-full"
+                    >
+                        {isResending ? "Reenviando..." : "Reenviar email"}
+                    </Button>
+                    <Button variant="link" size="sm" render={<Link to={loginLink} />}>
+                        <span className="text-sm font-medium text-heading">Ir para o login</span>
+                    </Button>
+                </div>
+            </div>
+        );
+    }
 
     return (
         <div className="w-full h-full p-4 sm:p-6 flex flex-col items-center justify-center gap-6">
