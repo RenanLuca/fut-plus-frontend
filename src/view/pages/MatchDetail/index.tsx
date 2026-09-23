@@ -128,7 +128,7 @@ export function MatchDetailPage() {
         confirmRemoveGuest,
         isRemovingGuest,
         unassignedPlayers,
-        confirmedOutfieldCount,
+        confirmedCount,
         movePlayer,
         isMovingPlayer,
     } = useMatchDetailController();
@@ -231,7 +231,7 @@ export function MatchDetailPage() {
                             groupId={groupId!}
                             matchId={matchId!}
                             hasTeams={teams.length > 0}
-                            confirmedOutfieldCount={confirmedOutfieldCount}
+                            confirmedCount={confirmedCount}
                         />
                     )}
                 </div>

@@ -17,12 +17,12 @@ export function GenerateTeamsModal({
     groupId,
     matchId,
     hasTeams,
-    confirmedOutfieldCount,
+    confirmedCount,
 }: {
     groupId: string;
     matchId: string;
     hasTeams: boolean;
-    confirmedOutfieldCount: number;
+    confirmedCount: number;
 }) {
     const {
         open,
@@ -33,7 +33,8 @@ export function GenerateTeamsModal({
         isPending,
         estimatedTeamCount,
         isImpossible,
-    } = useGenerateTeamsController(groupId, matchId, confirmedOutfieldCount);
+        impossibleMessage,
+    } = useGenerateTeamsController(groupId, matchId, confirmedCount);
 
     return (
         <Sheet open={open} onOpenChange={onOpenChange}>
@@ -64,28 +65,23 @@ export function GenerateTeamsModal({
                             aria-invalid={!!errors.playersPerTeam}
                             {...register("playersPerTeam")}
                         />
-                        <span className="text-xs text-muted-foreground">
-                            Goleiros não entram nessa conta — são distribuídos 1
-                            por time, mesmo que sobre ou falte algum
-                        </span>
                         {errors.playersPerTeam && (
                             <span className="text-xs text-destructive">
                                 {errors.playersPerTeam.message}
                             </span>
                         )}
-                        {!errors.playersPerTeam && estimatedTeamCount > 0 && (
-                            <span
-                                className={
-                                    isImpossible
-                                        ? "text-xs text-destructive"
-                                        : "text-xs text-muted-foreground"
-                                }
-                            >
-                                {isImpossible
-                                    ? "Impossível gerar 2 times com esse número"
-                                    : `Isso vai gerar: ${estimatedTeamCount} times`}
+                        {!errors.playersPerTeam && isImpossible && (
+                            <span className="text-xs text-destructive">
+                                {impossibleMessage}
                             </span>
                         )}
+                        {!errors.playersPerTeam &&
+                            !isImpossible &&
+                            estimatedTeamCount > 0 && (
+                                <span className="text-xs text-muted-foreground">
+                                    Isso vai gerar: {estimatedTeamCount} times
+                                </span>
+                            )}
                     </div>
                 </form>
                 <SheetFooter className="flex-row">

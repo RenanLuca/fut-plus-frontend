@@ -69,9 +69,7 @@ export function useMatchDetailController() {
           (member) => !assignedPlayerIds.has(member.id),
         )
       : [];
-  const confirmedOutfieldCount = (presences?.confirmed ?? []).filter(
-    (member) => member.position !== "GOALKEEPER",
-  ).length;
+  const confirmedCount = presences?.confirmed.length ?? 0;
   const sortedPresences = presences && {
     confirmed: sortByPosition(presences.confirmed),
     declined: sortByPosition(presences.declined),
@@ -113,7 +111,7 @@ export function useMatchDetailController() {
     isLoadingTeams,
     isOwner,
     unassignedPlayers,
-    confirmedOutfieldCount,
+    confirmedCount,
     movePlayer,
     isMovingPlayer,
     guestToRemove,

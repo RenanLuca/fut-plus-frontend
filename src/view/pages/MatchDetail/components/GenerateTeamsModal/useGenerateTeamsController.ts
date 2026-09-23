@@ -14,7 +14,7 @@ import {
 export function useGenerateTeamsController(
   groupId: string,
   matchId: string,
-  confirmedOutfieldCount: number,
+  confirmedCount: number,
 ) {
   const [open, setOpen] = useState(false);
   const queryClient = useQueryClient();
@@ -40,11 +40,14 @@ export function useGenerateTeamsController(
   const playersPerTeamValue = useWatch({ control, name: "playersPerTeam" });
   const playersPerTeam = Number(playersPerTeamValue);
   const estimatedTeamCount =
-    playersPerTeam > 0
-      ? Math.max(2, Math.round(confirmedOutfieldCount / playersPerTeam))
-      : 0;
-  const maxPlayersPerTeam = Math.floor(confirmedOutfieldCount / 2);
+    playersPerTeam > 0 ? Math.floor(confirmedCount / playersPerTeam) : 0;
+  // Precisam caber pelo menos 2 times, então o teto é metade dos confirmados.
+  const maxPlayersPerTeam = Math.floor(confirmedCount / 2);
   const isImpossible = playersPerTeam > 0 && playersPerTeam > maxPlayersPerTeam;
+  const impossibleMessage =
+    maxPlayersPerTeam < 1
+      ? "Confirmados insuficientes para formar 2 times"
+      : `Com ${confirmedCount} confirmados, o máximo é ${maxPlayersPerTeam} jogadores por time`;
 
   const { mutate: generateTeams, isPending } = useMutation({
     mutationFn: (values: GenerateTeamsFormValues) =>
@@ -60,7 +63,7 @@ export function useGenerateTeamsController(
     },
     onError: (error) => {
       if (isAxiosError(error) && error.response?.status === 400) {
-        toast.error("Poucos jogadores de linha confirmados pra gerar times.");
+        toast.error("Poucos jogadores confirmados pra esse tamanho de time.");
         return;
       }
       toast.error("Não foi possível gerar os times. Tente novamente.");
@@ -80,5 +83,6 @@ export function useGenerateTeamsController(
     isPending,
     estimatedTeamCount,
     isImpossible,
+    impossibleMessage,
   };
 }
