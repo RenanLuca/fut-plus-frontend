@@ -10,7 +10,7 @@ import {
     AlertDialogTitle,
 } from "./ui/alert-dialog";
 
-type ConfirmDialogProps = {
+export type ConfirmDialogProps = {
     open: boolean;
     onOpenChange: (open: boolean) => void;
     title: string;
