@@ -11,7 +11,11 @@ export function GroupsGrid({
 }) {
     if (isLoading) {
         return (
-            <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+            <div
+                className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3"
+                role="status"
+                aria-label="GroupGridLoading"
+            >
                 {[1, 2, 3].map((key) => (
                     <div
                         key={key}
@@ -24,7 +28,11 @@ export function GroupsGrid({
 
     if (groups.length === 0) {
         return (
-            <div className="flex flex-col items-center gap-2 rounded-xl border border-dashed border-line-strong bg-surface py-10 text-center">
+            <div
+                className="flex flex-col items-center gap-2 rounded-xl border border-dashed border-line-strong bg-surface py-10 text-center"
+                role="status"
+                aria-label="GroupGridEmpty"
+            >
                 <Users className="size-8 text-muted-foreground" />
                 <p className="text-sm font-medium text-medium">
                     Você ainda não faz parte de nenhum grupo
@@ -37,7 +45,11 @@ export function GroupsGrid({
     }
 
     return (
-        <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+        <div
+            className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3"
+            role="list"
+            aria-label="GroupGridList"
+        >
             {groups.map((group) => (
                 <GroupCard key={group.id} group={group} />
             ))}
