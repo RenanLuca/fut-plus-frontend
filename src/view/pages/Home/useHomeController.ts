@@ -27,3 +27,5 @@ export function useHomeController() {
     isLoadingUpcomingMatch,
   };
 }
+
+export type UseHomeControllerReturn = ReturnType<typeof useHomeController>;
