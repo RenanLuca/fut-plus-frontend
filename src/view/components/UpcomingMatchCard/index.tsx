@@ -1,4 +1,4 @@
-import { ArrowRight, Calendar, Check, Clock, X } from "lucide-react";
+import { ArrowRight, Calendar, Check, X } from "lucide-react";
 import { Link } from "react-router";
 import { Button } from "../ui/button";
 import { MatchDateBlock } from "../MatchDateBlock";
@@ -11,10 +11,8 @@ import {
 import { cn } from "@/src/app/utils/cn";
 import { getMatchDateParts } from "@/src/app/utils/format-match-date";
 import { getInitials } from "@/src/app/utils/get-initials";
-import {
-    useMatchPresence,
-    type MyPresenceStatus,
-} from "@/src/app/hooks/useMatchPresence";
+import { useMatchPresence } from "@/src/app/hooks/useMatchPresence";
+import { StatusChip } from "./components/StatusChip";
 
 type UpcomingMatchCardProps = {
     match: { id: string; groupId: string; matchDate: string };
@@ -23,33 +21,6 @@ type UpcomingMatchCardProps = {
 
 const CARD_BACKGROUND =
     "bg-linear-to-br from-primary-900 to-forest-900 text-white shadow-md dark:ring-1 dark:ring-primary-400/40";
-
-function StatusChip({ status }: { status: MyPresenceStatus }) {
-    if (status === "confirmed") {
-        return (
-            <span className="inline-flex items-center gap-1 rounded-full bg-grass-500 px-2.5 py-1 text-xs font-semibold text-forest-900">
-                <Check className="size-3.5" />
-                Você confirmou
-            </span>
-        );
-    }
-
-    if (status === "declined") {
-        return (
-            <span className="inline-flex items-center gap-1 rounded-full bg-destructive px-2.5 py-1 text-xs font-semibold text-white">
-                <X className="size-3.5" />
-                Você recusou
-            </span>
-        );
-    }
-
-    return (
-        <span className="inline-flex items-center gap-1 rounded-full bg-amber-300 px-2.5 py-1 text-xs font-semibold text-amber-950">
-            <Clock className="size-3.5" />
-            Responda sua presença
-        </span>
-    );
-}
 
 export function UpcomingMatchCard({
     match,
