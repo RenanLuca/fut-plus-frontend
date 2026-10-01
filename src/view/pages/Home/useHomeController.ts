@@ -12,12 +12,10 @@ export function useHomeController() {
     queryFn: findAllGroups,
   });
 
-  const { data: upcomingMatch, isLoading: isLoadingUpcomingMatch } = useQuery(
-    {
-      queryKey: queryKeys.upcomingMatch,
-      queryFn: findUpcomingMatch,
-    },
-  );
+  const { data: upcomingMatch, isLoading: isLoadingUpcomingMatch } = useQuery({
+    queryKey: queryKeys.upcomingMatch,
+    queryFn: findUpcomingMatch,
+  });
 
   return {
     user,
