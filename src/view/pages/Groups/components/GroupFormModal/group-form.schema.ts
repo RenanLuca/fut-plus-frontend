@@ -20,7 +20,7 @@ export const groupFormSchema = z.object({
     .regex(/^([01]\d|2[0-3]):[0-5]\d$/, "Horário inválido"),
   frequency: z.enum(["EVENTUAL", "MONTHLY"], "Selecione a frequência"),
   valuePerUser: z
-    .string()
+    .string("Informe um valor")
     .min(1, "Informe um valor")
     .refine(
       (value) => Number(value) > 0,
