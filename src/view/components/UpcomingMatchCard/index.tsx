@@ -9,7 +9,7 @@ import { getInitials } from "@/src/app/utils/get-initials";
 import { useMatchPresence } from "@/src/app/hooks/useMatchPresence";
 import { StatusChip } from "./components/StatusChip";
 
-type UpcomingMatchCardProps = {
+export type UpcomingMatchCardProps = {
   match: { id: string; groupId: string; matchDate: string };
   groupName: string;
 };
