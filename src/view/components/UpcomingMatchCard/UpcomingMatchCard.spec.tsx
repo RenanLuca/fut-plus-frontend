@@ -141,6 +141,22 @@ describe("UpcomingMatchCard", () => {
       expect(screen.getByText(month)).toBeInTheDocument();
       expect(screen.getByText(`${weekday} - ${time}`)).toBeInTheDocument();
     });
+    it("should expose the match date as a machine-readable datetime", () => {
+      const { day, time, weekday } = getMatchDateParts(
+        new Date(match.matchDate),
+      );
+
+      renderUpcomingMatchCard();
+
+      expect(screen.getByText(day).closest("time")).toHaveAttribute(
+        "datetime",
+        match.matchDate,
+      );
+      expect(screen.getByText(`${weekday} - ${time}`)).toHaveAttribute(
+        "datetime",
+        match.matchDate,
+      );
+    });
   });
 
   describe("Loading", () => {

@@ -45,9 +45,12 @@ export function UpcomingMatchCard({
       <Link to={matchPath} className="flex items-center gap-4">
         <MatchDateBlock date={matchDate} />
         <div className="flex min-w-0 flex-col gap-0.5">
-          <span className="text-xl leading-tight font-bold">
+          <time
+            dateTime={matchDate.toISOString()}
+            className="text-xl leading-tight font-bold"
+          >
             {weekday} - {time}
-          </span>
+          </time>
           <span className="truncate text-sm text-white/80">{groupName}</span>
         </div>
       </Link>

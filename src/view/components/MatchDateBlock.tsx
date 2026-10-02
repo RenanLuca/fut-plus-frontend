@@ -11,7 +11,8 @@ export function MatchDateBlock({
     const { day, month } = getMatchDateParts(date);
 
     return (
-        <div
+        <time
+            dateTime={date.toISOString()}
             className={cn(
                 "flex size-16 shrink-0 flex-col items-center justify-center rounded-xl text-white",
                 variant === "dark"
@@ -23,6 +24,6 @@ export function MatchDateBlock({
             <span className="mt-1 text-xs leading-none font-semibold tracking-wide text-grass-400 uppercase">
                 {month}
             </span>
-        </div>
+        </time>
     );
 }
