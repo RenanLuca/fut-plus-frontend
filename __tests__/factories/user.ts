@@ -4,7 +4,7 @@ export function makeUserMock(
   overrides: Partial<CurrentUser> = {},
 ): CurrentUser {
   return {
-    id: "123",
+    id: "user-logado",
     createdAt: new Date().toISOString(),
     email: "renan@gmail.com",
     emailNotifications: true,

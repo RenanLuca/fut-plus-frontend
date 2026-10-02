@@ -4,7 +4,6 @@ export function makeUpcomingMatchMock(
   overrides: Partial<UpcomingMatch> = {},
 ): UpcomingMatch {
   return {
-    createdAt: new Date().toISOString(),
     group: {
       id: "123",
       name: "Pelada",
@@ -14,6 +13,7 @@ export function makeUpcomingMatchMock(
     id: "123",
     matchDate: new Date().toISOString(),
     updatedAt: new Date().toISOString(),
+    createdAt: new Date().toISOString(),
     ...overrides,
   };
 }

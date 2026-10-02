@@ -6,6 +6,9 @@ export default defineConfig({
     globals: true,
     environment: "jsdom",
     setupFiles: "./__tests__/setup.ts",
+    env: {
+      VITE_API_URL: "http://localhost:3000",
+    },
   },
   resolve: {
     alias: {
