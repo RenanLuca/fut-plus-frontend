@@ -46,7 +46,7 @@ export function UpcomingMatchCard({
         <MatchDateBlock date={matchDate} />
         <div className="flex min-w-0 flex-col gap-0.5">
           <span className="text-xl leading-tight font-bold">
-            {weekday} · {time}
+            {weekday} - {time}
           </span>
           <span className="truncate text-sm text-white/80">{groupName}</span>
         </div>
