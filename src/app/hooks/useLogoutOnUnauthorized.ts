@@ -1,11 +1,13 @@
 import { isAxiosError } from "axios";
-import { useEffect } from "react";
+import { useLayoutEffect } from "react";
 import toast from "react-hot-toast";
 import { authTokenStorage } from "@/src/app/lib/auth-token-storage";
 import { httpClient } from "@/src/app/lib/http-client";
 
 export function useLogoutOnUnauthorized(logout: () => void) {
-  useEffect(() => {
+  // Layout effect: roda antes dos useEffect dos filhos, que disparam as
+  // primeiras requisições. Com useEffect o 401 do primeiro request passava batido.
+  useLayoutEffect(() => {
     const interceptorId = httpClient.interceptors.response.use(
       (response) => response,
       (error: unknown) => {
