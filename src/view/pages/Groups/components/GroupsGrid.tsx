@@ -42,14 +42,16 @@ export function GroupsGrid({
   }
 
   return (
-    <div
+    <ul
       className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3"
       role="list"
       aria-label="GroupGridList"
     >
       {groups.map((group) => (
-        <GroupCard key={group.id} group={group} />
+        <li key={group.id} className="flex">
+          <GroupCard group={group} />
+        </li>
       ))}
-    </div>
+    </ul>
   );
 }

@@ -42,6 +42,7 @@ describe("GroupsGrid", () => {
     renderWithProviders(<GroupsGrid groups={groups} isLoading={false} />);
 
     const list = screen.getByRole("list", { name: "GroupGridList" });
+    expect(within(list).getAllByRole("listitem")).toHaveLength(3);
     const cards = within(list).getAllByRole("link");
     expect(cards).toHaveLength(3);
     expect(cards.map((card) => card.getAttribute("href"))).toEqual([
