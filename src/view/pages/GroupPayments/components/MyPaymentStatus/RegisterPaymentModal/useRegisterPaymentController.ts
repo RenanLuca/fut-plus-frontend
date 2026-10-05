@@ -54,10 +54,12 @@ export function useRegisterPaymentController(
     formState: { errors },
   } = useForm<RegisterPaymentFormValues>({
     resolver: zodResolver(buildRegisterPaymentSchema(isDaily)),
-    defaultValues: {
-      amount: group ? String(group.valuePerUser) : "",
-      receipt: "",
-    },
+    defaultValues: { amount: "", receipt: "" },
+    // preenche o valor assim que o grupo chega, sem apagar o que o usuário já digitou
+    values: group
+      ? { amount: String(group.valuePerUser), receipt: "" }
+      : undefined,
+    resetOptions: { keepDirtyValues: true },
   });
 
   const { field: amountField } = useController({ name: "amount", control });

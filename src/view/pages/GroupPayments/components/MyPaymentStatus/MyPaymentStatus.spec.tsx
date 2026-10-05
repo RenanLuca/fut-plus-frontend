@@ -3,7 +3,6 @@ import { screen, waitFor, within } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { delay, http, HttpResponse } from "msw";
 import { MyPaymentStatus } from "@/src/view/pages/GroupPayments/components/MyPaymentStatus";
-import { queryKeys } from "@/src/app/lib/query-keys";
 import { makeGroupMock } from "@/__tests__/factories/group";
 import { makeGroupMemberMock } from "@/__tests__/factories/groupMember";
 import {
@@ -173,12 +172,14 @@ describe("MyPaymentStatus", () => {
 
   describe("registering a monthly payment", () => {
     async function openForm() {
-      const { user, queryClient } = renderStatus();
-      queryClient.setQueryData(queryKeys.group("group-1"), group);
+      const { user } = renderStatus();
       await user.click(
         await screen.findByRole("button", { name: "Registrar pagamento" }),
       );
       await screen.findByRole("dialog");
+      await waitFor(() =>
+        expect(screen.getByLabelText("Valor pago")).toHaveDisplayValue(/20/),
+      );
       return user;
     }
 
@@ -208,6 +209,45 @@ describe("MyPaymentStatus", () => {
       ).toBeInTheDocument();
       expect(within(dialog).getByText("Mensalidade de outubro")).toBeInTheDocument();
       expect(within(dialog).getByLabelText("Valor pago")).toHaveDisplayValue(/20/);
+    });
+
+    describe("when the group arrives after the form is open", () => {
+      async function openFormWithSlowGroup() {
+        mockStatus();
+        server.use(
+          http.get(`${API_URL}/groups/group-1`, async () => {
+            await delay(150);
+            return HttpResponse.json(group);
+          }),
+        );
+        const { user } = renderStatus();
+        await user.click(
+          await screen.findByRole("button", { name: "Registrar pagamento" }),
+        );
+        await screen.findByRole("dialog");
+        return user;
+      }
+
+      it("should fill the amount as soon as the group arrives", async () => {
+        await openFormWithSlowGroup();
+        expect(screen.getByLabelText("Valor pago")).toHaveDisplayValue("");
+
+        await waitFor(() =>
+          expect(screen.getByLabelText("Valor pago")).toHaveDisplayValue(/20/),
+        );
+      });
+
+      it("should not erase what the user typed in the meantime", async () => {
+        const user = await openFormWithSlowGroup();
+        const receipt = screen.getByLabelText("Link do comprovante (opcional)");
+
+        await user.type(receipt, "https://example.com/pix.png");
+        await waitFor(() =>
+          expect(screen.getByLabelText("Valor pago")).toHaveDisplayValue(/20/),
+        );
+
+        expect(receipt).toHaveValue("https://example.com/pix.png");
+      });
     });
 
     it("should ask for a value when the amount is empty", async () => {
@@ -376,12 +416,14 @@ describe("MyPaymentStatus", () => {
     });
 
     async function openForm() {
-      const { user, queryClient } = renderStatus();
-      queryClient.setQueryData(queryKeys.group("group-1"), group);
+      const { user } = renderStatus();
       await user.click(
         await screen.findByRole("button", { name: "Registrar pagamento" }),
       );
       await screen.findByRole("dialog");
+      await waitFor(() =>
+        expect(screen.getByLabelText("Valor pago")).toHaveDisplayValue(/20/),
+      );
       return user;
     }
 
