@@ -105,6 +105,19 @@ describe("GenerateTeamsModal", () => {
       expect(submit()).toBeDisabled();
     });
 
+    it.each([
+      [3, "Com 3 confirmados, o máximo é 1 jogador por time"],
+      [2, "Com 2 confirmados, o máximo é 1 jogador por time"],
+      [8, "Com 8 confirmados, o máximo é 4 jogadores por time"],
+    ])(
+      "should use the singular only when the maximum is one (%d confirmed)",
+      async (confirmedCount, message) => {
+        await openForm({ confirmedCount });
+
+        expect(screen.getByText(message)).toBeInTheDocument();
+      },
+    );
+
     it("should unblock the submit once the size fits", async () => {
       const { user } = await openForm({ confirmedCount: 6 });
 
@@ -138,17 +151,21 @@ describe("GenerateTeamsModal", () => {
       expect(onGenerate).not.toHaveBeenCalled();
     });
 
-    it("should block a size below one before anything is sent", async () => {
-      const onGenerate = mockGenerate();
-      const { user } = await openForm();
+    it.each(["0", "-2"])(
+      "should require at least one player per team (%s)",
+      async (value) => {
+        const onGenerate = mockGenerate();
+        const { user } = await openForm();
 
-      await setPlayersPerTeam(user, "0");
-      await user.click(submit());
+        await setPlayersPerTeam(user, value);
+        await user.click(submit());
 
-      // o min="1" do campo faz o próprio navegador barrar o envio
-      expect(screen.getByLabelText("Jogadores por time")).toBeInvalid();
-      expect(onGenerate).not.toHaveBeenCalled();
-    });
+        expect(
+          await screen.findByText("Precisa de pelo menos 1 jogador por time"),
+        ).toBeInTheDocument();
+        expect(onGenerate).not.toHaveBeenCalled();
+      },
+    );
   });
 
   describe("generating", () => {

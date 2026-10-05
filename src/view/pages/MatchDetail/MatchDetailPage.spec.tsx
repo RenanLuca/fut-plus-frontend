@@ -480,7 +480,7 @@ describe("MatchDetail Page", () => {
       await user.click(await screen.findByRole("button", { name: "Gerar times" }));
 
       expect(
-        await screen.findByText("Com 3 confirmados, o máximo é 1 jogadores por time"),
+        await screen.findByText("Com 3 confirmados, o máximo é 1 jogador por time"),
       ).toBeInTheDocument();
     });
   });

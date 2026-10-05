@@ -53,6 +53,7 @@ export function GenerateTeamsModal({
                 </SheetHeader>
                 <form
                     id="generate-teams-form"
+                    noValidate
                     onSubmit={onSubmit}
                     className="flex flex-col gap-4 px-6"
                 >

@@ -47,7 +47,7 @@ export function useGenerateTeamsController(
   const impossibleMessage =
     maxPlayersPerTeam < 1
       ? "Confirmados insuficientes para formar 2 times"
-      : `Com ${confirmedCount} confirmados, o máximo é ${maxPlayersPerTeam} jogadores por time`;
+      : `Com ${confirmedCount} confirmados, o máximo é ${maxPlayersPerTeam} ${maxPlayersPerTeam === 1 ? "jogador" : "jogadores"} por time`;
 
   const { mutate: generateTeams, isPending } = useMutation({
     mutationFn: (values: GenerateTeamsFormValues) =>
