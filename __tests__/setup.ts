@@ -25,6 +25,7 @@ beforeAll(() => server.listen({ onUnhandledRequest: "error" }));
 afterEach(() => {
   server.resetHandlers();
   localStorage.clear();
+  document.documentElement.classList.remove("dark");
   toast.remove();
 });
 

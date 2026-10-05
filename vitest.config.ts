@@ -1,6 +1,8 @@
 import { fileURLToPath } from "url";
 import { defineConfig } from "vitest/config";
 
+process.env.TZ = "America/Sao_Paulo";
+
 export default defineConfig({
   test: {
     globals: true,

@@ -4,6 +4,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { MemoryRouter } from "react-router";
 import { Toaster } from "react-hot-toast";
 import { AuthProvider } from "@/src/app/contexts/AuthContext";
+import { ThemeProvider } from "@/src/app/contexts/ThemeProvider";
 import { authTokenStorage } from "@/src/app/lib/auth-token-storage";
 
 type RenderWithProvidersOptions = Omit<RenderOptions, "wrapper"> & {
@@ -28,12 +29,14 @@ export function renderWithProviders(
   });
 
   const result = render(
-    <QueryClientProvider client={queryClient}>
-      <AuthProvider>
-        <MemoryRouter initialEntries={[route]}>{ui}</MemoryRouter>
-        <Toaster />
-      </AuthProvider>
-    </QueryClientProvider>,
+    <ThemeProvider>
+      <QueryClientProvider client={queryClient}>
+        <AuthProvider>
+          <MemoryRouter initialEntries={[route]}>{ui}</MemoryRouter>
+          <Toaster />
+        </AuthProvider>
+      </QueryClientProvider>
+    </ThemeProvider>,
     renderOptions,
   );
   return { queryClient, ...result };
