@@ -4,7 +4,7 @@ import type {
 } from "@/src/app/services/matchPresencesService";
 import { makeUserMock } from "./user";
 
-function makeMemberMock(
+export function makeMemberMock(
   overrides: Partial<MatchPresenceMember> = {},
 ): MatchPresenceMember {
   return {
