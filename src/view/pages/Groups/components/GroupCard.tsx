@@ -12,7 +12,7 @@ export function GroupCard({ group }: { group: Group }) {
     return (
         <Link
             to={`/groups/${group.id}`}
-            className="rounded-xl border border-line bg-surface p-4 shadow-sm flex flex-col gap-2 border-l-4 border-l-primary-500 transition-shadow hover:shadow-md"
+            className="w-full rounded-xl border border-line bg-surface p-4 shadow-sm flex flex-col gap-2 border-l-4 border-l-primary-500 transition-shadow hover:shadow-md"
         >
             <span className="font-semibold text-heading">{group.name}</span>
             <div className="flex flex-wrap gap-1.5 text-xs text-muted-foreground">
