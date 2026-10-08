@@ -1,11 +1,9 @@
 {
   "compilerOptions": {
-    "tsBuildInfoFile": "./node_modules/.tmp/tsconfig.app.tsbuildinfo",
+    "tsBuildInfoFile": "./node_modules/.tmp/tsconfig.e2e.tsbuildinfo",
     "target": "es2023",
     "lib": ["ES2023", "DOM"],
-    "module": "esnext",
-    "types": ["vite/client"],
-    "allowArbitraryExtensions": true,
+    "types": ["node"],
     "skipLibCheck": true,
 
     "paths": {
@@ -13,12 +11,12 @@
     },
 
     /* Bundler mode */
+    "module": "esnext",
     "moduleResolution": "bundler",
     "allowImportingTsExtensions": true,
     "verbatimModuleSyntax": true,
     "moduleDetection": "force",
     "noEmit": true,
-    "jsx": "react-jsx",
 
     /* Linting */
     "noUnusedLocals": true,
@@ -26,6 +24,5 @@
     "erasableSyntaxOnly": true,
     "noFallthroughCasesInSwitch": true
   },
-  "include": ["src", "__tests__"],
-  "exclude": ["__tests__/e2e"]
+  "include": ["__tests__/e2e", "playwright.config.ts"]
 }
